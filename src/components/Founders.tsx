@@ -115,22 +115,6 @@ export default function Founders() {
                 }}
               />
               <div
-                aria-hidden
-                className="osw"
-                style={{
-                  position: 'absolute',
-                  left: 14,
-                  top: -26,
-                  fontWeight: 700,
-                  fontSize: 150,
-                  lineHeight: 1,
-                  color: 'rgba(255,255,255,.05)',
-                  pointerEvents: 'none',
-                }}
-              >
-                {f.num}
-              </div>
-              <div
                 style={{
                   position: 'relative',
                   border: '1px solid rgba(255,255,255,.09)',

@@ -128,7 +128,7 @@ export default function Residents() {
                 lineHeight: 1.3,
                 color: 'var(--muted-2)',
                 textAlign: 'center',
-                minHeight: 44,
+                minHeight: 84,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -182,7 +182,7 @@ export default function Residents() {
             >
               {r.brands}
             </div>
-            <p style={{ fontSize: 16, lineHeight: 1.5, color: 'var(--muted-2)', marginTop: 16 }}>
+            <p style={{ fontSize: 16, lineHeight: 1.5, color: 'var(--muted-2)', marginTop: 16, minHeight: 72 }}>
               {r.desc}
             </p>
           </article>

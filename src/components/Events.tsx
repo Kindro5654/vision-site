@@ -163,11 +163,12 @@ export default function Events() {
                 textTransform: 'uppercase',
                 color: 'var(--heading)',
                 margin: '12px 4px 0',
+                minHeight: 60,
               }}
             >
               {ev.title}
             </h3>
-            <p style={{ fontSize: 17, lineHeight: 1.5, color: 'var(--muted-2)', margin: '14px 4px 0' }}>
+            <p style={{ fontSize: 17, lineHeight: 1.5, color: 'var(--muted-2)', margin: '14px 4px 0', minHeight: 102 }}>
               {ev.desc}
             </p>
           </article>
