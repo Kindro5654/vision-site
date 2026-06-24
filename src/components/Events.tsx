@@ -86,6 +86,7 @@ export default function Events() {
           overflowX: 'auto',
           padding: '6px 48px 8px',
           paddingLeft: 'max(48px, calc((100% - 1320px) / 2 + 48px))',
+          scrollPaddingLeft: 'max(48px, calc((100% - 1320px) / 2 + 48px))',
           ...reveal(m, 0.12),
         }}
       >
