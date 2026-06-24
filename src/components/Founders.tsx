@@ -30,7 +30,7 @@ export default function Founders() {
   const m = useMounted();
   return (
     <section
-      className="vc-founders"
+      className="vc-founders vc-sec"
       style={{
         position: 'relative',
         background: 'var(--bg)',

@@ -120,6 +120,7 @@ export default function Numbers() {
   return (
     <section
       ref={rootRef}
+      className="vc-sec"
       style={{
         position: 'relative',
         background: 'var(--bg)',

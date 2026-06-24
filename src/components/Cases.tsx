@@ -31,6 +31,7 @@ export default function Cases() {
   const m = useMounted();
   return (
     <section
+      className="vc-sec"
       style={{
         position: 'relative',
         background: 'var(--bg)',

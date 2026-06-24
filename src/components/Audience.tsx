@@ -20,6 +20,7 @@ export default function Audience() {
   const m = useMounted();
   return (
     <section
+      className="vc-sec"
       style={{
         position: 'relative',
         background: 'var(--bg)',

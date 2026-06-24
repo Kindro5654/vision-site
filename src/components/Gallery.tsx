@@ -30,6 +30,7 @@ export default function Gallery() {
   const m = useMounted();
   return (
     <section
+      className="vc-sec"
       style={{
         position: 'relative',
         background: 'var(--bg)',

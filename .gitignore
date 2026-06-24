@@ -10,4 +10,4 @@ reference
 .vercel
 .idea
 .vscode
-playwright snapshots
+.playwright-mcp

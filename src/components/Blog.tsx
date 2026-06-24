@@ -29,7 +29,7 @@ export default function Blog() {
   const m = useMounted();
   return (
     <section
-      className="vc-blog-root"
+      className="vc-blog-root vc-sec"
       style={{
         position: 'relative',
         background: 'var(--bg)',

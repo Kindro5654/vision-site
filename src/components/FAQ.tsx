@@ -35,7 +35,7 @@ export default function FAQ() {
 
   return (
     <section
-      className="vc-faq-root"
+      className="vc-faq-root vc-sec"
       style={{
         position: 'relative',
         background: 'var(--bg)',

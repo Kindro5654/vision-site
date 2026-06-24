@@ -335,6 +335,7 @@ export default function Alliance() {
 
   return (
     <section
+      className="vc-sec"
       style={{
         position: 'relative',
         background: 'var(--bg)',

@@ -18,6 +18,7 @@ export default function Speakers() {
   const m = useMounted();
   return (
     <section
+      className="vc-sec"
       style={{
         position: 'relative',
         background: 'var(--bg)',

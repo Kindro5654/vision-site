@@ -9,6 +9,7 @@ export default function AppSection() {
   const m = useMounted();
   return (
     <section
+      className="vc-sec"
       style={{
         position: 'relative',
         background: 'var(--bg)',
