@@ -17,7 +17,7 @@ const CASES = [
     title: 'Digital-сервис в Дубае',
     name: 'Ольга Нойбергер',
     desc: 'Запустила digital-сервис в Дубае за 3 недели вместо долгих месяцев регистрации.',
-    photos: [{ src: '/assets/cases/case2.png', pos: 'center 32%' }],
+    photos: [{ src: '/assets/cases/case2.jpg', pos: 'center 32%' }],
   },
   {
     title: '+4 млн AED к обороту и переход к роли CEO',

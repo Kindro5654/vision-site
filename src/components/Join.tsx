@@ -5,10 +5,10 @@ import { useMounted, reveal } from '@/lib/useMounted';
 import { asset } from '@/lib/site';
 
 const AVATARS = [
-  { src: '/assets/people/res-butova.png', pos: 'center 22%' },
+  { src: '/assets/people/res-butova.jpg', pos: 'center 22%' },
   { src: '/assets/people/res-krasnoperova.jpg', pos: 'center 25%' },
   { src: '/assets/people/res-tretyak.jpg', pos: 'center 22%' },
-  { src: '/assets/people/res-neuberger.png', pos: 'center 22%' },
+  { src: '/assets/people/res-neuberger.jpg', pos: 'center 22%' },
   { src: '/assets/people/res-podnebesny.jpg', pos: 'center 22%' },
 ];
 
