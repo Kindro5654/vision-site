@@ -57,24 +57,35 @@ export default function Alliance() {
   useEffect(() => {
     const cv = canvasRef.current;
     if (!cv) return;
-    const host = cv.parentElement;
-    const avail = host ? host.clientWidth : 540;
-    const size = Math.round(Math.max(300, Math.min(540, avail)));
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
-    const isMobile = size < 430;
-    const dotScale = isMobile ? 1.7 : 1;
-
-    cv.width = size * dpr;
-    cv.height = size * dpr;
-    cv.style.width = size + 'px';
-    cv.style.height = size + 'px';
     const ctx = cv.getContext('2d')!;
-    ctx.scale(dpr, dpr);
-
-    const cx = size / 2;
-    const cy = size / 2;
-    const R = size * 0.4;
     const tilt = 0.62;
+
+    // Mutable dims — updated on resize, read by draw loop.
+    let size = 0;
+    let cx = 0;
+    let cy = 0;
+    let R = 0;
+    let dotScale = 1;
+
+    const fitCanvas = () => {
+      const host = cv.parentElement;
+      const avail = host ? host.clientWidth : 320;
+      // Cap by both desktop max (540) and viewport width minus a safety margin
+      const cap = Math.min(540, Math.max(0, window.innerWidth - 32));
+      size = Math.round(Math.max(240, Math.min(cap, avail)));
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      dotScale = size < 430 ? 1.7 : 1;
+      cv.width = size * dpr;
+      cv.height = size * dpr;
+      cv.style.width = size + 'px';
+      cv.style.height = size + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cx = size / 2;
+      cy = size / 2;
+      R = size * 0.4;
+    };
+
+    fitCanvas();
 
     const landAt = (x: number, y: number, z: number) => {
       const lat = (Math.asin(y) * 180) / Math.PI;
@@ -319,12 +330,23 @@ export default function Alliance() {
     cv.addEventListener('pointerup', onUp);
     cv.addEventListener('pointerleave', onLeave);
 
+    let resizeRaf = 0;
+    const onResize = () => {
+      cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(() => fitCanvas());
+    };
+    window.addEventListener('resize', onResize);
+    window.addEventListener('orientationchange', onResize);
+
     return () => {
       cancelAnimationFrame(raf);
+      cancelAnimationFrame(resizeRaf);
       cv.removeEventListener('pointerdown', onDown);
       cv.removeEventListener('pointermove', onMove);
       cv.removeEventListener('pointerup', onUp);
       cv.removeEventListener('pointerleave', onLeave);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('orientationchange', onResize);
     };
   }, []);
 
@@ -391,7 +413,7 @@ export default function Alliance() {
             <span className="eyebrow-text">Альянс клубов</span>
           </div>
           <h2
-            className="osw"
+            className="osw vc-allnce-head"
             style={{
               fontWeight: 700,
               fontSize: 46,
@@ -425,6 +447,7 @@ export default function Alliance() {
           </div>
 
           <div
+            className="vc-allnce-clubs"
             style={{
               marginTop: 26,
               borderTop: '1px solid rgba(255,255,255,.1)',
