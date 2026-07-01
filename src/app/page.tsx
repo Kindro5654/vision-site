@@ -1,4 +1,5 @@
 import Hero from '@/components/Hero';
+import GuestMonth from '@/components/GuestMonth';
 import Founders from '@/components/Founders';
 import Numbers from '@/components/Numbers';
 import Events from '@/components/Events';
@@ -21,6 +22,7 @@ export default function Page() {
   return (
     <main style={{ background: 'var(--bg)', color: 'var(--text)', width: '100%' }}>
       <Hero />
+      <GuestMonth />
       <Founders />
       <Numbers />
       <Events />
@@ -33,6 +35,7 @@ export default function Page() {
       <Speakers />
       <AppSection />
       <Gallery />
+      <a id="apply" aria-hidden />
       <Join />
       <FAQ />
       <Blog />
