@@ -132,7 +132,7 @@ export default function Clubhouse() {
         </div>
 
         <a
-          href={`https://www.youtube.com/watch?v=${VIDEO_ID}`}
+          href="https://vision-club.pro"
           target="_blank"
           rel="noopener noreferrer"
           className="vc-tour-btn"
