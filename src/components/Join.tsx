@@ -3,6 +3,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useMounted, reveal } from '@/lib/useMounted';
 import { asset } from '@/lib/site';
+import { useLeadSubmit, useUtmCapture } from '@/lib/useLeadSubmit';
+import FormStatus from '@/components/FormStatus';
 
 const AVATARS = [
   { src: '/assets/people/res-butova.jpg', pos: 'center 22%' },
@@ -19,10 +21,26 @@ const checkOn = `var(--accent) url("data:image/svg+xml;utf8,<svg xmlns='http://w
 
 export default function Join() {
   const m = useMounted();
+  useUtmCapture();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [position, setPosition] = useState('');
+  const [revenue, setRevenue] = useState('');
   const [consent, setConsent] = useState(false);
+  const { submit, state, error } = useLeadSubmit('vision-site', 'join');
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const ok = await submit({ name, email, phone, position, revenue, consent });
+    if (ok) {
+      setName('');
+      setEmail('');
+      setPhone('');
+      setPosition('');
+      setRevenue('');
+    }
+  };
 
   return (
     <section
@@ -194,7 +212,7 @@ export default function Join() {
               boxShadow: '0 30px 70px -30px rgba(0,0,0,.7)',
             }}
           >
-            <form onSubmit={(e) => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <FieldInput aria="Имя" placeholder="Имя и фамилия" value={name} onChange={setName} />
               <FieldInput aria="Email" placeholder="Ваш email" type="email" value={email} onChange={setEmail} />
               <div
@@ -232,8 +250,8 @@ export default function Join() {
                   }}
                 />
               </div>
-              <SelectField options={REV} aria="Оборот" />
-              <SelectField options={POS} aria="Позиция" />
+              <SelectField options={REV} aria="Оборот" value={revenue} onChange={setRevenue} />
+              <SelectField options={POS} aria="Позиция" value={position} onChange={setPosition} />
               <label style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 4, cursor: 'pointer', userSelect: 'none' }}>
                 <input
                   type="checkbox"
@@ -257,6 +275,7 @@ export default function Join() {
               </label>
               <button
                 type="submit"
+                disabled={state === 'sending' || state === 'success'}
                 className="vc-sub osw"
                 style={{
                   marginTop: 8,
@@ -269,18 +288,22 @@ export default function Join() {
                   fontSize: 17,
                   letterSpacing: '.05em',
                   textTransform: 'uppercase',
-                  cursor: 'pointer',
+                  cursor: state === 'sending' ? 'wait' : 'pointer',
+                  opacity: state === 'sending' ? 0.7 : 1,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: 12,
                 }}
               >
-                Оставить заявку
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
+                {state === 'sending' ? 'Отправляем…' : 'Оставить заявку'}
+                {state !== 'sending' && (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                )}
               </button>
+              <FormStatus state={state} error={error} successText="Спасибо! Менеджер клуба свяжется с вами в ближайшее время." />
             </form>
           </div>
         </div>
@@ -334,7 +357,17 @@ function FieldInput({
   );
 }
 
-function SelectField({ options, aria }: { options: string[]; aria: string }) {
+function SelectField({
+  options,
+  aria,
+  value,
+  onChange,
+}: {
+  options: string[];
+  aria: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
   return (
     <div
       className="vc-field"
@@ -347,7 +380,8 @@ function SelectField({ options, aria }: { options: string[]; aria: string }) {
       }}
     >
       <select
-        defaultValue=""
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         aria-label={aria}
         className="vc-na"
         style={{
@@ -357,17 +391,19 @@ function SelectField({ options, aria }: { options: string[]; aria: string }) {
           height: '100%',
           border: 0,
           background: 'transparent',
-          color: 'var(--text)',
+          color: value ? 'var(--text)' : '#6E6A62',
           fontSize: 15,
           cursor: 'pointer',
           padding: '0 42px 0 18px',
         }}
       >
         <option value="" disabled hidden>
-          {options[0]}
+          {aria === 'Позиция' ? 'Ваша позиция' : 'Оборот бизнеса'}
         </option>
         {options.map((o) => (
-          <option key={o}>{o}</option>
+          <option key={o} value={o}>
+            {o}
+          </option>
         ))}
       </select>
       <span

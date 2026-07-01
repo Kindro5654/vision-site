@@ -1,7 +1,9 @@
 'use client';
+import { useState } from 'react';
 import Image from 'next/image';
 import { useMounted, reveal } from '@/lib/useMounted';
 import { asset } from '@/lib/site';
+import GuestMonthModal from '@/components/GuestMonthModal';
 
 const BENEFITS = [
   { num: '01', text: 'Персональный бизнес-менеджер сведёт с теми, кто нужен тебе прямо сейчас' },
@@ -22,6 +24,7 @@ function revFade(mounted: boolean, delay: number): React.CSSProperties {
 
 export default function GuestMonth() {
   const m = useMounted();
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <section
@@ -253,8 +256,9 @@ export default function GuestMonth() {
                   ...reveal(m, 0.36),
                 }}
               >
-                <a
-                  href="#apply"
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(true)}
                   className="vc-gm-cta osw"
                   style={{
                     display: 'inline-flex',
@@ -262,19 +266,21 @@ export default function GuestMonth() {
                     gap: 12,
                     height: 64,
                     padding: '0 34px',
+                    border: 0,
                     borderRadius: 14,
                     background: 'linear-gradient(180deg,#F2851B,#E0691C)',
                     color: '#1A0E03',
-                    textDecoration: 'none',
                     fontWeight: 700,
                     fontSize: 17,
                     letterSpacing: '.03em',
                     textTransform: 'uppercase',
+                    cursor: 'pointer',
+                    fontFamily: 'inherit',
                   }}
                 >
                   Забронировать гостевой месяц
                   <span style={{ fontSize: 19 }}>→</span>
-                </a>
+                </button>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   <span
                     className="osw"
@@ -409,6 +415,7 @@ export default function GuestMonth() {
           </div>
         </div>
       </div>
+      <GuestMonthModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   );
 }

@@ -26,6 +26,9 @@ jobs:
         run: npm ci
 
       - name: Build (root path — no basePath)
+        env:
+          NEXT_PUBLIC_LEAD_ENDPOINT: https://crm.vision-club.ae/api/webhooks/website-lead
+          NEXT_PUBLIC_LEAD_API_KEY: ${{ secrets.LEAD_API_KEY }}
         run: npm run build
         # NEXT_PUBLIC_BASE_PATH intentionally unset so paths point at the domain root
 

@@ -3,6 +3,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useMounted, reveal } from '@/lib/useMounted';
 import { asset } from '@/lib/site';
+import { useLeadSubmit, useUtmCapture } from '@/lib/useLeadSubmit';
+import FormStatus from '@/components/FormStatus';
 
 const NAV = ['О клубе', 'Мероприятия', 'Резиденты', 'Спикеры', 'Клубный дом'];
 const POS = [
@@ -22,9 +24,24 @@ const checkOn = `var(--accent) url("data:image/svg+xml;utf8,<svg xmlns='http://w
 
 export default function Hero() {
   const m = useMounted();
+  useUtmCapture();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [position, setPosition] = useState('');
+  const [revenue, setRevenue] = useState('');
   const [consent, setConsent] = useState(true);
+  const { submit, state, error } = useLeadSubmit('vision-site', 'hero');
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const ok = await submit({ name, phone, position, revenue, consent });
+    if (ok) {
+      setName('');
+      setPhone('');
+      setPosition('');
+      setRevenue('');
+    }
+  };
 
   return (
     <section
@@ -234,7 +251,7 @@ export default function Hero() {
           </p>
 
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={onSubmit}
             style={{
               marginTop: 34,
               display: 'flex',
@@ -337,8 +354,8 @@ export default function Hero() {
               />
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 13 }}>
-              <SelectField options={POS} label="Позиция" />
-              <SelectField options={REV} label="Оборот" />
+              <SelectField options={POS} label="Позиция" value={position} onChange={setPosition} />
+              <SelectField options={REV} label="Оборот" value={revenue} onChange={setRevenue} />
             </div>
             <label
               style={{
@@ -373,6 +390,7 @@ export default function Hero() {
             </label>
             <button
               type="submit"
+              disabled={state === 'sending' || state === 'success'}
               className="vc-cta osw"
               style={{
                 marginTop: 8,
@@ -385,11 +403,13 @@ export default function Hero() {
                 fontSize: 17,
                 letterSpacing: '.04em',
                 textTransform: 'uppercase',
-                cursor: 'pointer',
+                cursor: state === 'sending' ? 'wait' : 'pointer',
+                opacity: state === 'sending' ? 0.7 : 1,
               }}
             >
-              Получить приглашение
+              {state === 'sending' ? 'Отправляем…' : 'Получить приглашение'}
             </button>
+            <FormStatus state={state} error={error} successText="Спасибо! Менеджер клуба свяжется с вами в ближайшее время." />
           </form>
         </div>
 
@@ -451,11 +471,22 @@ export default function Hero() {
   );
 }
 
-function SelectField({ options, label }: { options: string[]; label: string }) {
+function SelectField({
+  options,
+  label,
+  value,
+  onChange,
+}: {
+  options: string[];
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
   return (
     <div style={{ position: 'relative' }}>
       <select
-        defaultValue=""
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         aria-label={label}
         className="vc-na vc-field"
         style={{
@@ -466,7 +497,7 @@ function SelectField({ options, label }: { options: string[]; label: string }) {
           border: '1px solid rgba(255,255,255,.1)',
           borderRadius: 14,
           background: 'rgba(255,255,255,.015)',
-          color: 'var(--text)',
+          color: value ? 'var(--text)' : '#7C786F',
           fontSize: 15,
           padding: '0 40px 0 18px',
           outline: 'none',
@@ -474,10 +505,12 @@ function SelectField({ options, label }: { options: string[]; label: string }) {
         }}
       >
         <option value="" disabled hidden>
-          {options[0]}
+          {label === 'Позиция' ? 'Ваша позиция' : 'Оборот бизнеса'}
         </option>
         {options.map((o) => (
-          <option key={o}>{o}</option>
+          <option key={o} value={o}>
+            {o}
+          </option>
         ))}
       </select>
       <span
