@@ -21,6 +21,7 @@ export const SITE = {
   socials: {
     instagram: 'https://www.instagram.com/vision.club.dubai/',
     linkedin: 'https://www.linkedin.com/company/vision-club-dubai',
+    telegram: 'https://t.me/manager_vision_club',
   },
   founders: [
     { name: 'Алексей Наказный', role: 'Co-founder' },

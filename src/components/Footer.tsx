@@ -23,6 +23,7 @@ const COLS: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: 'Контакты',
     links: [
+      { label: 'Telegram', href: SITE.socials.telegram },
       { label: 'WhatsApp', href: SITE.whatsapp },
       { label: 'Instagram', href: SITE.socials.instagram },
       { label: 'LinkedIn', href: SITE.socials.linkedin },
