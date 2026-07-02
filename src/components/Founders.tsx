@@ -13,6 +13,8 @@ const FOUNDERS = [
     role: 'Серийный предприниматель и сооснователь Vision Club Dubai и Alliance Clubs',
     bio: 'За 13 лет выстроил международную сеть бизнес-лидеров и лично провёл тысячи встреч с предпринимателями по всему миру.',
     quote: 'Vision — не про количество контактов, а про качество окружения',
+    instagram: 'https://www.instagram.com/aleksey_nakazny',
+    facebook: 'https://www.facebook.com/aleksey.nakaznyi',
   },
   {
     num: '02',
@@ -23,6 +25,8 @@ const FOUNDERS = [
     role: 'Сооснователь Vision Club и Alliance Clubs',
     bio: 'За 8 лет запустила 5 бизнес-клубов в разных странах, провела 2000+ мероприятий и выстроила сильные сообщества предпринимателей, соединяя лидеров через реальные проекты и партнёрства.',
     quote: 'Сила Vision — в людях, которые не ищут выгоду, а создают ценность',
+    instagram: 'https://www.instagram.com/dariia_nakaznaya/',
+    facebook: 'https://www.facebook.com/dariia.rassolova',
   },
 ];
 
@@ -180,14 +184,14 @@ export default function Founders() {
               </p>
 
               <div style={{ display: 'flex', gap: 12, marginTop: 26 }}>
-                <SocialBtn label="Instagram">
+                <SocialBtn label={`Instagram ${f.name}`} href={f.instagram}>
                   <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
                     <rect x="3" y="3" width="18" height="18" rx="5" />
                     <circle cx="12" cy="12" r="4" />
                     <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none" />
                   </svg>
                 </SocialBtn>
-                <SocialBtn label="Facebook">
+                <SocialBtn label={`Facebook ${f.name}`} href={f.facebook}>
                   <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M14 8.5V6.7c0-.8.2-1.2 1.3-1.2H17V2.3c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.5v1.8H7.3V12H10v9h3.4v-9h2.5l.4-3.5H14z" />
                   </svg>
@@ -225,10 +229,20 @@ export default function Founders() {
   );
 }
 
-function SocialBtn({ children, label }: { children: React.ReactNode; label: string }) {
+function SocialBtn({
+  children,
+  label,
+  href,
+}: {
+  children: React.ReactNode;
+  label: string;
+  href: string;
+}) {
   return (
     <a
-      href="#"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label={label}
       className="vc-soc"
       style={{
