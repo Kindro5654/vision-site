@@ -94,8 +94,8 @@ export default function Page() {
     description:
       'Онлайн-экскурсия по Клубному дому Vision в Дубае: приватное пространство для встреч предпринимателей, форум-групп и глубоких разговоров единомышленников.',
     thumbnailUrl: [
-      `https://img.youtube.com/vi/${CLUBHOUSE_VIDEO_ID}/maxresdefault.webp`,
-      `https://img.youtube.com/vi/${CLUBHOUSE_VIDEO_ID}/hqdefault.webp`,
+      `https://img.youtube.com/vi/${CLUBHOUSE_VIDEO_ID}/maxresdefault.jpg`,
+      `https://img.youtube.com/vi/${CLUBHOUSE_VIDEO_ID}/hqdefault.jpg`,
     ],
     uploadDate: '2026-05-01T00:00:00+00:00',
     duration: 'PT1M',
