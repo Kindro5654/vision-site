@@ -5,11 +5,26 @@ export const SITE = {
     'Vision Club — закрытый бизнес-клуб для предпринимателей и топ-менеджеров. 220+ резидентов в Дубае, 1200 партнёров через Альянс клубов в 10 странах. Только по приглашению.',
   url: 'https://vision-club.ae',
   phone: '+971 58 550 6498',
+  phoneE164: '+971585506498',
   email: 'hello@vision-club.ae',
   ogImage: '/assets/hero-speakers.webp',
   themeColor: '#0B0B0D',
   accent: '#E96B1E',
   locale: 'ru_RU',
+  address: {
+    street: 'Loft Offices 3, Entrance B, Unit 206',
+    locality: 'Dubai Internet City, Al Sufouh 2',
+    region: 'Dubai',
+    country: 'AE',
+  },
+  socials: {
+    instagram: 'https://www.instagram.com/vision.club.dubai/',
+    linkedin: 'https://www.linkedin.com/company/vision-club-dubai',
+  },
+  founders: [
+    { name: 'Алексей Наказный', role: 'Co-founder' },
+    { name: 'Дарья Наказная', role: 'Co-founder' },
+  ],
 } as const;
 
 export const asset = (p: string) => {

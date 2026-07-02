@@ -18,10 +18,38 @@ import Blog from '@/components/Blog';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
 import MainCTAModal from '@/components/MainCTAModal';
+import { HOMEPAGE_FAQ } from '@/lib/faq';
+import { SITE } from '@/lib/site';
 
 export default function Page() {
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: HOMEPAGE_FAQ.map((it) => ({
+      '@type': 'Question',
+      name: it.q,
+      acceptedAnswer: { '@type': 'Answer', text: it.a },
+    })),
+  };
+
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE.url },
+    ],
+  };
+
   return (
     <main style={{ background: 'var(--bg)', color: 'var(--text)', width: '100%' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
       <Hero />
       <GuestMonth />
       <Founders />
