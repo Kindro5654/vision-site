@@ -41,10 +41,10 @@ export default function FAQ() {
         background: 'var(--bg)',
         color: 'var(--text)',
         overflow: 'hidden',
-        padding: '84px 48px 96px',
+        padding: '84px clamp(16px, 4vw, 96px) 96px',
       }}
     >
-      <div style={{ position: 'relative', maxWidth: 1600, margin: '0 auto' }}>
+      <div style={{ position: 'relative', maxWidth: 2400, margin: '0 auto' }}>
         <div
           className="vc-faq-grid"
           style={{ display: 'grid', gridTemplateColumns: '.74fr 1.26fr', gap: 64, alignItems: 'start' }}

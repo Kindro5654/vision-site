@@ -41,10 +41,10 @@ export default function Clubhouse() {
         background: 'var(--bg)',
         color: 'var(--text)',
         overflow: 'hidden',
-        padding: '72px 48px 92px',
+        padding: '72px clamp(16px, 4vw, 96px) 92px',
       }}
     >
-      <div style={{ position: 'relative', maxWidth: 1600, margin: '0 auto' }}>
+      <div style={{ position: 'relative', maxWidth: 2400, margin: '0 auto' }}>
         <h2
           className="osw vc-club-head"
           style={{

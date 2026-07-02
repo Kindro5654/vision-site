@@ -36,7 +36,7 @@ export default function Founders() {
         background: 'var(--bg)',
         color: 'var(--text)',
         overflow: 'hidden',
-        padding: '96px 48px 110px',
+        padding: '96px clamp(16px, 4vw, 96px) 110px',
       }}
     >
       <div
@@ -76,7 +76,7 @@ export default function Founders() {
         className="vc-founders-list"
         style={{
           position: 'relative',
-          maxWidth: 1600,
+          maxWidth: 2400,
           margin: '0 auto',
           display: 'flex',
           flexDirection: 'column',

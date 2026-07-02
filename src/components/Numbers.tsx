@@ -126,7 +126,7 @@ export default function Numbers() {
         background: 'var(--bg)',
         color: 'var(--text)',
         overflow: 'hidden',
-        padding: '76px 48px 92px',
+        padding: '76px clamp(16px, 4vw, 96px) 92px',
       }}
     >
       <div
@@ -149,7 +149,7 @@ export default function Numbers() {
       <div
         style={{
           position: 'relative',
-          maxWidth: 1600,
+          maxWidth: 2400,
           margin: '0 auto',
           display: 'flex',
           flexDirection: 'column',

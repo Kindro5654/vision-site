@@ -146,11 +146,11 @@ a { color: inherit; text-decoration: none; }
   #vc-sticky-cta a:active { transform: scale(.99); }
 }
 
-/* ============ mobile baseline ============ */
-/* vc-sec is applied to every standard section root so they share 16px sides on mobile */
-@media (max-width: 820px) {
-  .vc-sec { padding-left: 16px !important; padding-right: 16px !important; }
-}
+/* ============ side padding baseline ============ */
+/* Every standard section root gets proportional side padding.
+   clamp(min, ideal, max): at 400px viewport = 16px, at 1200 = 48px,
+   at 1920 = 76.8px, at 2400 = 96px (capped). */
+.vc-sec { padding-left: clamp(16px, 4vw, 96px) !important; padding-right: clamp(16px, 4vw, 96px) !important; }
 
 /* tabular nums on numerals */
 .tn { font-variant-numeric: tabular-nums; }

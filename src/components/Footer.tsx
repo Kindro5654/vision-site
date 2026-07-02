@@ -13,10 +13,10 @@ export default function Footer() {
       style={{
         position: 'relative',
         borderTop: '1px solid var(--line)',
-        padding: '64px 48px 44px',
+        padding: '64px clamp(16px, 4vw, 96px) 44px',
       }}
     >
-      <div style={{ maxWidth: 1600, margin: '0 auto' }}>
+      <div style={{ maxWidth: 2400, margin: '0 auto' }}>
         <div
           className="vc-footer-grid"
           style={{

@@ -37,7 +37,7 @@ export default function Cases() {
         background: 'var(--bg)',
         color: 'var(--text)',
         overflow: 'hidden',
-        padding: '88px 48px 104px',
+        padding: '88px clamp(16px, 4vw, 96px) 104px',
       }}
     >
       <div
@@ -54,7 +54,7 @@ export default function Cases() {
           pointerEvents: 'none',
         }}
       />
-      <div style={{ position: 'relative', maxWidth: 1600, margin: '0 auto' }}>
+      <div style={{ position: 'relative', maxWidth: 2400, margin: '0 auto' }}>
         <div className="vc-cases-head" style={reveal(m, 0.02)}>
           <h2
             className="osw"

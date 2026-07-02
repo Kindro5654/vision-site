@@ -108,7 +108,7 @@ export default function Hero() {
         style={{
           position: 'relative',
           zIndex: 3,
-          maxWidth: 1720,
+          maxWidth: 2400,
           margin: '0 auto',
           display: 'flex',
           alignItems: 'center',
@@ -202,7 +202,7 @@ export default function Hero() {
         style={{
           position: 'relative',
           zIndex: 2,
-          maxWidth: 1720,
+          maxWidth: 2400,
           margin: '0 auto',
           display: 'grid',
           gridTemplateColumns: '1.04fr .96fr',

@@ -51,14 +51,14 @@ export default function Join() {
         background: 'var(--bg)',
         color: 'var(--text)',
         overflow: 'hidden',
-        padding: '76px 48px 88px',
+        padding: '76px clamp(16px, 4vw, 96px) 88px',
       }}
     >
       <div
         className="vc-join-card"
         style={{
           position: 'relative',
-          maxWidth: 1600,
+          maxWidth: 2400,
           margin: '0 auto',
           borderRadius: 30,
           overflow: 'hidden',

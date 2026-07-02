@@ -76,9 +76,9 @@ export default function GuestMonth() {
         style={{
           position: 'relative',
           zIndex: 2,
-          maxWidth: 1720,
+          maxWidth: 2400,
           margin: '0 auto',
-          padding: '76px 44px 84px',
+          padding: '76px clamp(16px, 4vw, 96px) 84px',
         }}
       >
         <div

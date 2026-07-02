@@ -26,7 +26,7 @@ export default function Audience() {
         background: 'var(--bg)',
         color: 'var(--text)',
         overflow: 'hidden',
-        padding: '84px 48px 100px',
+        padding: '84px clamp(16px, 4vw, 96px) 100px',
       }}
     >
       <div
@@ -66,7 +66,7 @@ export default function Audience() {
         className="vc-aud-grid"
         style={{
           position: 'relative',
-          maxWidth: 1600,
+          maxWidth: 2400,
           margin: '0 auto',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
@@ -333,7 +333,7 @@ export default function Audience() {
         className="vc-rep-bar"
         style={{
           position: 'relative',
-          maxWidth: 1600,
+          maxWidth: 2400,
           margin: '26px auto 0',
           display: 'flex',
           alignItems: 'center',

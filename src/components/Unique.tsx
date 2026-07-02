@@ -11,7 +11,7 @@ export default function Unique() {
         background: 'var(--bg)',
         color: 'var(--text)',
         overflow: 'hidden',
-        padding: '62px 48px 76px',
+        padding: '62px clamp(16px, 4vw, 96px) 76px',
       }}
     >
       <div
@@ -29,7 +29,7 @@ export default function Unique() {
         }}
       />
 
-      <div style={{ position: 'relative', maxWidth: 1600, margin: '0 auto' }}>
+      <div style={{ position: 'relative', maxWidth: 2400, margin: '0 auto' }}>
         <div className="eyebrow" style={{ marginBottom: 18, ...reveal(m, 0.02) }}>
           <span className="eyebrow-line" />
           <span className="eyebrow-text">Почему Vision</span>

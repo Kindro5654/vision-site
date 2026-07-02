@@ -39,9 +39,9 @@ export default function Residents() {
       <div
         className="vc-res-head"
         style={{
-          maxWidth: 1600,
+          maxWidth: 2400,
           margin: '0 auto 46px',
-          padding: '0 48px',
+          padding: '0 clamp(16px, 4vw, 96px)',
           display: 'flex',
           alignItems: 'flex-end',
           justifyContent: 'space-between',
@@ -101,9 +101,9 @@ export default function Residents() {
           display: 'flex',
           gap: 24,
           overflowX: 'auto',
-          padding: '6px 48px 8px',
-          paddingLeft: 'max(48px, calc((100% - 1600px) / 2 + 48px))',
-          scrollPaddingLeft: 'max(48px, calc((100% - 1600px) / 2 + 48px))',
+          padding: '6px clamp(16px, 4vw, 96px) 8px',
+          paddingLeft: 'max(clamp(16px, 4vw, 96px), calc((100% - 2400px) / 2 + clamp(16px, 4vw, 96px)))',
+          scrollPaddingLeft: 'max(clamp(16px, 4vw, 96px), calc((100% - 2400px) / 2 + clamp(16px, 4vw, 96px)))',
           ...reveal(m, 0.12),
         }}
       >
