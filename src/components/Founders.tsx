@@ -80,7 +80,7 @@ export default function Founders() {
         className="vc-founders-list"
         style={{
           position: 'relative',
-          maxWidth: 2400,
+          maxWidth: 1280,
           margin: '0 auto',
           display: 'flex',
           flexDirection: 'column',
