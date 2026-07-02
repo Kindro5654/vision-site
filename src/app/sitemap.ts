@@ -11,6 +11,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1,
     },
+    {
+      url: `${SITE.url}/klubnyi-dom/`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
     ...ARTICLES.map((a) => ({
       url: `${SITE.url}/blog/${a.slug}/`,
       lastModified: new Date(a.updatedAt ?? a.publishedAt),

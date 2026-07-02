@@ -27,7 +27,6 @@ export default function MainCTAModal() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [position, setPosition] = useState('');
   const [revenue, setRevenue] = useState('');
@@ -62,10 +61,9 @@ export default function MainCTAModal() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const ok = await submit({ name, phone, email, position, revenue, consent });
+    const ok = await submit({ name, phone, position, revenue, consent });
     if (ok) {
       setName('');
-      setEmail('');
       setPhone('');
       setPosition('');
       setRevenue('');
@@ -190,7 +188,6 @@ export default function MainCTAModal() {
 
         <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <ModalInput placeholder="Имя и фамилия" value={name} onChange={setName} aria="Имя" />
-          <ModalInput placeholder="Ваш email (необязательно)" type="email" value={email} onChange={setEmail} aria="Email" />
           <div
             className="vc-field"
             style={{

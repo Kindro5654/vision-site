@@ -206,6 +206,36 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             </section>
           )}
 
+          <section className="article-site-links">
+            <h2 className="osw">Больше о Vision Club</h2>
+            <ul>
+              <li>
+                <Link href="/klubnyi-dom/">
+                  <strong>Клубный дом в Дубае</strong>
+                  <span>Адрес, как добраться и что внутри — приватное пространство клуба в Dubai Internet City.</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/#residents">
+                  <strong>Резиденты Vision</strong>
+                  <span>220+ ТОП-предпринимателей в Дубае — кто уже в клубе.</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/#alliance">
+                  <strong>Международный Альянс клубов</strong>
+                  <span>Vision — часть сети из 10 клубов в 10 странах: США, Европа, Ближний Восток, Азия.</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/#apply">
+                  <strong>Подать заявку в клуб</strong>
+                  <span>Оставьте контакты — менеджер клуба свяжется, расскажет об условиях и пригласит на встречу.</span>
+                </Link>
+              </li>
+            </ul>
+          </section>
+
           <div className="article-bottom-link">
             <Link href="/#blog">← Все статьи блога</Link>
           </div>

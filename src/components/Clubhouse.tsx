@@ -235,7 +235,16 @@ export default function Clubhouse() {
             }}
           >
             Расположен в самом сердце Дубая — это не коворкинг и не бизнес-центр, а частное пространство для
-            встреч предпринимателей, форум-групп и глубоких разговоров единомышленников.
+            встреч предпринимателей, форум-групп и глубоких разговоров единомышленников. <a
+              href="/klubnyi-dom/"
+              style={{
+                color: 'var(--accent)',
+                textDecoration: 'none',
+                borderBottom: '1px dashed var(--accent)',
+                paddingBottom: 1,
+                whiteSpace: 'nowrap',
+              }}
+            >Адрес и как добраться →</a>
           </p>
           <div
             className="vc-club-quote"
