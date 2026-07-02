@@ -21,16 +21,12 @@ export default function StickyCTA() {
 
   const click = (e: React.MouseEvent) => {
     e.preventDefault();
-    const form = document.getElementById('join');
-    if (form) {
-      const y = form.getBoundingClientRect().top + window.scrollY - 16;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
+    window.dispatchEvent(new Event('vc:open-cta'));
   };
 
   return (
     <div id="vc-sticky-cta">
-      <a href="#join" onClick={click}>
+      <a href="#" onClick={click}>
         Получить приглашение
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#160B03" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 12h14M13 6l6 6-6 6" />

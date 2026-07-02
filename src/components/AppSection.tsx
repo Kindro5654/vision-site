@@ -186,7 +186,7 @@ export default function AppSection() {
             }}
           />
 
-          <div className="vc-pb" style={{ position: 'absolute', right: 26, top: 60, zIndex: 1 }}>
+          <div className="vc-pb" style={{ position: 'absolute', right: 100, top: 60, zIndex: 1 }}>
             <div style={{ animation: 'vcFloatB 7s ease-in-out infinite' }}>
               <div
                 style={{
@@ -220,7 +220,7 @@ export default function AppSection() {
             </div>
           </div>
 
-          <div className="vc-pa" style={{ position: 'absolute', left: 34, bottom: 46, zIndex: 2 }}>
+          <div className="vc-pa" style={{ position: 'absolute', left: 110, bottom: 46, zIndex: 2 }}>
             <div style={{ animation: 'vcFloatA 6s ease-in-out infinite' }}>
               <div
                 style={{

@@ -177,10 +177,12 @@ export default function Hero() {
             />
             +971 58 550 6498
           </a>
-          <a
-            href="#join"
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event('vc:open-cta'))}
             className="vc-cta osw"
             style={{
+              border: 0,
               borderRadius: 999,
               padding: '11px 22px',
               background: 'var(--accent)',
@@ -189,10 +191,12 @@ export default function Hero() {
               fontSize: 13.5,
               letterSpacing: '.04em',
               textTransform: 'uppercase',
+              cursor: 'pointer',
+              fontFamily: 'inherit',
             }}
           >
             Оставить заявку
-          </a>
+          </button>
         </div>
       </header>
 

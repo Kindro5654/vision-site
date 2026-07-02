@@ -17,6 +17,7 @@ import FAQ from '@/components/FAQ';
 import Blog from '@/components/Blog';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
+import MainCTAModal from '@/components/MainCTAModal';
 
 export default function Page() {
   return (
@@ -41,6 +42,7 @@ export default function Page() {
       <Blog />
       <Footer />
       <StickyCTA />
+      <MainCTAModal />
     </main>
   );
 }
