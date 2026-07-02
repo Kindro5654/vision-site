@@ -6,7 +6,7 @@ export const SITE = {
   url: 'https://vision-club.ae',
   phone: '+971 58 550 6498',
   phoneE164: '+971585506498',
-  email: 'hello@vision-club.ae',
+  email: 'vision.club.sales@gmail.com',
   ogImage: '/assets/hero-speakers.webp',
   themeColor: '#0B0B0D',
   accent: '#E96B1E',

@@ -176,6 +176,7 @@ export default function ClubhousePage() {
             />
           </div>
 
+          <div className="article-body">
           <h2 className="osw" id="address">
             <a href="#address" aria-hidden className="anchor">#</a>
             Адрес и контакты
@@ -281,6 +282,7 @@ export default function ClubhousePage() {
               ознакомительную встречу после подачи заявки.
             </p>
           </aside>
+          </div>
 
           <aside className="article-cta">
             <div>
