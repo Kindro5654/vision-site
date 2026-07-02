@@ -108,12 +108,12 @@ export default function Hero() {
         style={{
           position: 'relative',
           zIndex: 3,
-          maxWidth: 1560,
+          maxWidth: 1720,
           margin: '0 auto',
           display: 'flex',
           alignItems: 'center',
           gap: 32,
-          padding: '24px 48px',
+          padding: '24px clamp(24px, 4vw, 64px)',
           borderBottom: '1px solid rgba(255,255,255,.08)',
           whiteSpace: 'nowrap',
         }}
@@ -202,12 +202,12 @@ export default function Hero() {
         style={{
           position: 'relative',
           zIndex: 2,
-          maxWidth: 1560,
+          maxWidth: 1720,
           margin: '0 auto',
           display: 'grid',
           gridTemplateColumns: '1.04fr .96fr',
           gap: 56,
-          padding: '60px 48px 72px',
+          padding: '60px clamp(24px, 4vw, 64px) 72px',
           alignItems: 'stretch',
         }}
       >
