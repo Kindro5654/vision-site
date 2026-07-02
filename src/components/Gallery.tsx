@@ -78,7 +78,8 @@ export default function Gallery() {
                 alt="Атмосфера Vision"
                 fill
                 sizes="(max-width: 820px) 50vw, 33vw"
-                loading="lazy"
+                loading={i < 6 ? 'eager' : 'lazy'}
+                fetchPriority={i < 4 ? 'high' : 'auto'}
                 className="vc-gimg"
                 style={{ objectPosition: t.pos }}
               />

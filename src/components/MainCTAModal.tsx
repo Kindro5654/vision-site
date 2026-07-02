@@ -67,6 +67,7 @@ export default function MainCTAModal() {
       setPhone('');
       setPosition('');
       setRevenue('');
+      setTimeout(() => setOpen(false), 2000);
     }
   };
 

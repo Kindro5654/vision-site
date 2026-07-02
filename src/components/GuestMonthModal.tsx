@@ -65,6 +65,7 @@ export default function GuestMonthModal({
       setPhone('');
       setPosition('');
       setRevenue('');
+      setTimeout(() => onClose(), 2000);
     }
   };
 
