@@ -9,21 +9,21 @@ const CASES = [
     name: 'Константин Гарбуз и Иван Крошный',
     desc: 'Один диалог в клубе: старт $650k → масштаб $12 млн. История, которая вдохновляет.',
     photos: [
-      { src: '/assets/cases/case1-a.jpg', pos: 'center 28%' },
-      { src: '/assets/cases/case1-b.jpg', pos: 'center 42%' },
+      { src: '/assets/cases/case1-a.webp', pos: 'center 28%' },
+      { src: '/assets/cases/case1-b.webp', pos: 'center 42%' },
     ],
   },
   {
     title: 'Digital-сервис в Дубае',
     name: 'Ольга Нойбергер',
     desc: 'Запустила digital-сервис в Дубае за 3 недели вместо долгих месяцев регистрации.',
-    photos: [{ src: '/assets/cases/case2.jpg', pos: 'center 32%' }],
+    photos: [{ src: '/assets/cases/case2.webp', pos: 'center 32%' }],
   },
   {
     title: '+4 млн AED к обороту и переход к роли CEO',
     name: 'Катерина Кузнецова',
     desc: 'Как окружение Vision Club помогает навести порядок в хаосе и выйти на новый уровень.',
-    photos: [{ src: '/assets/cases/case3.jpg', pos: 'center 60%' }],
+    photos: [{ src: '/assets/cases/case3.webp', pos: 'center 60%' }],
   },
 ];
 

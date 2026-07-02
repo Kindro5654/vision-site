@@ -33,10 +33,10 @@ export const metadata: Metadata = {
 };
 
 const GALLERY = [
-  { src: '/assets/gallery/g14.jpeg', pos: 'center 40%' },
-  { src: '/assets/gallery/nr0.jpg', pos: 'center 42%' },
-  { src: '/assets/gallery/g10.jpeg', pos: 'center 45%' },
-  { src: '/assets/gallery/g01.jpeg', pos: 'center 40%' },
+  { src: '/assets/gallery/g14.webp', pos: 'center 40%' },
+  { src: '/assets/gallery/nr0.webp', pos: 'center 42%' },
+  { src: '/assets/gallery/g10.webp', pos: 'center 45%' },
+  { src: '/assets/gallery/g01.webp', pos: 'center 40%' },
 ];
 
 const HIGHLIGHTS = [

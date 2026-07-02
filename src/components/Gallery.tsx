@@ -11,19 +11,19 @@ type Tile = {
 };
 
 const TILES: Tile[] = [
-  { src: '/assets/gallery/g14.jpeg', pos: 'center 40%', gridColumn: '1/3', gridRow: '1/3' },
-  { src: '/assets/gallery/nr2.jpg', pos: 'center 35%', gridColumn: '3/4', gridRow: '1/3' },
-  { src: '/assets/gallery/p0216b.jpg', pos: 'center 28%', gridColumn: '4/5', gridRow: '1/3' },
-  { src: '/assets/gallery/g15.jpeg', pos: 'center 35%', gridColumn: '1/2', gridRow: '3/5' },
-  { src: '/assets/gallery/nr0.jpg', pos: 'center 42%', gridColumn: '2/4', gridRow: '3/4' },
-  { src: '/assets/gallery/p1109b.jpg', pos: 'center 40%', gridColumn: '4/5', gridRow: '3/4' },
-  { src: '/assets/gallery/g10.jpeg', pos: 'center 45%', gridColumn: '2/4', gridRow: '4/5' },
-  { src: '/assets/gallery/p1109a.jpg', pos: 'center 42%', gridColumn: '4/5', gridRow: '4/5' },
-  { src: '/assets/gallery/g01.jpeg', pos: 'center 40%', gridColumn: '1/3', gridRow: '5/6' },
-  { src: '/assets/gallery/mix.jpg', pos: 'center 45%', gridColumn: '3/5', gridRow: '5/6' },
-  { src: '/assets/gallery/nr1.jpg', pos: 'center 45%', gridColumn: '1/3', gridRow: '6/7' },
-  { src: '/assets/gallery/g02.jpeg', pos: 'center 35%', gridColumn: '3/4', gridRow: '6/7' },
-  { src: '/assets/gallery/p0216a.jpg', pos: 'center 30%', gridColumn: '4/5', gridRow: '6/7' },
+  { src: '/assets/gallery/g14.webp', pos: 'center 40%', gridColumn: '1/3', gridRow: '1/3' },
+  { src: '/assets/gallery/nr2.webp', pos: 'center 35%', gridColumn: '3/4', gridRow: '1/3' },
+  { src: '/assets/gallery/p0216b.webp', pos: 'center 28%', gridColumn: '4/5', gridRow: '1/3' },
+  { src: '/assets/gallery/g15.webp', pos: 'center 35%', gridColumn: '1/2', gridRow: '3/5' },
+  { src: '/assets/gallery/nr0.webp', pos: 'center 42%', gridColumn: '2/4', gridRow: '3/4' },
+  { src: '/assets/gallery/p1109b.webp', pos: 'center 40%', gridColumn: '4/5', gridRow: '3/4' },
+  { src: '/assets/gallery/g10.webp', pos: 'center 45%', gridColumn: '2/4', gridRow: '4/5' },
+  { src: '/assets/gallery/p1109a.webp', pos: 'center 42%', gridColumn: '4/5', gridRow: '4/5' },
+  { src: '/assets/gallery/g01.webp', pos: 'center 40%', gridColumn: '1/3', gridRow: '5/6' },
+  { src: '/assets/gallery/mix.webp', pos: 'center 45%', gridColumn: '3/5', gridRow: '5/6' },
+  { src: '/assets/gallery/nr1.webp', pos: 'center 45%', gridColumn: '1/3', gridRow: '6/7' },
+  { src: '/assets/gallery/g02.webp', pos: 'center 35%', gridColumn: '3/4', gridRow: '6/7' },
+  { src: '/assets/gallery/p0216a.webp', pos: 'center 30%', gridColumn: '4/5', gridRow: '6/7' },
 ];
 
 export default function Gallery() {

@@ -7,11 +7,11 @@ import { useLeadSubmit, useUtmCapture } from '@/lib/useLeadSubmit';
 import FormStatus from '@/components/FormStatus';
 
 const AVATARS = [
-  { src: '/assets/people/res-butova.jpg', pos: 'center 22%' },
-  { src: '/assets/people/res-krasnoperova.jpg', pos: 'center 25%' },
-  { src: '/assets/people/res-tretyak.jpg', pos: 'center 22%' },
-  { src: '/assets/people/res-neuberger.jpg', pos: 'center 22%' },
-  { src: '/assets/people/res-podnebesny.jpg', pos: 'center 22%' },
+  { src: '/assets/people/res-butova.webp', pos: 'center 22%' },
+  { src: '/assets/people/res-krasnoperova.webp', pos: 'center 25%' },
+  { src: '/assets/people/res-tretyak.webp', pos: 'center 22%' },
+  { src: '/assets/people/res-neuberger.webp', pos: 'center 22%' },
+  { src: '/assets/people/res-podnebesny.webp', pos: 'center 22%' },
 ];
 
 const REV = ['Оборот: до $1 M', 'Оборот: от $1 до $5 M', 'Оборот: от $5 до $20 M', 'Оборот: более $20 M'];

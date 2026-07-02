@@ -325,7 +325,7 @@ export default function GuestMonth() {
                 }}
               >
                 <Image
-                  src={asset('/assets/guest/handshake.jpeg')}
+                  src={asset('/assets/guest/handshake.webp')}
                   alt=""
                   fill
                   sizes="(max-width: 820px) 100vw, 45vw"
@@ -392,7 +392,7 @@ export default function GuestMonth() {
                 }}
               >
                 <Image
-                  src={asset('/assets/guest/trio.jpg')}
+                  src={asset('/assets/guest/trio.webp')}
                   alt=""
                   fill
                   sizes="(max-width: 820px) 100vw, 45vw"

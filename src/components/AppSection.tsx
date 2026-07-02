@@ -209,7 +209,7 @@ export default function AppSection() {
                   }}
                 >
                   <Image
-                    src={asset('/assets/app/screen-members.jpg')}
+                    src={asset('/assets/app/screen-members.webp')}
                     alt="Vision App — участники"
                     fill
                     sizes="262px"
@@ -243,7 +243,7 @@ export default function AppSection() {
                   }}
                 >
                   <Image
-                    src={asset('/assets/app/screen-events.jpg')}
+                    src={asset('/assets/app/screen-events.webp')}
                     alt="Vision App — встречи"
                     fill
                     sizes="278px"

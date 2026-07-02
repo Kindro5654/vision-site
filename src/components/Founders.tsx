@@ -7,7 +7,7 @@ const FOUNDERS = [
   {
     num: '01',
     dir: 'row' as const,
-    src: '/assets/people/aleksey-nakazny.jpg',
+    src: '/assets/people/aleksey-nakazny.webp',
     objPos: 'center 20%',
     name: 'Алексей Наказный',
     role: 'Серийный предприниматель и сооснователь Vision Club Dubai и Alliance Clubs',
@@ -19,7 +19,7 @@ const FOUNDERS = [
   {
     num: '02',
     dir: 'row-reverse' as const,
-    src: '/assets/people/daria-nakaznaya.jpg',
+    src: '/assets/people/daria-nakaznaya.webp',
     objPos: 'center 18%',
     name: 'Дарья Наказная',
     role: 'Сооснователь Vision Club и Alliance Clubs',

@@ -4,14 +4,14 @@ import { useMounted, reveal } from '@/lib/useMounted';
 import { asset } from '@/lib/site';
 
 const PEOPLE = [
-  { name: 'Павел\nГительман', role: 'Предприниматель, основатель и CEO агентства RTA', src: '/assets/people/sp-gitelman.jpg', objPos: 'center 22%' },
-  { name: 'Олег\nТорбосов', role: 'Предприниматель, основатель и CEO международной компании Whitewill', src: '/assets/people/sp-torbosov.jpg', objPos: 'center 25%' },
-  { name: 'Евгений\nЧичваркин', role: 'Предприниматель, сооснователь сети салонов «Евросеть»', src: '/assets/people/sp-chichvarkin.jpg', objPos: 'center 25%' },
-  { name: 'Оскар\nХартман', role: 'Предприниматель, серийный инвестор и основатель более 150 международных компаний', src: '/assets/people/sp-hartman.jpg', objPos: 'center 25%' },
+  { name: 'Павел\nГительман', role: 'Предприниматель, основатель и CEO агентства RTA', src: '/assets/people/sp-gitelman.webp', objPos: 'center 22%' },
+  { name: 'Олег\nТорбосов', role: 'Предприниматель, основатель и CEO международной компании Whitewill', src: '/assets/people/sp-torbosov.webp', objPos: 'center 25%' },
+  { name: 'Евгений\nЧичваркин', role: 'Предприниматель, сооснователь сети салонов «Евросеть»', src: '/assets/people/sp-chichvarkin.webp', objPos: 'center 25%' },
+  { name: 'Оскар\nХартман', role: 'Предприниматель, серийный инвестор и основатель более 150 международных компаний', src: '/assets/people/sp-hartman.webp', objPos: 'center 25%' },
   null, // CTA placeholder
-  { name: 'Федор\nОвчинников', role: 'Предприниматель, основатель сети Додо Пицца', src: '/assets/people/sp-ovchinnikov.jpg', objPos: 'center 22%' },
-  { name: 'Виктор\nКузнецов', role: 'Предприниматель, сооснователь онлайн-гипермаркета «ВсеИнструменты.ру»', src: '/assets/people/sp-kuznetsov.jpg', objPos: 'center 25%' },
-  { name: 'Михаил\nДашкиев', role: 'Предприниматель и методолог с 15-летним опытом развития компаний', src: '/assets/people/sp-dashkiev.jpg', objPos: 'center 25%' },
+  { name: 'Федор\nОвчинников', role: 'Предприниматель, основатель сети Додо Пицца', src: '/assets/people/sp-ovchinnikov.webp', objPos: 'center 22%' },
+  { name: 'Виктор\nКузнецов', role: 'Предприниматель, сооснователь онлайн-гипермаркета «ВсеИнструменты.ру»', src: '/assets/people/sp-kuznetsov.webp', objPos: 'center 25%' },
+  { name: 'Михаил\nДашкиев', role: 'Предприниматель и методолог с 15-летним опытом развития компаний', src: '/assets/people/sp-dashkiev.webp', objPos: 'center 25%' },
 ] as const;
 
 export default function Speakers() {
