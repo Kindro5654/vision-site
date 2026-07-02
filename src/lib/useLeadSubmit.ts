@@ -19,7 +19,7 @@ type UtmParams = {
 };
 
 export type LeadSource = 'vision-site' | 'vision-guest';
-export type LeadFormId = 'hero' | 'join' | 'guest';
+export type LeadFormId = 'hero' | 'join' | 'guest' | 'cta';
 
 export interface LeadFields {
   name: string;

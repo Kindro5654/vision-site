@@ -23,7 +23,6 @@ export default function Join() {
   const m = useMounted();
   useUtmCapture();
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [position, setPosition] = useState('');
   const [revenue, setRevenue] = useState('');
@@ -32,10 +31,9 @@ export default function Join() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const ok = await submit({ name, email, phone, position, revenue, consent });
+    const ok = await submit({ name, phone, position, revenue, consent });
     if (ok) {
       setName('');
-      setEmail('');
       setPhone('');
       setPosition('');
       setRevenue('');
@@ -214,7 +212,6 @@ export default function Join() {
           >
             <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <FieldInput aria="Имя" placeholder="Имя и фамилия" value={name} onChange={setName} />
-              <FieldInput aria="Email" placeholder="Ваш email" type="email" value={email} onChange={setEmail} />
               <div
                 className="vc-field"
                 style={{
