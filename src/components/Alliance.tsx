@@ -385,7 +385,7 @@ export default function Alliance() {
         className="vc-alliance-grid"
         style={{
           position: 'relative',
-          maxWidth: 1320,
+          maxWidth: 1600,
           margin: '0 auto',
           display: 'grid',
           gridTemplateColumns: '1fr 1.02fr',

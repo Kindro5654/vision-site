@@ -29,7 +29,7 @@ export default function Unique() {
         }}
       />
 
-      <div style={{ position: 'relative', maxWidth: 1320, margin: '0 auto' }}>
+      <div style={{ position: 'relative', maxWidth: 1600, margin: '0 auto' }}>
         <div className="eyebrow" style={{ marginBottom: 18, ...reveal(m, 0.02) }}>
           <span className="eyebrow-line" />
           <span className="eyebrow-text">Почему Vision</span>

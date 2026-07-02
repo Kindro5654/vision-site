@@ -58,7 +58,7 @@ export default function Join() {
         className="vc-join-card"
         style={{
           position: 'relative',
-          maxWidth: 1340,
+          maxWidth: 1600,
           margin: '0 auto',
           borderRadius: 30,
           overflow: 'hidden',

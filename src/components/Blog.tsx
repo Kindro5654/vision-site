@@ -19,7 +19,7 @@ export default function Blog() {
         padding: '84px 48px 96px',
       }}
     >
-      <div style={{ position: 'relative', maxWidth: 1320, margin: '0 auto' }}>
+      <div style={{ position: 'relative', maxWidth: 1600, margin: '0 auto' }}>
         <div
           className="vc-blog-head"
           style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 32, marginBottom: 44, ...reveal(m, 0.02) }}

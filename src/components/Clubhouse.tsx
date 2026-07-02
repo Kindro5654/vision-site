@@ -44,7 +44,7 @@ export default function Clubhouse() {
         padding: '72px 48px 92px',
       }}
     >
-      <div style={{ position: 'relative', maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ position: 'relative', maxWidth: 1600, margin: '0 auto' }}>
         <h2
           className="osw vc-club-head"
           style={{

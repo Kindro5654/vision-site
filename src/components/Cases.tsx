@@ -54,7 +54,7 @@ export default function Cases() {
           pointerEvents: 'none',
         }}
       />
-      <div style={{ position: 'relative', maxWidth: 1320, margin: '0 auto' }}>
+      <div style={{ position: 'relative', maxWidth: 1600, margin: '0 auto' }}>
         <div className="vc-cases-head" style={reveal(m, 0.02)}>
           <h2
             className="osw"

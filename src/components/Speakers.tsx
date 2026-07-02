@@ -27,7 +27,7 @@ export default function Speakers() {
         padding: '84px 48px 96px',
       }}
     >
-      <div style={{ position: 'relative', maxWidth: 1320, margin: '0 auto' }}>
+      <div style={{ position: 'relative', maxWidth: 1600, margin: '0 auto' }}>
         <h2
           className="osw vc-sp-head"
           style={{

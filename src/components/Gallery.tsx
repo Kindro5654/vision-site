@@ -39,7 +39,7 @@ export default function Gallery() {
         padding: '84px 48px 96px',
       }}
     >
-      <div style={{ position: 'relative', maxWidth: 1320, margin: '0 auto' }}>
+      <div style={{ position: 'relative', maxWidth: 1600, margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 48, ...reveal(m, 0.02) }}>
           <h2
             className="osw"

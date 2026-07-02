@@ -76,7 +76,7 @@ export default function GuestMonth() {
         style={{
           position: 'relative',
           zIndex: 2,
-          maxWidth: 1620,
+          maxWidth: 1720,
           margin: '0 auto',
           padding: '76px 44px 84px',
         }}

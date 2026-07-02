@@ -38,7 +38,7 @@ export default function Events() {
       <div
         className="vc-ev-head"
         style={{
-          maxWidth: 1320,
+          maxWidth: 1600,
           margin: '0 auto 48px',
           padding: '0 48px',
           display: 'flex',
@@ -85,8 +85,8 @@ export default function Events() {
           gap: 24,
           overflowX: 'auto',
           padding: '6px 48px 8px',
-          paddingLeft: 'max(48px, calc((100% - 1320px) / 2 + 48px))',
-          scrollPaddingLeft: 'max(48px, calc((100% - 1320px) / 2 + 48px))',
+          paddingLeft: 'max(48px, calc((100% - 1600px) / 2 + 48px))',
+          scrollPaddingLeft: 'max(48px, calc((100% - 1600px) / 2 + 48px))',
           ...reveal(m, 0.12),
         }}
       >

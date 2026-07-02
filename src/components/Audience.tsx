@@ -66,7 +66,7 @@ export default function Audience() {
         className="vc-aud-grid"
         style={{
           position: 'relative',
-          maxWidth: 1320,
+          maxWidth: 1600,
           margin: '0 auto',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
@@ -333,7 +333,7 @@ export default function Audience() {
         className="vc-rep-bar"
         style={{
           position: 'relative',
-          maxWidth: 1320,
+          maxWidth: 1600,
           margin: '26px auto 0',
           display: 'flex',
           alignItems: 'center',

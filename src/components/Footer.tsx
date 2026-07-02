@@ -16,7 +16,7 @@ export default function Footer() {
         padding: '64px 48px 44px',
       }}
     >
-      <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+      <div style={{ maxWidth: 1600, margin: '0 auto' }}>
         <div
           className="vc-footer-grid"
           style={{

@@ -149,7 +149,7 @@ export default function Numbers() {
       <div
         style={{
           position: 'relative',
-          maxWidth: 1320,
+          maxWidth: 1600,
           margin: '0 auto',
           display: 'flex',
           flexDirection: 'column',
