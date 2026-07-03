@@ -32,3 +32,11 @@ export function nextRecurrence(offsetMonths = 1): string {
   d.setUTCHours(15, 0, 0, 0); // 19:00 Dubai = 15:00 UTC
   return d.toISOString();
 }
+
+/** Event ends ~3h after start (typical club evening). */
+export function nextRecurrenceEnd(offsetMonths = 1): string {
+  const d = new Date();
+  d.setUTCMonth(d.getUTCMonth() + offsetMonths, 1);
+  d.setUTCHours(18, 0, 0, 0); // 22:00 Dubai = 18:00 UTC
+  return d.toISOString();
+}

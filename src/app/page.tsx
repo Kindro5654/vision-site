@@ -20,7 +20,7 @@ import StickyCTA from '@/components/StickyCTA';
 import MainCTAModal from '@/components/MainCTAModal';
 import { HOMEPAGE_FAQ } from '@/lib/faq';
 import { SITE } from '@/lib/site';
-import { CLUB_EVENTS, nextRecurrence } from '@/lib/events';
+import { CLUB_EVENTS, nextRecurrence, nextRecurrenceEnd } from '@/lib/events';
 
 const CLUBHOUSE_VIDEO_ID = 'WDTME_9tmpQ';
 
@@ -59,6 +59,7 @@ export default function Page() {
 
   // ItemList of Event entries. Placeholder next-month startDate signals recurring
   // format; specific dated events are managed inside the app / CRM.
+  const validFrom = new Date().toISOString();
   const eventsLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -72,15 +73,20 @@ export default function Page() {
         name: ev.title,
         description: ev.desc,
         startDate: nextRecurrence(1),
+        endDate: nextRecurrenceEnd(1),
         eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
         eventStatus: 'https://schema.org/EventScheduled',
         location: clubhousePlace,
         image: `${SITE.url}${ev.src}`,
         organizer: { '@id': `${SITE.url}/#organization` },
+        performer: { '@id': `${SITE.url}/#organization` },
         offers: {
           '@type': 'Offer',
           availability: 'https://schema.org/InStock',
           category: 'MembershipOnly',
+          price: '0',
+          priceCurrency: 'AED',
+          validFrom,
           url: `${SITE.url}/#apply`,
         },
       },
