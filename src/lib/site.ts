@@ -6,7 +6,9 @@ export const SITE = {
   url: 'https://vision-club.ae',
   phone: '+971 58 550 6498',
   phoneE164: '+971585506498',
-  whatsapp: 'https://wa.me/971585506498',
+  whatsapp:
+    'https://wa.me/971585506498?text=' +
+    encodeURIComponent('Здравствуйте! С сайта Vision Club — расскажите про резидентство'),
   email: 'vision.club.sales@gmail.com',
   ogImage: '/assets/hero-speakers.webp',
   themeColor: '#0B0B0D',
