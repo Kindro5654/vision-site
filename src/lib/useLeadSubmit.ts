@@ -140,6 +140,11 @@ export function useLeadSubmit(source: LeadSource, form: LeadFormId) {
         setError('Заполните имя и телефон.');
         return false;
       }
+      if (!fields.position.trim() || !fields.revenue.trim()) {
+        setState('error');
+        setError('Заполните все поля: позицию и оборот бизнеса.');
+        return false;
+      }
 
       setState('sending');
       setError('');
