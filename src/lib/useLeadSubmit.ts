@@ -135,9 +135,14 @@ export function useLeadSubmit(source: LeadSource, form: LeadFormId) {
         setError('Нужно согласие на обработку персональных данных.');
         return false;
       }
-      if (!fields.name.trim() || !fields.phone.trim()) {
+      if (!fields.name.trim()) {
         setState('error');
         setError('Заполните имя и телефон.');
+        return false;
+      }
+      if (fields.phone.replace(/\D/g, '').length < 8) {
+        setState('error');
+        setError('Введите корректный номер телефона.');
         return false;
       }
       if (!fields.position.trim() || !fields.revenue.trim()) {
@@ -199,7 +204,8 @@ export function useLeadSubmit(source: LeadSource, form: LeadFormId) {
 }
 
 function normalisePhone(raw: string): string {
+  // PhoneField already emits a full international number ("+<dial><digits>").
+  // Just strip separators and keep it in E.164 form.
   const digits = raw.replace(/\D/g, '');
-  // UI already presents +971 prefix as static, so raw is local portion.
-  return digits.startsWith('971') ? `+${digits}` : `+971 ${raw.trim()}`;
+  return digits ? `+${digits}` : '';
 }

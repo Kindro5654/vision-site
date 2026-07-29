@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useLeadSubmit, useUtmCapture } from '@/lib/useLeadSubmit';
 import FormStatus from '@/components/FormStatus';
+import PhoneField from '@/components/PhoneField';
 
 const POS = [
   'Предприниматель / собственник бизнеса',
@@ -187,35 +188,7 @@ export default function GuestMonthModal({
 
         <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <ModalInput placeholder="Имя и фамилия" value={name} onChange={setName} aria="Имя" />
-          <div
-            className="vc-field"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              border: '1px solid rgba(255,255,255,.12)',
-              borderRadius: 14,
-              background: 'rgba(255,255,255,.02)',
-              padding: '0 16px',
-              height: 56,
-            }}
-          >
-            <span style={{ position: 'relative', width: 22, height: 15, borderRadius: 3, overflow: 'hidden', display: 'inline-block', flexShrink: 0 }} aria-hidden>
-              <span style={{ position: 'absolute', inset: 0, background: 'linear-gradient(#00843D 33.3%,#fff 33.3% 66.6%,#111 66.6%)' }} />
-              <span style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 6, background: '#CE1126' }} />
-            </span>
-            <span style={{ color: '#C9C5BD', fontSize: 15, fontWeight: 500 }}>+971</span>
-            <span style={{ width: 1, height: 20, background: 'rgba(255,255,255,.12)' }} />
-            <input
-              className="vc-na"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="(00) 000-0000"
-              aria-label="Телефон"
-              inputMode="tel"
-              style={{ width: '100%', border: 0, background: 'transparent', color: 'var(--text)', fontSize: 15 }}
-            />
-          </div>
+          <PhoneField value={phone} onChange={setPhone} height={56} />
           <ModalSelect options={POS} value={position} onChange={setPosition} aria="Позиция" placeholder="Ваша позиция" />
           <ModalSelect options={REV} value={revenue} onChange={setRevenue} aria="Оборот" placeholder="Оборот бизнеса" />
 

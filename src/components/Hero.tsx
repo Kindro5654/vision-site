@@ -5,6 +5,7 @@ import { useMounted, reveal } from '@/lib/useMounted';
 import { asset, SITE } from '@/lib/site';
 import { useLeadSubmit, useUtmCapture } from '@/lib/useLeadSubmit';
 import FormStatus from '@/components/FormStatus';
+import PhoneField from '@/components/PhoneField';
 
 const NAV = ['О клубе', 'Мероприятия', 'Резиденты', 'Спикеры', 'Клубный дом'];
 const POS = [
@@ -297,70 +298,7 @@ export default function Hero() {
                 }}
               />
             </div>
-            <div
-              className="vc-field"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                border: '1px solid rgba(255,255,255,.1)',
-                borderRadius: 14,
-                background: 'rgba(255,255,255,.015)',
-                padding: '0 18px',
-                height: 60,
-              }}
-            >
-              <span
-                aria-hidden
-                style={{
-                  position: 'relative',
-                  width: 24,
-                  height: 16,
-                  borderRadius: 3,
-                  overflow: 'hidden',
-                  display: 'inline-block',
-                  flexShrink: 0,
-                }}
-              >
-                <span
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background:
-                      'linear-gradient(#00843D 33.3%,#fff 33.3% 66.6%,#111 66.6%)',
-                  }}
-                />
-                <span
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: 7,
-                    background: '#CE1126',
-                  }}
-                />
-              </span>
-              <span style={{ color: '#C9C5BD', fontSize: 16, fontWeight: 500 }}>+971</span>
-              <span style={{ width: 1, height: 22, background: 'rgba(255,255,255,.12)' }} />
-              <input
-                className="vc-na"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="(00) 000-0000"
-                aria-label="Телефон"
-                inputMode="tel"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  border: 0,
-                  background: 'transparent',
-                  color: 'var(--text)',
-                  fontSize: 16,
-                  outline: 'none',
-                }}
-              />
-            </div>
+            <PhoneField value={phone} onChange={setPhone} />
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 13 }}>
               <SelectField options={POS} label="Позиция" value={position} onChange={setPosition} />
               <SelectField options={REV} label="Оборот" value={revenue} onChange={setRevenue} />

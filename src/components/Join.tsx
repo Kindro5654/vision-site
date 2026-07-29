@@ -5,6 +5,7 @@ import { useMounted, reveal } from '@/lib/useMounted';
 import { asset } from '@/lib/site';
 import { useLeadSubmit, useUtmCapture } from '@/lib/useLeadSubmit';
 import FormStatus from '@/components/FormStatus';
+import PhoneField from '@/components/PhoneField';
 
 const AVATARS = [
   { src: '/assets/people/res-butova.webp', pos: 'center 22%' },
@@ -212,41 +213,7 @@ export default function Join() {
           >
             <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <FieldInput aria="Имя" placeholder="Имя и фамилия" value={name} onChange={setName} />
-              <div
-                className="vc-field"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 12,
-                  border: '1px solid rgba(255,255,255,.12)',
-                  borderRadius: 14,
-                  background: 'rgba(255,255,255,.02)',
-                  padding: '0 18px',
-                  height: 60,
-                }}
-              >
-                <span style={{ position: 'relative', width: 24, height: 16, borderRadius: 3, overflow: 'hidden', display: 'inline-block', flexShrink: 0 }} aria-hidden>
-                  <span style={{ position: 'absolute', inset: 0, background: 'linear-gradient(#00843D 33.3%,#fff 33.3% 66.6%,#111 66.6%)' }} />
-                  <span style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 7, background: '#CE1126' }} />
-                </span>
-                <span style={{ color: '#C9C5BD', fontSize: 16, fontWeight: 500 }}>+971</span>
-                <span style={{ width: 1, height: 22, background: 'rgba(255,255,255,.12)' }} />
-                <input
-                  className="vc-na"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="(00) 000-0000"
-                  aria-label="Телефон"
-                  inputMode="tel"
-                  style={{
-                    width: '100%',
-                    border: 0,
-                    background: 'transparent',
-                    color: 'var(--text)',
-                    fontSize: 16,
-                  }}
-                />
-              </div>
+              <PhoneField value={phone} onChange={setPhone} />
               <SelectField options={REV} aria="Оборот" value={revenue} onChange={setRevenue} />
               <SelectField options={POS} aria="Позиция" value={position} onChange={setPosition} />
               <label style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 4, cursor: 'pointer', userSelect: 'none' }}>
