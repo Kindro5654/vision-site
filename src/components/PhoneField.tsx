@@ -4,6 +4,7 @@ import {
   COUNTRIES,
   Country,
   detectCountry,
+  detectCountryByIp,
   formatNumber,
   maxDigits,
   parseE164,
@@ -58,10 +59,24 @@ export default function PhoneField({
   const rootRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
+  // True once the user types or picks a country — stops geo-detection from
+  // overriding their intent (e.g. a slow IP lookup landing after they typed).
+  const touchedRef = useRef(false);
 
   // Auto-detect only for a fresh, empty field — never override a restored value.
+  // 1) Instant offline guess (timezone/locale) so the field is right immediately.
+  // 2) IP lookup — the real physical location — corrects it if they differ
+  //    (a traveller whose device is still on a home timezone/language).
   useEffect(() => {
-    if (!value) setCountry(detectCountry());
+    if (value) return; // restored value — keep it
+    setCountry(detectCountry());
+    let cancelled = false;
+    detectCountryByIp().then((c) => {
+      if (!cancelled && c && !touchedRef.current) setCountry(c);
+    });
+    return () => {
+      cancelled = true;
+    };
     // Mount-only: reads the initial value on purpose.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -120,11 +135,13 @@ export default function PhoneField({
   }, [query]);
 
   const onDigits = (raw: string) => {
+    touchedRef.current = true;
     const only = raw.replace(/\D/g, '').slice(0, maxDigits(country));
     setDigits(only);
   };
 
   const pick = (c: Country) => {
+    touchedRef.current = true;
     setCountry(c);
     setOpen(false);
     setQuery('');

@@ -193,9 +193,42 @@ const TZ_TO_ISO: Record<string, string> = {
   'Asia/Shanghai': 'CN',
   'Asia/Kolkata': 'IN',
   'Asia/Jakarta': 'ID',
+  'Asia/Pontianak': 'ID',
+  'Asia/Makassar': 'ID',
+  'Asia/Jayapura': 'ID',
   'Australia/Sydney': 'AU',
   'Australia/Melbourne': 'AU',
 };
+
+/**
+ * Physical-location guess by IP — the most reliable signal for a traveller
+ * (timezone/locale only reflect device settings, not where you actually are).
+ * Free, keyless endpoints with a fallback; returns null on any failure so the
+ * caller keeps the offline guess. Only resolves to a country we support.
+ */
+export async function detectCountryByIp(): Promise<Country | null> {
+  if (typeof window === 'undefined') return null;
+  const endpoints: { url: string; pick: (d: any) => unknown }[] = [
+    { url: 'https://get.geojs.io/v1/ip/country.json', pick: (d) => d?.country },
+    { url: 'https://ipwho.is/?fields=country_code', pick: (d) => d?.country_code },
+  ];
+  for (const ep of endpoints) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 2500);
+      const res = await fetch(ep.url, { signal: ctrl.signal });
+      clearTimeout(timer);
+      if (!res.ok) continue;
+      const data = await res.json();
+      const iso = String(ep.pick(data) || '').toUpperCase();
+      const country = iso && countryByIso(iso);
+      if (country) return country;
+    } catch {
+      // try the next endpoint
+    }
+  }
+  return null;
+}
 
 /** Best-effort country guess, offline. Runs only in the browser. */
 export function detectCountry(): Country {
