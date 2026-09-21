@@ -1,5 +1,4 @@
 import Hero from '@/components/Hero';
-import GuestMonth from '@/components/GuestMonth';
 import Founders from '@/components/Founders';
 import Numbers from '@/components/Numbers';
 import Events from '@/components/Events';
@@ -140,7 +139,6 @@ export default function Page() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableLd) }} />
       <Hero />
-      <GuestMonth />
       <Founders />
       <Numbers />
       <Events />
