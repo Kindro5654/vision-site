@@ -181,6 +181,7 @@ export function useLeadSubmit(source: LeadSource, form: LeadFormId) {
         });
         if (res.ok) {
           setState('success');
+          trackPixelLead();
           return true;
         }
         let detail = 'Не удалось отправить. Попробуйте ещё раз.';
@@ -208,4 +209,14 @@ function normalisePhone(raw: string): string {
   // Just strip separators and keep it in E.164 form.
   const digits = raw.replace(/\D/g, '');
   return digits ? `+${digits}` : '';
+}
+
+/** Meta Pixel: count a lead only after the CRM accepted the form. */
+function trackPixelLead() {
+  try {
+    const fbq = (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq;
+    fbq?.('track', 'Lead');
+  } catch {
+    // pixel blocked by adblock — noop
+  }
 }
