@@ -10,6 +10,13 @@ export const SITE = {
     'https://wa.me/971585506498?text=' +
     encodeURIComponent('Здравствуйте! С сайта Vision Club — расскажите про резидентство'),
   email: 'vision.club.sales@gmail.com',
+  legal: {
+    name: 'Vision Club FZCO',
+    address: 'IFZA Properties, DSO-IFZA, Dubai Silicon Oasis, Dubai, UAE',
+    phone: '+971 58 513 2203',
+    phoneE164: '+971585132203',
+    email: 'info@vision-club.ae',
+  },
   ogImage: '/assets/hero-speakers.webp',
   themeColor: '#0B0B0D',
   accent: '#E96B1E',

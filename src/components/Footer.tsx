@@ -27,6 +27,7 @@ const COLS: { title: string; links: { label: string; href: string }[] }[] = [
       { label: 'WhatsApp', href: SITE.whatsapp },
       { label: 'Instagram', href: SITE.socials.instagram },
       { label: 'LinkedIn', href: SITE.socials.linkedin },
+      { label: SITE.legal.email, href: `mailto:${SITE.legal.email}` },
       { label: SITE.email, href: `mailto:${SITE.email}` },
     ],
   },
@@ -123,7 +124,7 @@ export default function Footer() {
                       href={l.href}
                       {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                       className="vc-flink"
-                      style={{ color: 'var(--muted)', fontSize: 16 }}
+                      style={{ color: 'var(--muted)', fontSize: 16, overflowWrap: 'anywhere' }}
                     >
                       {l.label}
                     </a>
@@ -145,9 +146,22 @@ export default function Footer() {
             borderTop: '1px solid var(--line)',
           }}
         >
-          <span style={{ fontSize: 14, color: '#6E6A62' }}>
-            © {new Date().getFullYear()} {SITE.name}. Все права защищены.
-          </span>
+          <div style={{ fontSize: 14, lineHeight: 1.6, color: '#6E6A62' }}>
+            <div>{`© ${new Date().getFullYear()} ${SITE.legal.name}. Все права защищены.`}</div>
+            <div>{SITE.legal.address}</div>
+            <div>
+              Тел.:{' '}
+              <a href={`tel:${SITE.legal.phoneE164}`} className="vc-flink" style={{ color: 'inherit' }}>
+                {SITE.legal.phone}
+              </a>
+            </div>
+            <div>
+              Email:{' '}
+              <a href={`mailto:${SITE.legal.email}`} className="vc-flink" style={{ color: 'inherit' }}>
+                {SITE.legal.email}
+              </a>
+            </div>
+          </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
             <a href="#" className="vc-flink" style={{ color: '#6E6A62', fontSize: 14 }}>
               Политика конфиденциальности
