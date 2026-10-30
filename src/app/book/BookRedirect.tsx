@@ -13,6 +13,32 @@ export const TG_URL =
 // и уходим в Telegram, как только он ответил, но не позже MAX_WAIT_MS.
 const MAX_WAIT_MS = 1500;
 
+// Счётчик сканов в CRM («Трафик» → «QR из книги»). Лида не создаёт.
+const CRM_SCAN_URL = 'https://crm.vision-club.ae/api/webhooks/qr-scan';
+
+function visitorId(): string | null {
+  try {
+    let id = localStorage.getItem('vc_visitor');
+    if (!id) {
+      id = (crypto.randomUUID?.() ?? `${Date.now()}${Math.random()}`).replace(/[^A-Za-z0-9]/g, '');
+      localStorage.setItem('vc_visitor', id);
+    }
+    return id;
+  } catch {
+    return null;
+  }
+}
+
+// sendBeacon доживает до конца даже после перехода; строка уходит как text/plain —
+// «простой» запрос без CORS-предзапроса.
+function sendCrmScan() {
+  const body = JSON.stringify({ source: 'book', visitor: visitorId() });
+  try {
+    if (navigator.sendBeacon?.(CRM_SCAN_URL, body)) return;
+  } catch {}
+  fetch(CRM_SCAN_URL, { method: 'POST', body, keepalive: true, mode: 'no-cors' }).catch(() => {});
+}
+
 function pixelUrl() {
   const fbp = document.cookie.match(/(?:^|; )_fbp=([^;]+)/)?.[1];
   const q = new URLSearchParams({
@@ -36,6 +62,7 @@ export default function BookRedirect() {
       window.location.replace(TG_URL);
     };
 
+    sendCrmScan();
     const img = new Image();
     img.onload = img.onerror = go;
     img.src = pixelUrl();
