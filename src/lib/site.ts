@@ -38,6 +38,8 @@ export const SITE = {
   ],
 } as const;
 
+export const META_PIXEL_ID = '561860935084473';
+
 export const asset = (p: string) => {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
   if (p.startsWith('http') || p.startsWith('data:')) return p;

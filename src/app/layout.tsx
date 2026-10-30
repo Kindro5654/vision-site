@@ -1,10 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Oswald, Golos_Text } from 'next/font/google';
 import Script from 'next/script';
-import { SITE } from '@/lib/site';
+import { SITE, META_PIXEL_ID } from '@/lib/site';
 import './globals.css';
-
-const META_PIXEL_ID = '561860935084473';
 
 const oswald = Oswald({
   subsets: ['latin', 'cyrillic'],
