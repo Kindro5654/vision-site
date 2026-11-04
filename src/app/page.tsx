@@ -16,6 +16,7 @@ import FAQ from '@/components/FAQ';
 import Blog from '@/components/Blog';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
+import ContactWidget from '@/components/ContactWidget';
 import MainCTAModal from '@/components/MainCTAModal';
 import { HOMEPAGE_FAQ } from '@/lib/faq';
 import { SITE } from '@/lib/site';
@@ -157,6 +158,7 @@ export default function Page() {
       <Blog />
       <Footer />
       <StickyCTA />
+      <ContactWidget />
       <MainCTAModal />
     </main>
   );

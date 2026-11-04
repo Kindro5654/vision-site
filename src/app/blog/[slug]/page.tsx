@@ -7,6 +7,7 @@ import { SITE, asset } from '@/lib/site';
 import ArticleContent from '@/components/ArticleContent';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
+import ContactWidget from '@/components/ContactWidget';
 
 export const dynamicParams = false;
 
@@ -244,6 +245,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
       <Footer />
       <StickyCTA />
+      <ContactWidget />
     </main>
   );
 }

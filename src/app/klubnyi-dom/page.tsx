@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { SITE, asset } from '@/lib/site';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
+import ContactWidget from '@/components/ContactWidget';
 import MainCTAModal from '@/components/MainCTAModal';
 
 const PAGE_URL = `${SITE.url}/klubnyi-dom/`;
@@ -328,6 +329,7 @@ export default function ClubhousePage() {
 
       <Footer />
       <StickyCTA />
+      <ContactWidget />
       <MainCTAModal />
     </main>
   );

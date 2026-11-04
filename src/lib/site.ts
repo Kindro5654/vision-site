@@ -9,6 +9,9 @@ export const SITE = {
   whatsapp:
     'https://wa.me/971585506498?text=' +
     encodeURIComponent('Здравствуйте! С сайта Vision Club — расскажите про резидентство'),
+  contactTelegram:
+    'https://t.me/manager_vision_club?text=' +
+    encodeURIComponent('Пишу вам с сайта Vision Club, подскажите по резидентству:'),
   email: 'vision.club.sales@gmail.com',
   legal: {
     name: 'Vision Club FZCO',
