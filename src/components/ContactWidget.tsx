@@ -2,12 +2,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { SITE } from '@/lib/site';
 
+const TELEGRAM_ICON =
+  'M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z';
+
 const CHANNELS = [
   {
     key: 'telegram',
     label: 'Telegram',
     href: SITE.contactTelegram,
-    icon: 'M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z',
+    icon: TELEGRAM_ICON,
   },
   {
     key: 'whatsapp',
@@ -60,7 +63,6 @@ export default function ContactWidget() {
           </a>
         ))}
       </div>
-      <span className="vc-contact-hint">Остались вопросы?</span>
       <button
         type="button"
         className="vc-contact-btn"
@@ -73,9 +75,16 @@ export default function ContactWidget() {
             <path d="M6 6l12 12M18 6L6 18" />
           </svg>
         ) : (
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#160B03" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.7A8.4 8.4 0 1 1 21 11.5z" />
-          </svg>
+          <>
+            <span className="vc-contact-hint">
+              Остались вопросы?
+              <br />
+              Напишите нам
+            </span>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+              <path d={TELEGRAM_ICON} />
+            </svg>
+          </>
         )}
       </button>
     </div>
