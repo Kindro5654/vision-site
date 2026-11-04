@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { countClick } from '@/lib/crmCount';
 import { SITE } from '@/lib/site';
 
 const TELEGRAM_ICON =
@@ -52,7 +53,10 @@ export default function ContactWidget() {
             rel="noopener noreferrer"
             tabIndex={open ? 0 : -1}
             className={`vc-contact-link vc-contact-${c.key}`}
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              countClick(`contact_${c.key}`);
+              setOpen(false);
+            }}
           >
             <span className="vc-contact-label">{c.label}</span>
             <span className="vc-contact-icon">
@@ -68,7 +72,10 @@ export default function ContactWidget() {
         className="vc-contact-btn"
         aria-expanded={open}
         aria-label={open ? 'Закрыть' : 'Написать менеджеру'}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          if (!open) countClick('contact_open');
+          setOpen(!open);
+        }}
       >
         {open ? (
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#160B03" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
