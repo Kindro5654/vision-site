@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { asset, SITE } from '@/lib/site';
 
 const COLS: { title: string; links: { label: string; href: string }[] }[] = [
@@ -163,9 +164,9 @@ export default function Footer() {
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
-            <a href="#" className="vc-flink" style={{ color: '#6E6A62', fontSize: 14 }}>
+            <Link href="/privacy/" className="vc-flink" style={{ color: '#6E6A62', fontSize: 14 }}>
               Политика конфиденциальности
-            </a>
+            </Link>
             <a
               href="#top"
               className="vc-up"
