@@ -40,4 +40,24 @@ export const PASSPORT = {
       body: 'Закрытый круг внутри Vision Club для собственников бизнеса с оборотом от $50 млн.',
     },
   ],
+  // Те же цифры, что в блоке «Vision в цифрах» на главной (Numbers.tsx). Меняются вместе.
+  turnover: [
+    { label: '$1–3 млн', pct: '25,6%', v: 25.6 },
+    { label: '$3–10 млн', pct: '37,5%', v: 37.5 },
+    { label: '$10–30 млн', pct: '10%', v: 10 },
+    { label: '$30–70 млн', pct: '8,7%', v: 8.7 },
+    { label: 'от $70 млн', pct: '15%', v: 15 },
+  ],
+  industries: [
+    { name: 'Услуги', v: 20, color: '#f2851b' },
+    { name: 'IT', v: 17, color: '#e0691c' },
+    { name: 'Торговля', v: 16, color: '#c95a17' },
+    { name: 'Инвестиции', v: 13, color: '#a24a14' },
+    { name: 'Финансы', v: 11, color: '#7d3a12' },
+    { name: 'Производство', v: 9, color: '#5a2a0e' },
+    { name: 'Ремонт и строительство', v: 8, color: '#f6dcc4' },
+    { name: 'Логистика', v: 6, color: '#f0b88a' },
+  ],
+  entrepreneursPct: 97,
+  allianceCountries: 10,
 } as const;
