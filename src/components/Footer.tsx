@@ -7,6 +7,7 @@ const COLS: { title: string; links: { label: string; href: string }[] }[] = [
     title: 'Клуб',
     links: [
       { label: 'О клубе', href: '/#top' },
+      { label: 'Факты и цифры', href: '/o-klube/' },
       { label: 'Резиденты', href: '/#residents' },
       { label: 'Спикеры', href: '/#speakers' },
       { label: 'Клубный дом', href: '/klubnyi-dom/' },

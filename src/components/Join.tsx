@@ -192,7 +192,7 @@ export default function Join() {
               </div>
               <div>
                 <div className="osw" style={{ fontWeight: 700, fontSize: 26, lineHeight: 1, color: 'var(--heading)' }}>
-                  1200<span style={{ color: 'var(--accent)' }}>+</span>
+                  1 200<span style={{ color: 'var(--accent)' }}>+</span>
                 </div>
                 <div style={{ fontSize: 15, color: 'var(--muted-2)', marginTop: 3 }}>резидентов уже в клубе</div>
               </div>
