@@ -75,7 +75,7 @@ const COPY = {
     back: '← Вернуться на главную',
   },
   en: {
-    title: 'Vision Club Clubhouse — a private members’ space in Dubai',
+    title: 'The Clubhouse — a private members’ space in Dubai',
     description:
       'The Vision Club Clubhouse is a private space in Dubai Internet City where the business club’s 220+ members meet. Address, directions, what happens inside and opening hours for members.',
     highlights: [
@@ -96,13 +96,13 @@ const COPY = {
         body: 'Candidates for membership are invited to the Clubhouse to meet the co-founders and other members of the club.',
       },
     ],
-    ldName: 'Vision Club Clubhouse',
+    ldName: 'Vision Clubhouse',
     ldHours: 'Members and invited guests only, by prior appointment through the club team.',
     home: 'Home',
     crumb: 'Clubhouse',
     crumbsAria: 'Breadcrumb',
-    h1: ['The ', 'Vision Club', ' Clubhouse in Dubai'],
-    lead: 'The Vision Clubhouse is a private space in Dubai Internet City where the club’s 220+ members come together. It hosts forum groups, dinners, meetings with guests, business deep dives and member circles. Not a co-working space or an office centre, but a members-only space among peers.',
+    h1: ['The ', 'Vision', ' Clubhouse in Dubai'],
+    lead: 'The Vision Clubhouse is a private space in Dubai Internet City where the club’s 220+ members come together. It hosts forum groups, dinners, meetings with guests, business deep dives and member circles. Neither a co-working space nor an office centre, it is reserved for members and their guests.',
     coverAlt: 'The Vision Clubhouse in Dubai',
     addressHead: 'Address and contact details',
     addressLabel: 'Address',

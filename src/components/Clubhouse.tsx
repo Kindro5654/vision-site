@@ -18,9 +18,9 @@ const COPY = {
     iframe: 'Vision Clubhouse — virtual tour',
     watch: 'Watch the video',
     tour: 'Virtual tour of the Clubhouse',
-    desc: 'Set in the heart of Dubai, it is neither a co-working space nor an office centre, but a private space for entrepreneurs to meet, for forum groups and for meaningful conversations between like-minded people.',
+    desc: 'Set in the heart of Dubai, the Clubhouse is neither a co-working space nor an office centre, but a private space for entrepreneurs to meet, for forum groups and for meaningful conversations between like-minded people.',
     address: 'Address and directions →',
-    quote: 'Here, you are among peers. We discuss what never leaves the room — the strategic, financial and personal sides of running a business.',
+    quote: 'Here, you’re among peers. We discuss what never leaves the room — the strategic, financial and personal sides of running a business.',
   },
 };
 

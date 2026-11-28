@@ -29,7 +29,7 @@ const COPY = {
   },
   en: {
     eyebrow: 'By invitation only',
-    h2: ['Apply for', 'membership'],
+    h2: ['Become', 'a member of'],
     lead: 'Submit your application and a member of our team will be in touch to walk you through membership and invite you to our next gathering.',
     members: 'members already in the club',
     nameAria: 'Full name',

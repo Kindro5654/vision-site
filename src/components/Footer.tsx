@@ -32,7 +32,7 @@ const COLS_EN: Col[] = [
     title: 'Formats',
     links: [
       { label: 'Events', href: '/en/#events' },
-      { label: 'Forum groups', href: '/en/about/#advantages' },
+      { label: 'Forum groups', href: '/en/#events' },
       { label: 'Alliance Clubs', href: '/en/#alliance' },
       { label: 'App', href: '/en/#app' },
     ],
@@ -53,7 +53,7 @@ const COPY = {
     tagline: 'An international business club for entrepreneurs and senior executives. Dubai · Alliance Clubs in 10 countries.',
     whatsappAria: 'Message us on WhatsApp',
     rights: 'All rights reserved.',
-    tel: 'Tel.:',
+    tel: 'Tel:',
     privacy: 'Privacy policy (in Russian)',
     up: 'Back to top',
   },

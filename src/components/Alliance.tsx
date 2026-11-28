@@ -5,7 +5,7 @@ import type { Lang } from '@/lib/i18n';
 
 const CLUBS = [
   { short: 'Wake UP!', name: 'Wake UP! Business club', country: 'США', countryEn: 'USA', lat: 40, lon: -98 },
-  { short: 'LBC', name: 'London Business Club', country: 'Великобритания', countryEn: 'United Kingdom', lat: 51, lon: -1 },
+  { short: 'LBC', name: 'London Business Club', country: 'Великобритания', countryEn: 'UK', lat: 51, lon: -1 },
   { short: 'BIZON', name: 'BIZON Business Club', country: 'Польша', countryEn: 'Poland', lat: 52, lon: 20 },
   { short: 'CAPITAL', name: 'Club CAPITAL', country: 'Армения', countryEn: 'Armenia', lat: 40, lon: 45 },
   { short: 'YARD', name: 'YARD Business Club', country: 'Узбекистан', countryEn: 'Uzbekistan', lat: 41, lon: 64 },

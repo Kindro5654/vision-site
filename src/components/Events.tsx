@@ -7,8 +7,8 @@ import { CLUB_EVENTS } from '@/lib/events';
 import type { Lang } from '@/lib/i18n';
 
 const COPY = {
-  ru: { title: 'Мероприятия', scroll: 'Листайте', prev: 'Назад', next: 'Вперёд' },
-  en: { title: 'Events', scroll: 'Scroll', prev: 'Previous', next: 'Next' },
+  ru: { title: 'Мероприятия', title2: 'Vision Club', scroll: 'Листайте', prev: 'Назад', next: 'Вперёд' },
+  en: { title: 'Events', title2: 'at Vision Club', scroll: 'Scroll', prev: 'Previous', next: 'Next' },
 };
 
 export default function Events({ lang = 'ru' }: { lang?: Lang }) {
@@ -53,7 +53,7 @@ export default function Events({ lang = 'ru' }: { lang?: Lang }) {
         >
           <span style={{ color: 'var(--accent)' }}>{t.title}</span>
           <br />
-          <span style={{ color: 'var(--heading)' }}>Vision Club</span>
+          <span style={{ color: 'var(--heading)' }}>{t.title2}</span>
         </h2>
         <div style={{ display: 'flex', alignItems: 'center', gap: 18, flexShrink: 0 }}>
           <span style={{ fontSize: 15, color: 'var(--dim)', letterSpacing: '.02em' }}>

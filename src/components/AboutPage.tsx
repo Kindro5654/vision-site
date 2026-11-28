@@ -103,7 +103,7 @@ const COPY = {
     back: '← Вернуться на главную',
   },
   en: {
-    title: 'Vision Club — facts and figures about the Dubai business club',
+    title: 'Facts and figures about the business club in Dubai',
     description:
       'Vision Club in numbers: founded in 2021, 220+ entrepreneurs in Dubai from 70+ industries, 1,200+ members across Alliance Clubs, a $1M annual revenue threshold, 250+ events a year and 18 forum groups.',
     updated: '28 November 2026',

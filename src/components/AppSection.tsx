@@ -16,7 +16,7 @@ const COPY = {
   en: {
     chips: ['Knowledge base', 'Member search', 'Chats', 'Geolocation', 'Event booking'],
     eyebrow: 'The Vision app',
-    head: ['Your club', 'always with you'],
+    head: ['Your club', 'within reach'],
     body: 'Personal access to events, contacts, forum groups and Alliance partners — all in one app.',
     altMembers: 'Vision App — members',
     altEvents: 'Vision App — events',

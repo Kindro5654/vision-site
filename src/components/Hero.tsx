@@ -31,7 +31,7 @@ const COPY = {
     headerCta: 'Apply',
     eyebrow: 'By invitation only · Dubai',
     h1: 'international business club',
-    lead: 'We bring together 220+ established entrepreneurs in Dubai and connect them with 1,200+ members worldwide through Alliance Clubs.',
+    lead: '220+ established entrepreneurs in Dubai, connected to 1,200+ members worldwide through Alliance Clubs.',
     namePlaceholder: 'Full name',
     nameAria: 'Full name',
     submit: 'Request an invitation',
