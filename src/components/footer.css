@@ -1,0 +1,75 @@
+/* Подвал сайта (макет «Клубный дом» 28.11). Изолирован под .vf, чтобы не задевать остальные стили. */
+.vf {
+  --vf-accent: #f2851b;
+  --vf-text: #f4f1ec;
+  --vf-text-2: #d9d5cd;
+  --vf-muted: #a6a29a;
+  --vf-dim: #8f8b83;
+  --vf-line: rgba(255,255,255,.08);
+  --vf-line-strong: rgba(255,255,255,.16);
+  position: relative; overflow: hidden; border-top: 1px solid var(--vf-line);
+  padding: 64px 0 32px; font-size: 15px; line-height: 1.55; color: var(--vf-text);
+  font-family: var(--font-golos), "Golos Text", system-ui, sans-serif;
+}
+.vf::before { content: ""; position: absolute; bottom: -220px; left: 50%; width: 900px; height: 420px; margin-left: -450px; border-radius: 50%; background: radial-gradient(circle, rgba(233,107,30,.16), rgba(233,107,30,0) 70%); pointer-events: none; }
+.vf a { color: inherit; text-decoration: none; }
+.vf__wrap { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.vf__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 40px; }
+.vf__brand { display: flex; flex-direction: column; gap: 18px; }
+.vf__logo img { height: 30px; width: auto; display: block; }
+.vf__tagline { font-size: 14px; color: var(--vf-muted); margin: 0; }
+.vf__wa { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 18px; border-radius: 16px; background: linear-gradient(180deg, #1f1f23, #18181b); border: 1px solid rgba(255,255,255,.1); transition: border-color .25s; }
+.vf__wa:hover { border-color: rgba(233,107,30,.45); }
+.vf__wa-text { flex: 1; display: flex; flex-direction: column; line-height: 1.25; }
+.vf__wa-text b { font-weight: 600; font-size: 16px; }
+.vf__wa-text small { font-size: 12px; color: var(--vf-muted); }
+.vf__wa-arrow { color: var(--vf-accent); }
+.vf__socials { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.vf__socials a { height: 52px; border-radius: 14px; background: rgba(255,255,255,.05); border: 1px solid var(--vf-line); display: flex; align-items: center; justify-content: center; transition: border-color .25s, background .25s; }
+.vf__socials a:hover { border-color: rgba(233,107,30,.45); background: rgba(233,107,30,.08); }
+.vf__cols { display: contents; }
+.vf__col summary { list-style: none; display: flex; justify-content: space-between; align-items: center; min-height: 44px; font-family: var(--font-oswald), Oswald, sans-serif; text-transform: uppercase; letter-spacing: .1em; font-size: 14px; color: var(--vf-text-2); pointer-events: none; }
+.vf__col summary::-webkit-details-marker { display: none; }
+.vf__links { display: flex; flex-direction: column; gap: 4px; }
+.vf__links a { padding: 6px 0; transition: color .2s; }
+.vf__links a:hover { color: var(--vf-accent); }
+.vf__legal { font-size: 13px; color: var(--vf-muted); display: flex; flex-direction: column; gap: 4px; }
+.vf__legal a:hover { color: var(--vf-accent); }
+.vf__bottom { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--vf-line); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 13px; color: var(--vf-dim); }
+.vf__bottom-left { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.vf__bottom-left a { color: var(--vf-muted); text-decoration: underline; text-underline-offset: 3px; }
+.vf__up { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--vf-line-strong); color: var(--vf-text-2); background: none; font: inherit; cursor: pointer; }
+.vf__up:hover { border-color: rgba(233,107,30,.45); }
+
+@media (max-width: 1024px) {
+  .vf__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .vf { padding: 32px 0 24px; }
+  .vf__wrap { padding: 0 16px; }
+  .vf__grid { grid-template-columns: 1fr; gap: 24px; }
+  .vf__cols { display: flex; flex-direction: column; }
+  .vf__col { border-top: 1px solid var(--vf-line); }
+  .vf__col:last-child { border-bottom: 1px solid var(--vf-line); }
+  .vf__col summary { min-height: 52px; pointer-events: auto; cursor: pointer; }
+  .vf__col summary::after { content: "+"; color: var(--vf-accent); font-size: 18px; font-family: var(--font-golos), sans-serif; }
+  .vf__col[open] summary::after { content: "−"; }
+  .vf__links { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; padding-bottom: 16px; }
+  .vf__legal { padding-bottom: 16px; }
+  .vf__bottom { margin-top: 24px; padding-top: 0; border-top: 0; font-size: 12px; }
+  .vf__bottom-left { flex-direction: column; gap: 4px; }
+  /* место под нижнюю панель «Получить приглашение» */
+  .vf { padding-bottom: 96px; }
+}
+
+/* ---------- Нижняя панель на телефоне: «Получить приглашение» + Telegram ---------- */
+.vbar { display: none; }
+@media (max-width: 640px) {
+  .vbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; gap: 8px; padding: 10px 16px calc(14px + env(safe-area-inset-bottom)); background: linear-gradient(180deg, rgba(11,11,13,0), rgba(11,11,13,.95) 35%); transition: transform .3s ease, opacity .3s ease; }
+  .vbar.is-hidden { transform: translateY(110%); opacity: 0; pointer-events: none; }
+  .vbar__cta { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; border-radius: 999px; border: 0; background: linear-gradient(135deg, #f2851b, #e0691c); color: #0b0b0d; font-family: var(--font-oswald), Oswald, sans-serif; font-weight: 600; font-size: 15px; letter-spacing: .04em; text-transform: uppercase; box-shadow: 0 10px 40px rgba(233,107,30,.35); cursor: pointer; }
+  .vbar__tg { flex: 0 0 52px; height: 52px; border-radius: 50%; background: #1f1f23; border: 1px solid rgba(255,255,255,.16); display: flex; align-items: center; justify-content: center; }
+  /* старые плавающие элементы на телефоне заменены панелью */
+  #vc-contact { display: none !important; }
+}
+.vf__up { white-space: nowrap; }

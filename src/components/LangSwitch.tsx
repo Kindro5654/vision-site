@@ -12,8 +12,8 @@ export default function LangSwitch({
   className?: string;
 }) {
   const items: { code: Lang; label: string; title: string }[] = [
-    { code: 'ru', label: 'RU', title: 'Русская версия' },
-    { code: 'en', label: 'EN', title: 'English version' },
+    { code: 'ru', label: 'RU', title: lang === 'en' ? 'Switch to Russian' : 'Русская версия' },
+    { code: 'en', label: 'EN', title: lang === 'en' ? 'English version' : 'Английская версия' },
   ];
   return (
     // div, не nav: в шапке главной CSS прячет nav на мобиле, а переключатель должен остаться.

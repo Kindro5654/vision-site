@@ -27,11 +27,11 @@ const ANCHORS: { id: string; ru: string; en: string }[] = [
 ];
 
 /** Лента якорей в шапке; активный пункт подсвечивается по прокрутке. */
-export function AnchorNav({ lang }: { lang: Lang }) {
-  const [active, setActive] = useState('facts');
+export function AnchorNav({ lang, items = ANCHORS }: { lang: Lang; items?: { id: string; ru: string; en: string }[] }) {
+  const [active, setActive] = useState(items[0]?.id ?? '');
 
   useEffect(() => {
-    const sections = ANCHORS.map((a) => document.getElementById(a.id)).filter(
+    const sections = items.map((a) => document.getElementById(a.id)).filter(
       (el): el is HTMLElement => el !== null,
     );
     const observer = new IntersectionObserver(
@@ -45,11 +45,11 @@ export function AnchorNav({ lang }: { lang: Lang }) {
     );
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
-  }, []);
+  }, [items]);
 
   return (
     <nav className="anchors" aria-label={lang === 'en' ? 'Page sections' : 'Разделы страницы'}>
-      {ANCHORS.map((a) => (
+      {items.map((a) => (
         <a key={a.id} href={`#${a.id}`} className={active === a.id ? 'is-active' : undefined}>
           {a[lang]}
         </a>
