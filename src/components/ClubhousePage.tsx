@@ -6,18 +6,12 @@ import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
 import MainCTAModal from '@/components/MainCTAModal';
 import LangSwitch from '@/components/LangSwitch';
-import { AnchorNav, ApplyButton } from '@/components/about/AboutClient';
+import { ApplyButton } from '@/components/about/AboutClient';
 import { alternatesFor, href, OG_LOCALE, SCHEMA_LANG, type Lang } from '@/lib/i18n';
 import '@/components/clubhouse/clubhouse.css';
 
 // Страница «Клубный дом»: /klubnyi-dom/ (ru) и /en/clubhouse/ (en).
 // Дизайн — макет владельца 28.11 (~/Desktop/vision-klubnyi-dom), стили изолированы под .hse.
-
-const ANCHORS = [
-  { id: 'inside', ru: 'Что внутри', en: 'Inside' },
-  { id: 'gallery', ru: 'Атмосфера', en: 'Atmosphere' },
-  { id: 'route', ru: 'Как добраться', en: 'Getting here' },
-];
 
 const PHOTO = {
   hero: '/assets/clubhouse/lounge-hero.webp',
@@ -325,7 +319,6 @@ export default function ClubhousePage({ lang = 'ru' }: { lang?: Lang }) {
             <Link className="header__logo" href={href('home', lang)} aria-label={t.logoAria}>
               <Image src={asset('/assets/logo-vision.png')} alt="Vision Club" width={110} height={24} priority style={{ height: 24, width: 'auto' }} />
             </Link>
-            <AnchorNav lang={lang} items={ANCHORS} />
             <LangSwitch lang={lang} page="clubhouse" className="okl-lang" />
             <ApplyButton className="btn btn--primary btn--sm header__cta">{t.apply}</ApplyButton>
           </div>

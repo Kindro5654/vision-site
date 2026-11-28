@@ -404,3 +404,5 @@
 @media (max-width: 640px) { .hse .gallery-note-mobile { display: block; } }
 /* Без заглушки сетки, когда стоит настоящая карта */
 .hse .map { background-image: none; }
+/* Шапка без ленты якорей: на телефоне одна строка */
+@media (max-width: 640px) { .hse { padding-top: 65px; } .hse .okl-lang { margin-left: auto; } }
