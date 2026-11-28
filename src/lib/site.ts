@@ -42,6 +42,8 @@ export const SITE = {
 } as const;
 
 export const META_PIXEL_ID = '561860935084473';
+export const GA4_ID = 'G-V5MTK3RRQY';
+export const YM_ID = 114753180;
 
 export const asset = (p: string) => {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || '';

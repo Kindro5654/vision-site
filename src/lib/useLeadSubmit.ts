@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
+import { YM_ID } from '@/lib/site';
 
 const ENDPOINT = process.env.NEXT_PUBLIC_LEAD_ENDPOINT || '';
 const API_KEY = process.env.NEXT_PUBLIC_LEAD_API_KEY || '';
@@ -218,5 +219,16 @@ function trackPixelLead() {
     fbq?.('track', 'Lead');
   } catch {
     // pixel blocked by adblock — noop
+  }
+  // GA4 and Yandex.Metrika: the same lead, so AI/search traffic can be tied to applications.
+  try {
+    const w = window as unknown as {
+      gtag?: (...args: unknown[]) => void;
+      ym?: (...args: unknown[]) => void;
+    };
+    w.gtag?.('event', 'generate_lead');
+    w.ym?.(YM_ID, 'reachGoal', 'lead_submit');
+  } catch {
+    // blocked by adblock — noop
   }
 }
