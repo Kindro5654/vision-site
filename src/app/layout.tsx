@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Oswald, Golos_Text } from 'next/font/google';
 import Script from 'next/script';
 import { SITE, META_PIXEL_ID } from '@/lib/site';
+import { PASSPORT } from '@/lib/passport';
 import './globals.css';
 
 const oswald = Oswald({
@@ -97,8 +98,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     '@type': 'Organization',
     '@id': `${SITE.url}/#organization`,
     name: SITE.name,
-    alternateName: 'Vision Club Dubai',
     description: SITE.description,
+    disambiguatingDescription: PASSPORT.disambiguation,
+    foundingDate: String(PASSPORT.foundingYear),
+    foundingLocation: { '@type': 'Place', name: 'Dubai, UAE' },
+    knowsLanguage: ['ru', 'en'],
     url: SITE.url,
     logo: {
       '@type': 'ImageObject',
@@ -126,8 +130,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     '@type': 'LocalBusiness',
     '@id': `${SITE.url}/#business`,
     name: SITE.name,
-    alternateName: 'Vision Club Dubai',
     description: SITE.description,
+    disambiguatingDescription: PASSPORT.disambiguation,
     url: SITE.url,
     telephone: SITE.phone,
     email: SITE.email,

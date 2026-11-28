@@ -7,7 +7,9 @@ const AI_BOTS = [
   'ChatGPT-User',     // OpenAI (on-demand)
   'OAI-SearchBot',    // OpenAI SearchGPT
   'ClaudeBot',        // Anthropic training
-  'Claude-Web',       // Anthropic web fetching
+  'Claude-SearchBot', // Anthropic search (Claude web search)
+  'Claude-User',      // Anthropic on-demand fetch
+  'Claude-Web',       // Anthropic legacy
   'anthropic-ai',     // Anthropic legacy
   'PerplexityBot',    // Perplexity crawler
   'Perplexity-User',  // Perplexity on-demand

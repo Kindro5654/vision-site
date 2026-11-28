@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { SITE } from '@/lib/site';
 import { ARTICLES } from '@/lib/articles';
+import { PASSPORT } from '@/lib/passport';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -16,6 +17,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'yearly',
       priority: 0.2,
+    },
+    {
+      url: `${SITE.url}/o-klube/`,
+      lastModified: new Date(PASSPORT.updatedAt),
+      changeFrequency: 'monthly',
+      priority: 0.9,
     },
     {
       url: `${SITE.url}/klubnyi-dom/`,
