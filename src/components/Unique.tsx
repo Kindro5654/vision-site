@@ -1,7 +1,30 @@
 'use client';
 import { useMounted, reveal } from '@/lib/useMounted';
+import type { Lang } from '@/lib/i18n';
 
-export default function Unique() {
+const COPY = {
+  ru: {
+    eyebrow: 'Почему Vision',
+    head: ['Что делает Vision ', 'уникальным'],
+    stat: 'участников',
+    statBody: 'Постоянно проживают и ведут бизнес в Дубае.',
+    clubhouse: { title: 'Клубный дом', body: 'Собственное место силы и доверия в центре Дубая — место, где решения становятся действиями.' },
+    forum: { title: 'Forum-group', body: 'Конфиденциальное пространство, где все равны. Ваш личный совет директоров.' },
+    manager: { title: 'Персональный бизнес-менеджер', body: 'Соединяет с нужными людьми и помогает решить запросы.' },
+  },
+  en: {
+    eyebrow: 'Why Vision',
+    head: ['What makes Vision ', 'different'],
+    stat: 'of members',
+    statBody: 'Live in Dubai and run their businesses here.',
+    clubhouse: { title: 'The Clubhouse', body: 'Our own private space in central Dubai, built on trust — where decisions turn into action.' },
+    forum: { title: 'Forum group', body: 'A confidential circle where everyone is an equal. Your own personal board of directors.' },
+    manager: { title: 'Dedicated relationship manager', body: 'Connects you with the right people and helps you get things done.' },
+  },
+};
+
+export default function Unique({ lang = 'ru' }: { lang?: Lang }) {
+  const t = COPY[lang];
   const m = useMounted();
   return (
     <section
@@ -32,7 +55,7 @@ export default function Unique() {
       <div style={{ position: 'relative', maxWidth: 2400, margin: '0 auto' }}>
         <div className="eyebrow" style={{ marginBottom: 18, ...reveal(m, 0.02) }}>
           <span className="eyebrow-line" />
-          <span className="eyebrow-text">Почему Vision</span>
+          <span className="eyebrow-text">{t.eyebrow}</span>
         </div>
         <h2
           className="osw vc-uni-head"
@@ -48,7 +71,7 @@ export default function Unique() {
             ...reveal(m, 0.08),
           }}
         >
-          Что делает Vision <span style={{ color: 'var(--accent)' }}>уникальным</span>
+          {t.head[0]}<span style={{ color: 'var(--accent)' }}>{t.head[1]}</span>
         </h2>
 
         <div
@@ -93,10 +116,10 @@ export default function Unique() {
                   marginTop: 6,
                 }}
               >
-                участников
+                {t.stat}
               </div>
               <p style={{ fontSize: 18, lineHeight: 1.45, color: '#3A1F08', marginTop: 14, maxWidth: 280 }}>
-                Постоянно проживают и ведут бизнес в Дубае.
+                {t.statBody}
               </p>
             </div>
             <div
@@ -116,17 +139,17 @@ export default function Unique() {
           </div>
 
           {/* tile 2 wide */}
-          <DarkTile num="02" title="Клубный дом" body="Собственное место силы и доверия в центре Дубая — место, где решения становятся действиями." icon={
+          <DarkTile num="02" title={t.clubhouse.title} body={t.clubhouse.body} icon={
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M3 10l9-7 9 7M5 9v11a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9" /></svg>
           } gridColumn="2 / span 2" gridRow="1" minHeight={248} headSize={30} bodyMax={540} delay={0.24} m={m} />
 
           {/* tile 3 */}
-          <DarkTile num="03" title="Forum-group" body="Конфиденциальное пространство, где все равны. Ваш личный совет директоров." icon={
+          <DarkTile num="03" title={t.forum.title} body={t.forum.body} icon={
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
           } gridColumn="2" gridRow="2" minHeight={200} headSize={27} delay={0.32} m={m} />
 
           {/* tile 4 */}
-          <DarkTile num="04" title="Персональный бизнес-менеджер" body="Соединяет с нужными людьми и помогает решить запросы." icon={
+          <DarkTile num="04" title={t.manager.title} body={t.manager.body} icon={
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88" /></svg>
           } gridColumn="3" gridRow="2" minHeight={200} headSize={24} delay={0.4} m={m} />
         </div>

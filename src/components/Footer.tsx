@@ -1,8 +1,65 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { asset, SITE } from '@/lib/site';
+import LangSwitch from '@/components/LangSwitch';
+import type { Lang, PageKey } from '@/lib/i18n';
 
-const COLS: { title: string; links: { label: string; href: string }[] }[] = [
+type Col = { title: string; links: { label: string; href: string }[] };
+
+const CONTACT_LINKS = (lang: Lang) => [
+  { label: 'Telegram', href: SITE.socials.telegram },
+  { label: 'WhatsApp', href: lang === 'en' ? SITE.whatsappEn : SITE.whatsapp },
+  { label: 'Instagram', href: SITE.socials.instagram },
+  { label: 'LinkedIn', href: SITE.socials.linkedin },
+  { label: SITE.legal.email, href: `mailto:${SITE.legal.email}` },
+  { label: SITE.email, href: `mailto:${SITE.email}` },
+];
+
+// Английский футер: блог и политика конфиденциальности есть только на русском —
+// ссылки на них подписаны «(in Russian)» или заменены разделами английской главной.
+const COLS_EN: Col[] = [
+  {
+    title: 'The club',
+    links: [
+      { label: 'About', href: '/en/#top' },
+      { label: 'Facts & figures', href: '/en/about/' },
+      { label: 'Members', href: '/en/#residents' },
+      { label: 'Speakers', href: '/en/#speakers' },
+      { label: 'Clubhouse', href: '/en/clubhouse/' },
+    ],
+  },
+  {
+    title: 'Formats',
+    links: [
+      { label: 'Events', href: '/en/#events' },
+      { label: 'Forum groups', href: '/en/about/#advantages' },
+      { label: 'Alliance Clubs', href: '/en/#alliance' },
+      { label: 'App', href: '/en/#app' },
+    ],
+  },
+  { title: 'Contact', links: CONTACT_LINKS('en') },
+];
+
+const COPY = {
+  ru: {
+    tagline: 'Международный бизнес-клуб для предпринимателей и топ-менеджеров. Дубай · Альянс клубов в 10 странах.',
+    whatsappAria: 'Написать в WhatsApp',
+    rights: 'Все права защищены.',
+    tel: 'Тел.:',
+    privacy: 'Политика конфиденциальности',
+    up: 'Наверх',
+  },
+  en: {
+    tagline: 'An international business club for entrepreneurs and senior executives. Dubai · Alliance Clubs in 10 countries.',
+    whatsappAria: 'Message us on WhatsApp',
+    rights: 'All rights reserved.',
+    tel: 'Tel.:',
+    privacy: 'Privacy policy (in Russian)',
+    up: 'Back to top',
+  },
+};
+
+const COLS: Col[] = [
   {
     title: 'Клуб',
     links: [
@@ -22,20 +79,13 @@ const COLS: { title: string; links: { label: string; href: string }[] }[] = [
       { label: 'Приложение', href: '/#app' },
     ],
   },
-  {
-    title: 'Контакты',
-    links: [
-      { label: 'Telegram', href: SITE.socials.telegram },
-      { label: 'WhatsApp', href: SITE.whatsapp },
-      { label: 'Instagram', href: SITE.socials.instagram },
-      { label: 'LinkedIn', href: SITE.socials.linkedin },
-      { label: SITE.legal.email, href: `mailto:${SITE.legal.email}` },
-      { label: SITE.email, href: `mailto:${SITE.email}` },
-    ],
-  },
+  { title: 'Контакты', links: CONTACT_LINKS('ru') },
 ];
 
-export default function Footer() {
+/** page — какая страница сейчас открыта: переключатель языка ведёт на её пару. */
+export default function Footer({ lang = 'ru', page = 'home' }: { lang?: Lang; page?: PageKey }) {
+  const t = COPY[lang];
+  const cols = lang === 'en' ? COLS_EN : COLS;
   return (
     <footer
       style={{
@@ -71,13 +121,13 @@ export default function Footer() {
                 maxWidth: 300,
               }}
             >
-              Международный бизнес-клуб для предпринимателей и топ-менеджеров. Дубай · Альянс клубов в 10 странах.
+              {t.tagline}
             </p>
             <a
-              href={SITE.whatsapp}
+              href={lang === 'en' ? SITE.whatsappEn : SITE.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Написать в WhatsApp ${SITE.phone}`}
+              aria-label={`${t.whatsappAria} ${SITE.phone}`}
               className="vc-flink"
               style={{
                 display: 'inline-flex',
@@ -102,7 +152,7 @@ export default function Footer() {
               {SITE.phone}
             </a>
           </div>
-          {COLS.map((col) => (
+          {cols.map((col) => (
             <div key={col.title}>
               <div
                 className="osw"
@@ -149,10 +199,10 @@ export default function Footer() {
           }}
         >
           <div style={{ fontSize: 14, lineHeight: 1.6, color: '#6E6A62' }}>
-            <div>{`© ${new Date().getFullYear()} ${SITE.legal.name}. Все права защищены.`}</div>
+            <div>{`© ${new Date().getFullYear()} ${SITE.legal.name}. ${t.rights}`}</div>
             <div>{SITE.legal.address}</div>
             <div>
-              Тел.:{' '}
+              {t.tel}{' '}
               <a href={`tel:${SITE.legal.phoneE164}`} className="vc-flink" style={{ color: 'inherit' }}>
                 {SITE.legal.phone}
               </a>
@@ -165,13 +215,19 @@ export default function Footer() {
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
-            <Link href="/privacy/" className="vc-flink" style={{ color: '#6E6A62', fontSize: 14 }}>
-              Политика конфиденциальности
+            <LangSwitch lang={lang} page={page} />
+            <Link
+              href="/privacy/"
+              className="vc-flink"
+              style={{ color: '#6E6A62', fontSize: 14 }}
+              {...(lang === 'en' ? { hrefLang: 'ru' } : {})}
+            >
+              {t.privacy}
             </Link>
             <a
               href="#top"
               className="vc-up"
-              aria-label="Наверх"
+              aria-label={t.up}
               style={{
                 width: 46,
                 height: 46,

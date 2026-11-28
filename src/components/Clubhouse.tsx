@@ -1,10 +1,33 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { useMounted, reveal } from '@/lib/useMounted';
+import { href, type Lang } from '@/lib/i18n';
+
+const COPY = {
+  ru: {
+    head: ['Клубный дом Vision', 'Место силы и доверия'],
+    iframe: 'Vision Clubhouse — онлайн-экскурсия',
+    watch: 'Смотреть видео',
+    tour: 'Онлайн-экскурсия по Клубному Дому',
+    desc: 'Расположен в самом сердце Дубая — это не коворкинг и не бизнес-центр, а частное пространство для встреч предпринимателей, форум-групп и глубоких разговоров единомышленников.',
+    address: 'Адрес и как добраться →',
+    quote: 'Здесь свои. Обсуждаем то, что не выносят наружу — стратегические, финансовые и личные вопросы бизнеса.',
+  },
+  en: {
+    head: ['The Vision Clubhouse', 'A home built on trust'],
+    iframe: 'Vision Clubhouse — virtual tour',
+    watch: 'Watch the video',
+    tour: 'Virtual tour of the Clubhouse',
+    desc: 'Set in the heart of Dubai, it is neither a co-working space nor an office centre, but a private space for entrepreneurs to meet, for forum groups and for meaningful conversations between like-minded people.',
+    address: 'Address and directions →',
+    quote: 'Here, you are among peers. We discuss what never leaves the room — the strategic, financial and personal sides of running a business.',
+  },
+};
 
 const VIDEO_ID = 'WDTME_9tmpQ';
 
-export default function Clubhouse() {
+export default function Clubhouse({ lang = 'ru' }: { lang?: Lang }) {
+  const t = COPY[lang];
   const m = useMounted();
   const wrapRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -57,9 +80,9 @@ export default function Clubhouse() {
             ...reveal(m, 0.02),
           }}
         >
-          <span style={{ color: 'var(--accent)' }}>Клубный дом Vision</span>
+          <span style={{ color: 'var(--accent)' }}>{t.head[0]}</span>
           <br />
-          <span style={{ color: 'var(--heading)' }}>Место силы и доверия</span>
+          <span style={{ color: 'var(--heading)' }}>{t.head[1]}</span>
         </h2>
 
         <div
@@ -77,7 +100,7 @@ export default function Clubhouse() {
           {inView ? (
             <iframe
               src={embedSrc}
-              title="Vision Clubhouse — онлайн-экскурсия"
+              title={t.iframe}
               loading="lazy"
               allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
               allowFullScreen
@@ -180,7 +203,7 @@ export default function Clubhouse() {
                 color: 'rgba(26,14,3,.62)',
               }}
             >
-              Смотреть видео
+              {t.watch}
             </span>
             <span
               className="osw"
@@ -193,7 +216,7 @@ export default function Clubhouse() {
                 color: '#160B03',
               }}
             >
-              Онлайн-экскурсия по Клубному Дому
+              {t.tour}
             </span>
           </span>
           <svg
@@ -234,9 +257,8 @@ export default function Clubhouse() {
               color: '#C9C5BD',
             }}
           >
-            Расположен в самом сердце Дубая — это не коворкинг и не бизнес-центр, а частное пространство для
-            встреч предпринимателей, форум-групп и глубоких разговоров единомышленников. <a
-              href="/klubnyi-dom/"
+            {t.desc} <a
+              href={href('clubhouse', lang)}
               style={{
                 color: 'var(--accent)',
                 textDecoration: 'none',
@@ -244,7 +266,7 @@ export default function Clubhouse() {
                 paddingBottom: 1,
                 whiteSpace: 'nowrap',
               }}
-            >Адрес и как добраться →</a>
+            >{t.address}</a>
           </p>
           <div
             className="vc-club-quote"
@@ -267,8 +289,7 @@ export default function Clubhouse() {
                 color: '#1A0E03',
               }}
             >
-              Здесь свои. Обсуждаем то, что не выносят наружу — стратегические, финансовые и личные вопросы
-              бизнеса.
+              {t.quote}
             </div>
           </div>
         </div>

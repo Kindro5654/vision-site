@@ -1,18 +1,36 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { useMounted, reveal } from '@/lib/useMounted';
+import type { Lang } from '@/lib/i18n';
 
 const CLUBS = [
-  { short: 'Wake UP!', name: 'Wake UP! Business club', country: 'США', lat: 40, lon: -98 },
-  { short: 'LBC', name: 'London Business Club', country: 'Великобритания', lat: 51, lon: -1 },
-  { short: 'BIZON', name: 'BIZON Business Club', country: 'Польша', lat: 52, lon: 20 },
-  { short: 'CAPITAL', name: 'Club CAPITAL', country: 'Армения', lat: 40, lon: 45 },
-  { short: 'YARD', name: 'YARD Business Club', country: 'Узбекистан', lat: 41, lon: 64 },
-  { short: 'GROW', name: 'GROW Business Club', country: 'Кипр', lat: 35, lon: 33 },
-  { short: 'JEWISH', name: 'Jewish Business Club', country: 'Израиль', lat: 31, lon: 35 },
-  { short: 'vision', name: 'Vision Club Dubai', country: 'ОАЭ', lat: 25, lon: 55 },
-  { short: 'HILL', name: 'HILL CLUB', country: 'Таиланд', lat: 15, lon: 100 },
+  { short: 'Wake UP!', name: 'Wake UP! Business club', country: 'США', countryEn: 'USA', lat: 40, lon: -98 },
+  { short: 'LBC', name: 'London Business Club', country: 'Великобритания', countryEn: 'United Kingdom', lat: 51, lon: -1 },
+  { short: 'BIZON', name: 'BIZON Business Club', country: 'Польша', countryEn: 'Poland', lat: 52, lon: 20 },
+  { short: 'CAPITAL', name: 'Club CAPITAL', country: 'Армения', countryEn: 'Armenia', lat: 40, lon: 45 },
+  { short: 'YARD', name: 'YARD Business Club', country: 'Узбекистан', countryEn: 'Uzbekistan', lat: 41, lon: 64 },
+  { short: 'GROW', name: 'GROW Business Club', country: 'Кипр', countryEn: 'Cyprus', lat: 35, lon: 33 },
+  { short: 'JEWISH', name: 'Jewish Business Club', country: 'Израиль', countryEn: 'Israel', lat: 31, lon: 35 },
+  { short: 'vision', name: 'Vision Club Dubai', nameEn: 'Vision Club', country: 'ОАЭ', countryEn: 'UAE', lat: 25, lon: 55 },
+  { short: 'HILL', name: 'HILL CLUB', country: 'Таиланд', countryEn: 'Thailand', lat: 15, lon: 100 },
 ];
+
+const COPY = {
+  ru: {
+    mapAria: 'Карта международного Альянса клубов',
+    eyebrow: 'Альянс клубов',
+    head: 'часть международного альянса',
+    body: 'Каждый резидент получает доступ к предпринимателям из США, Европы, Азии и Ближнего Востока, участвует в международных саммитах и формирует связи за пределами своей страны.',
+    chips: ['1 200+ предпринимателей', '10 стран', 'слёты', 'решение запросов'],
+  },
+  en: {
+    mapAria: 'Map of the Alliance Clubs international network',
+    eyebrow: 'Alliance Clubs',
+    head: 'part of an international alliance',
+    body: 'Every member gains access to entrepreneurs across the US, Europe, Asia and the Middle East, takes part in international summits and builds connections far beyond their home country.',
+    chips: ['1,200+ entrepreneurs', '10 countries', 'summits', 'help with any request'],
+  },
+};
 
 const HUB_IDX = CLUBS.findIndex((c) => c.short === 'vision');
 
@@ -43,7 +61,10 @@ const LAND: ReadonlyArray<readonly [number, number, number, number]> = [
 
 const ACCENT = '#E96B1E';
 
-export default function Alliance() {
+export default function Alliance({ lang = 'ru' }: { lang?: Lang }) {
+  const t = COPY[lang];
+  const clubName = (c: (typeof CLUBS)[number]): string =>
+    (lang === 'en' && 'nameEn' in c && c.nameEn) || c.name;
   const m = useMounted();
   const [hov, setHov] = useState<number | null>(null);
   const [sel, setSel] = useState<number>(HUB_IDX);
@@ -238,7 +259,7 @@ export default function Alliance() {
           ctx.beginPath();
           ctx.arc(sx, sy, rad + 5, 0, 7);
           ctx.stroke();
-          label = { name: CLUBS[i].name, sx, sy };
+          label = { name: clubName(CLUBS[i]), sx, sy };
         }
       }
 
@@ -348,6 +369,8 @@ export default function Alliance() {
       window.removeEventListener('resize', onResize);
       window.removeEventListener('orientationchange', onResize);
     };
+    // Mount-only: глобус создаётся один раз; lang (а с ним clubName) на странице не меняется.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const selectClub = (i: number) => {
@@ -404,13 +427,13 @@ export default function Alliance() {
             minHeight: 560,
           }}
         >
-          <canvas ref={canvasRef} style={{ display: 'block', cursor: 'grab' }} aria-label="Карта международного Альянса клубов" />
+          <canvas ref={canvasRef} style={{ display: 'block', cursor: 'grab' }} aria-label={t.mapAria} />
         </div>
 
         <div>
           <div className="eyebrow" style={{ marginBottom: 18 }}>
             <span className="eyebrow-line" />
-            <span className="eyebrow-text">Альянс клубов</span>
+            <span className="eyebrow-text">{t.eyebrow}</span>
           </div>
           <h2
             className="osw vc-allnce-head"
@@ -423,14 +446,13 @@ export default function Alliance() {
               color: 'var(--heading)',
             }}
           >
-            Vision <span style={{ color: 'var(--accent)' }}>—</span> часть международного альянса
+            Vision <span style={{ color: 'var(--accent)' }}>—</span> {t.head}
           </h2>
           <p style={{ fontSize: 17, lineHeight: 1.55, color: 'var(--muted)', marginTop: 18, maxWidth: 560 }}>
-            Каждый резидент получает доступ к предпринимателям из США, Европы, Азии и Ближнего Востока,
-            участвует в международных саммитах и формирует связи за пределами своей страны.
+            {t.body}
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 22 }}>
-            {['1 200+ предпринимателей', '10 стран', 'слёты', 'решение запросов'].map((p) => (
+            {t.chips.map((p) => (
               <span
                 key={p}
                 style={{
@@ -498,7 +520,7 @@ export default function Alliance() {
                       textOverflow: 'ellipsis',
                     }}
                   >
-                    {c.name}
+                    {clubName(c)}
                   </span>
                   <span
                     style={{
@@ -509,7 +531,7 @@ export default function Alliance() {
                       flexShrink: 0,
                     }}
                   >
-                    {c.country}
+                    {lang === 'en' ? c.countryEn : c.country}
                   </span>
                 </div>
               );

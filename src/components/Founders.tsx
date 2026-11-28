@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { useMounted, reveal } from '@/lib/useMounted';
 import { asset } from '@/lib/site';
+import type { Lang } from '@/lib/i18n';
 
 const FOUNDERS = [
   {
@@ -14,6 +15,12 @@ const FOUNDERS = [
     bio: 'За 13 лет выстроил международную сеть бизнес-лидеров и лично провёл тысячи встреч с предпринимателями по всему миру.',
     quote: 'Vision — не про количество контактов, а про качество окружения',
     instagram: 'https://www.instagram.com/aleksey_nakazny',
+    en: {
+      name: 'Aleksey Nakazny',
+      role: 'Serial entrepreneur and co-founder of Vision Club and Alliance Clubs',
+      bio: 'Over 13 years, he has built an international network of business leaders and personally met thousands of entrepreneurs around the world.',
+      quote: 'Vision isn’t about how many people you know. It’s about who’s in the room.',
+    },
     facebook: 'https://www.facebook.com/aleksey.nakaznyi',
   },
   {
@@ -26,12 +33,19 @@ const FOUNDERS = [
     bio: 'За 8 лет запустила 5 бизнес-клубов в разных странах, провела 2000+ мероприятий и выстроила сильные сообщества предпринимателей, соединяя лидеров через реальные проекты и партнёрства.',
     quote: 'Сила Vision — в людях, которые не ищут выгоду, а создают ценность',
     instagram: 'https://www.instagram.com/dariia_nakaznaya/',
+    en: {
+      name: 'Daria Nakaznaya',
+      role: 'Co-founder of Vision Club and Alliance Clubs',
+      bio: 'Over 8 years, she has launched five business clubs in different countries, hosted 2,000+ events and built strong communities of entrepreneurs — bringing leaders together through real projects and partnerships.',
+      quote: 'Vision’s strength is its people: those who come to create value, not to extract it.',
+    },
     facebook: 'https://www.facebook.com/dariia.rassolova',
   },
 ];
 
-export default function Founders() {
+export default function Founders({ lang = 'ru' }: { lang?: Lang }) {
   const m = useMounted();
+  const people = FOUNDERS.map((f) => (lang === 'en' ? { ...f, ...f.en } : f));
   return (
     <section
       className="vc-founders vc-sec"
@@ -71,7 +85,7 @@ export default function Founders() {
         <div className="chip-pill">
           <span className="chip-dot" />
           <span style={{ fontSize: 17, color: '#EDEAE4', letterSpacing: '.01em' }}>
-            Люди, которые создали Vision
+            {lang === 'en' ? 'The people behind Vision' : 'Люди, которые создали Vision'}
           </span>
         </div>
       </div>
@@ -87,7 +101,7 @@ export default function Founders() {
           gap: 120,
         }}
       >
-        {FOUNDERS.map((f, i) => (
+        {people.map((f, i) => (
           <div
             key={f.num}
             className="vc-founder-row"

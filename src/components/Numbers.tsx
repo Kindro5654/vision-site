@@ -1,25 +1,59 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { useMounted, reveal } from '@/lib/useMounted';
+import type { Lang } from '@/lib/i18n';
 
 const BAR_DATA = [
-  { pct: '25,6 %', v: 25.6, label: 'от 1 до 3 млн $' },
-  { pct: '37,5 %', v: 37.5, label: 'от 3 до 10 млн $' },
-  { pct: '10 %', v: 10, label: 'от 10 до 30 млн $' },
-  { pct: '8,7 %', v: 8.7, label: 'от 30 до 70 млн $' },
-  { pct: '15 %', v: 15, label: 'от 70 млн $' },
+  { pct: '25,6 %', v: 25.6, label: 'от 1 до 3 млн $', en: { pct: '25.6%', label: '$1M–3M' } },
+  { pct: '37,5 %', v: 37.5, label: 'от 3 до 10 млн $', en: { pct: '37.5%', label: '$3M–10M' } },
+  { pct: '10 %', v: 10, label: 'от 10 до 30 млн $', en: { pct: '10%', label: '$10M–30M' } },
+  { pct: '8,7 %', v: 8.7, label: 'от 30 до 70 млн $', en: { pct: '8.7%', label: '$30M–70M' } },
+  { pct: '15 %', v: 15, label: 'от 70 млн $', en: { pct: '15%', label: '$70M+' } },
 ];
 
 const INDUSTRIES = [
-  { name: 'Услуги', v: 20, color: '#F2851B' },
-  { name: 'IT', v: 17, color: '#E0691C' },
-  { name: 'Торговля', v: 16, color: '#C85A1B' },
-  { name: 'Инвестиции', v: 13, color: '#A8481A' },
-  { name: 'Финансы', v: 11, color: '#7E3414' },
-  { name: 'Производство', v: 9, color: '#43200E' },
-  { name: 'Логистика', v: 6, color: '#F7DCC2' },
-  { name: 'Ремонт и строительство', v: 8, color: '#F4C49A' },
+  { name: 'Услуги', nameEn: 'Services', v: 20, color: '#F2851B' },
+  { name: 'IT', nameEn: 'IT', v: 17, color: '#E0691C' },
+  { name: 'Торговля', nameEn: 'Trade', v: 16, color: '#C85A1B' },
+  { name: 'Инвестиции', nameEn: 'Investment', v: 13, color: '#A8481A' },
+  { name: 'Финансы', nameEn: 'Finance', v: 11, color: '#7E3414' },
+  { name: 'Производство', nameEn: 'Manufacturing', v: 9, color: '#43200E' },
+  { name: 'Логистика', nameEn: 'Logistics', v: 6, color: '#F7DCC2' },
+  { name: 'Ремонт и строительство', nameEn: 'Construction', v: 8, color: '#F4C49A' },
 ];
+
+const COPY = {
+  ru: {
+    chip: 'Vision в цифрах',
+    revenueHead: 'Оборот участников клуба',
+    residents: 'резидентов\nиз 70+ отраслей',
+    events: 'событий\nв год',
+    owners: 'Предприниматели',
+    executives: 'Топ-менеджеры крупных компаний',
+    executivesNote: 'оборот от 50 млн',
+    industriesCenter: 'отраслей в клубе',
+    industriesHead: ['Ключевые ', 'отрасли', ' клуба'],
+    donutAria: 'Распределение отраслей',
+    pct: '%',
+    pctSpace: ' ',
+    decimal: ',',
+  },
+  en: {
+    chip: 'Vision in numbers',
+    revenueHead: 'Members’ business revenue',
+    residents: 'members\nfrom 70+ industries',
+    events: 'events\na year',
+    owners: 'Business owners',
+    executives: 'Senior executives of major companies',
+    executivesNote: 'revenue $50M+',
+    industriesCenter: 'industries represented',
+    industriesHead: ['Key ', 'industries', ' in the club'],
+    donutAria: 'Members by industry',
+    pct: '%',
+    pctSpace: '',
+    decimal: '.',
+  },
+};
 
 function useCountUp(active: boolean, dur = 1150): number {
   const [p, setP] = useState(0);
@@ -70,7 +104,8 @@ function useInView<T extends HTMLElement>(): [React.RefObject<T>, boolean] {
   return [ref, seen];
 }
 
-export default function Numbers() {
+export default function Numbers({ lang = 'ru' }: { lang?: Lang }) {
+  const t = COPY[lang];
   const m = useMounted();
   const [rootRef, inView] = useInView<HTMLDivElement>();
   const p = useCountUp(inView);
@@ -79,6 +114,7 @@ export default function Numbers() {
   const maxV = 37.5;
   const bars = BAR_DATA.map((b) => ({
     ...b,
+    ...(lang === 'en' ? b.en : {}),
     w: `${((b.v / maxV) * 44 + 12) * p}%`,
   }));
   const single = (pct: number, r: number) => {
@@ -91,7 +127,7 @@ export default function Numbers() {
   const n220 = Math.round(220 * p);
   const n250 = Math.round(250 * p);
   const n97 = Math.round(97 * p);
-  const n31 = (3.1 * p).toFixed(1).replace('.', ',');
+  const n31 = (3.1 * p).toFixed(1).replace('.', t.decimal);
 
   const R = 86;
   const C = 2 * Math.PI * R;
@@ -102,7 +138,8 @@ export default function Numbers() {
     const drawn = Math.max(frac * C * p - gap, 0);
     const seg = {
       ...s,
-      label: `${s.v} %`,
+      name: lang === 'en' ? s.nameEn : s.name,
+      label: `${s.v}${t.pctSpace}%`,
       dash: `${drawn.toFixed(2)} ${(C - drawn).toFixed(2)}`,
       off: (-cum * C).toFixed(2),
       sw: hov === i ? 36 : 30,
@@ -113,8 +150,8 @@ export default function Numbers() {
     return seg;
   });
 
-  const centerNum = hov === null ? '70+' : `${INDUSTRIES[hov].v} %`;
-  const centerLabel = hov === null ? 'отраслей в клубе' : INDUSTRIES[hov].name;
+  const centerNum = hov === null ? '70+' : `${INDUSTRIES[hov].v}${t.pctSpace}%`;
+  const centerLabel = hov === null ? t.industriesCenter : inds[hov].name;
   const centerColor = hov === null ? '#F7F4EF' : INDUSTRIES[hov].color;
 
   return (
@@ -141,7 +178,7 @@ export default function Numbers() {
         <div className="chip-pill">
           <span className="chip-dot" />
           <span style={{ fontSize: 17, color: '#EDEAE4', letterSpacing: '.01em' }}>
-            Vision в цифрах
+            {t.chip}
           </span>
         </div>
       </div>
@@ -180,7 +217,7 @@ export default function Numbers() {
                 marginBottom: 34,
               }}
             >
-              Оборот участников клуба
+              {t.revenueHead}
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {bars.map((b) => (
@@ -248,8 +285,8 @@ export default function Numbers() {
               className="vc-stat-cards"
               style={{ display: 'grid', gridTemplateColumns: '1.12fr 1fr', gap: 24 }}
             >
-              <StatCard num={`${n220}`} suffix="+" sub={'резидентов\nиз 70+ отраслей'} />
-              <StatCard num={`${n250}`} suffix="+" sub={'событий\nв год'} />
+              <StatCard num={`${n220}`} suffix="+" sub={t.residents} />
+              <StatCard num={`${n250}`} suffix="+" sub={t.events} />
             </div>
 
             <div
@@ -266,12 +303,12 @@ export default function Numbers() {
                 alignContent: 'center',
               }}
             >
-              <DonutSingle title="Предприниматели" dash={d97} number={`${n97}`} pct />
+              <DonutSingle title={t.owners} dash={d97} number={`${n97}`} pct />
               <DonutSingle
                 title={
                   <>
                     <span style={{ fontSize: 16, color: '#E7E3DC', lineHeight: 1.2 }}>
-                      Топ-менеджеры крупных компаний
+                      {t.executives}
                     </span>
                     <span
                       style={{
@@ -281,7 +318,7 @@ export default function Numbers() {
                         whiteSpace: 'nowrap',
                       }}
                     >
-                      оборот от 50 млн
+                      {t.executivesNote}
                     </span>
                   </>
                 }
@@ -320,7 +357,7 @@ export default function Numbers() {
               maxWidth: 300,
             }}
           >
-            Ключевые <span style={{ color: 'var(--accent)' }}>отрасли</span> клуба
+            {t.industriesHead[0]}<span style={{ color: 'var(--accent)' }}>{t.industriesHead[1]}</span>{t.industriesHead[2]}
           </h2>
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -333,7 +370,7 @@ export default function Numbers() {
                 height="310"
                 viewBox="0 0 240 240"
                 style={{ transform: 'rotate(-90deg)' }}
-                aria-label="Распределение отраслей"
+                aria-label={t.donutAria}
               >
                 {inds.map((seg) => (
                   <circle

@@ -1,22 +1,64 @@
 'use client';
 import { useMounted, reveal } from '@/lib/useMounted';
+import type { Lang } from '@/lib/i18n';
 
-const YES = [
-  'Команда и действующая бизнес-система',
-  'Твёрдая ниша и понятный рынок',
-  'Сильная деловая репутация',
-  'Запрос на масштабирование через окружение',
-  'Готовность выйти на международный уровень',
-];
-const NO = [
-  'Стартапы без выручки',
-  'Инфобизнес без устойчивой модели',
-  'Посреднические схемы без сильного продукта',
-  'Предпринимателей без команды и системы',
-  'Тех, кто не готов к отбору и репутационному чеку',
-];
+const COPY = {
+  ru: {
+    chip: 'Для кого Vision',
+    yesHead: ['Для кого', 'создан Vision'],
+    turnover: 'Годовой оборот',
+    yes: [
+      'Команда и действующая бизнес-система',
+      'Твёрдая ниша и понятный рынок',
+      'Сильная деловая репутация',
+      'Запрос на масштабирование через окружение',
+      'Готовность выйти на международный уровень',
+    ],
+    yesSummary:
+      'Мы создаём среду, где предприниматель выходит из постоянной операционки, усиливает систему, находит сильное окружение и переходит на новый уровень бизнеса и роли собственника.',
+    noHead: ['Кого мы', 'не принимаем'],
+    no: [
+      'Стартапы без выручки',
+      'Инфобизнес без устойчивой модели',
+      'Посреднические схемы без сильного продукта',
+      'Предпринимателей без команды и системы',
+      'Тех, кто не готов к отбору и репутационному чеку',
+    ],
+    noSummary:
+      'Мы не принимаем тех, кто не готов выстраивать устойчивый бизнес, расти в роли собственника и ставит краткосрочную выгоду выше репутации, ценностей и качества окружения.',
+    rep: ['Каждый участник проходит ', 'репутационный чек'],
+  },
+  en: {
+    chip: 'Who Vision is for',
+    yesHead: ['Who Vision', 'is for'],
+    turnover: 'Annual revenue',
+    yes: [
+      'A team and a business that runs on systems',
+      'A defined niche and a clear market',
+      'A strong business reputation',
+      'Ambition to scale through the right network',
+      'Readiness to go international',
+    ],
+    yesSummary:
+      'We create an environment where business owners step back from day-to-day operations, strengthen their systems, find a strong peer group and take both their business and their role as owner to the next level.',
+    noHead: ['Who we', 'don’t accept'],
+    no: [
+      'Pre-revenue start-ups',
+      'Info-product businesses without a sustainable model',
+      'Middleman schemes without a strong product',
+      'Founders without a team or systems',
+      'Anyone unwilling to go through selection and a reputation check',
+    ],
+    noSummary:
+      'We don’t accept those who aren’t prepared to build a sustainable business and grow as owners, or who put short-term gain ahead of reputation, values and the quality of the people around them.',
+    rep: ['Every member goes through a ', 'reputation check'],
+  },
+};
 
-export default function Audience() {
+export default function Audience({ lang = 'ru' }: { lang?: Lang }) {
+  const t = COPY[lang];
+  const YES = t.yes;
+  const NO = t.no;
   const m = useMounted();
   return (
     <section
@@ -57,7 +99,7 @@ export default function Audience() {
         <div className="chip-pill">
           <span className="chip-dot" />
           <span style={{ fontSize: 17, color: '#EDEAE4', letterSpacing: '.01em' }}>
-            Для кого Vision
+            {t.chip}
           </span>
         </div>
       </div>
@@ -132,9 +174,9 @@ export default function Audience() {
                 color: 'var(--heading)',
               }}
             >
-              Для кого
+              {t.yesHead[0]}
               <br />
-              создан Vision
+              {t.yesHead[1]}
             </h3>
           </div>
 
@@ -152,7 +194,7 @@ export default function Audience() {
             }}
           >
             <span style={{ fontSize: 14, lineHeight: 1.2, color: '#C9C5BD', maxWidth: 80 }}>
-              Годовой оборот
+              {t.turnover}
             </span>
             <span
               style={{
@@ -221,8 +263,7 @@ export default function Audience() {
               color: 'var(--muted)',
             }}
           >
-            Мы создаём среду, где предприниматель выходит из постоянной операционки, усиливает систему,
-            находит сильное окружение и переходит на новый уровень бизнеса и роли собственника.
+            {t.yesSummary}
           </p>
         </div>
 
@@ -271,9 +312,9 @@ export default function Audience() {
                 color: '#CFCBC2',
               }}
             >
-              Кого мы
+              {t.noHead[0]}
               <br />
-              не принимаем
+              {t.noHead[1]}
             </h3>
           </div>
 
@@ -323,8 +364,7 @@ export default function Audience() {
               color: '#86837B',
             }}
           >
-            Мы не принимаем тех, кто не готов выстраивать устойчивый бизнес, расти в роли собственника и
-            ставит краткосрочную выгоду выше репутации, ценностей и качества окружения.
+            {t.noSummary}
           </p>
         </div>
       </div>
@@ -362,7 +402,7 @@ export default function Audience() {
             color: 'var(--text)',
           }}
         >
-          Каждый участник проходит <span style={{ color: 'var(--accent)' }}>репутационный чек</span>
+          {t.rep[0]}<span style={{ color: 'var(--accent)' }}>{t.rep[1]}</span>
         </div>
       </div>
     </section>

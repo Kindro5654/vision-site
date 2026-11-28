@@ -2,19 +2,27 @@
 import Image from 'next/image';
 import { useMounted, reveal } from '@/lib/useMounted';
 import { asset } from '@/lib/site';
+import type { Lang } from '@/lib/i18n';
 
 const PEOPLE = [
-  { name: 'Павел\nГительман', role: 'Предприниматель, основатель и CEO агентства RTA', src: '/assets/people/sp-gitelman.webp', objPos: 'center 22%' },
-  { name: 'Олег\nТорбосов', role: 'Предприниматель, основатель и CEO международной компании Whitewill', src: '/assets/people/sp-torbosov.webp', objPos: 'center 25%' },
-  { name: 'Евгений\nЧичваркин', role: 'Предприниматель, сооснователь сети салонов «Евросеть»', src: '/assets/people/sp-chichvarkin.webp', objPos: 'center 25%' },
-  { name: 'Оскар\nХартман', role: 'Предприниматель, серийный инвестор и основатель более 150 международных компаний', src: '/assets/people/sp-hartman.webp', objPos: 'center 25%' },
+  { name: 'Павел\nГительман', role: 'Предприниматель, основатель и CEO агентства RTA', src: '/assets/people/sp-gitelman.webp', objPos: 'center 22%', en: { name: 'Pavel\nGitelman', role: 'Entrepreneur, founder and CEO of RTA agency' } },
+  { name: 'Олег\nТорбосов', role: 'Предприниматель, основатель и CEO международной компании Whitewill', src: '/assets/people/sp-torbosov.webp', objPos: 'center 25%', en: { name: 'Oleg\nTorbosov', role: 'Entrepreneur, founder and CEO of the international company Whitewill' } },
+  { name: 'Евгений\nЧичваркин', role: 'Предприниматель, сооснователь сети салонов «Евросеть»', src: '/assets/people/sp-chichvarkin.webp', objPos: 'center 25%', en: { name: 'Evgeny\nChichvarkin', role: 'Entrepreneur, co-founder of the Euroset retail chain' } },
+  { name: 'Оскар\nХартман', role: 'Предприниматель, серийный инвестор и основатель более 150 международных компаний', src: '/assets/people/sp-hartman.webp', objPos: 'center 25%', en: { name: 'Oskar\nHartmann', role: 'Entrepreneur, serial investor and founder of more than 150 international companies' } },
   null, // CTA placeholder
-  { name: 'Федор\nОвчинников', role: 'Предприниматель, основатель сети Додо Пицца', src: '/assets/people/sp-ovchinnikov.webp', objPos: 'center 22%' },
-  { name: 'Виктор\nКузнецов', role: 'Предприниматель, сооснователь онлайн-гипермаркета «ВсеИнструменты.ру»', src: '/assets/people/sp-kuznetsov.webp', objPos: 'center 25%' },
-  { name: 'Михаил\nДашкиев', role: 'Предприниматель и методолог с 15-летним опытом развития компаний', src: '/assets/people/sp-dashkiev.webp', objPos: 'center 25%' },
+  { name: 'Федор\nОвчинников', role: 'Предприниматель, основатель сети Додо Пицца', src: '/assets/people/sp-ovchinnikov.webp', objPos: 'center 22%', en: { name: 'Fedor\nOvchinnikov', role: 'Entrepreneur, founder of Dodo Pizza' } },
+  { name: 'Виктор\nКузнецов', role: 'Предприниматель, сооснователь онлайн-гипермаркета «ВсеИнструменты.ру»', src: '/assets/people/sp-kuznetsov.webp', objPos: 'center 25%', en: { name: 'Viktor\nKuznetsov', role: 'Entrepreneur, co-founder of the online hypermarket VseInstrumenti.ru' } },
+  { name: 'Михаил\nДашкиев', role: 'Предприниматель и методолог с 15-летним опытом развития компаний', src: '/assets/people/sp-dashkiev.webp', objPos: 'center 25%', en: { name: 'Mikhail\nDashkiev', role: 'Entrepreneur and business methodologist with 15 years of experience in growing companies' } },
 ] as const;
 
-export default function Speakers() {
+const COPY = {
+  ru: { mentors: 'Эти спикеры станут вашими наставниками для развития' },
+  en: { mentors: 'Speakers who become your mentors as you grow' },
+};
+
+export default function Speakers({ lang = 'ru' }: { lang?: Lang }) {
+  const t = COPY[lang];
+  const people = PEOPLE.map((p) => (p && lang === 'en' ? { ...p, ...p.en } : p));
   const m = useMounted();
   return (
     <section
@@ -40,8 +48,17 @@ export default function Speakers() {
             ...reveal(m, 0.02),
           }}
         >
-          <span style={{ color: 'var(--accent)' }}>Спикеры</span>{' '}
-          <span style={{ color: 'var(--heading)' }}>Vision</span>
+          {lang === 'en' ? (
+            <>
+              <span style={{ color: 'var(--heading)' }}>Vision</span>{' '}
+              <span style={{ color: 'var(--accent)' }}>speakers</span>
+            </>
+          ) : (
+            <>
+              <span style={{ color: 'var(--accent)' }}>Спикеры</span>{' '}
+              <span style={{ color: 'var(--heading)' }}>Vision</span>
+            </>
+          )}
         </h2>
 
         <div
@@ -71,7 +88,7 @@ export default function Speakers() {
               color: '#160B03',
             }}
           >
-            Эти спикеры станут вашими наставниками для развития
+            {t.mentors}
           </div>
         </div>
 
@@ -79,7 +96,7 @@ export default function Speakers() {
           className="vc-sp-grid"
           style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '28px 26px' }}
         >
-          {PEOPLE.map((p, i) =>
+          {people.map((p, i) =>
             p === null ? (
               <div
                 key={`cta-${i}`}
@@ -104,7 +121,7 @@ export default function Speakers() {
                     color: '#1A0E03',
                   }}
                 >
-                  Эти спикеры станут вашими наставниками для развития
+                  {t.mentors}
                 </div>
               </div>
             ) : (

@@ -3,25 +3,28 @@ import Image from 'next/image';
 import { useMounted, reveal } from '@/lib/useMounted';
 import { useDragSlider } from '@/lib/useDragSlider';
 import { asset } from '@/lib/site';
+import type { Lang } from '@/lib/i18n';
 
 const RESIDENTS = [
-  { role: 'Основательница медицинских проектов в ОАЭ', name: 'Ксения Бутова', brands: 'Detki & Family Clinics, Molodost’, Olempic, VOLNA', desc: 'Запустила сеть клиник и мед-проектов в Дубае и регионе MENA.', src: '/assets/people/res-butova.webp', objPos: 'center 22%' },
-  { role: 'Основатель клиники остеопатии и образовательных проектов', name: 'Алесь Улищенко', brands: 'Clinic Dr.Ales, Академия фейспластики, Midbodyface', desc: 'Создал международные клиники и платформу по остеопатии и здоровью.', src: '/assets/people/res-ales.webp', objPos: 'center 25%' },
-  { role: 'Психолог, автор метода «Вселенская терапия»', name: 'Леонид Тальпис', brands: 'New Light Consulting Dubai, Вселенская терапия', desc: 'Автор метода «Вселенская терапия» и создатель программ по развитию.', src: '/assets/people/res-talpis.webp', objPos: 'center 25%' },
-  { role: 'Основательница международных косметических брендов', name: 'Наталия Красноперова', brands: 'BrowXenna, Lena Levi, Slide&Tap, Levian, Snail Eco', desc: 'Создала глобальные beauty-бренды, представленные в 50+ странах мира.', src: '/assets/people/res-krasnoperova.webp', objPos: 'center 25%' },
-  { role: 'Corporate Restructuring, Garant Business Consultancy UAE', name: 'Александр Марц', brands: 'Garant Business Consultancy UAE', desc: 'Решает сложные кейсы активов и реструктуризации для бизнеса в ОАЭ.', src: '/assets/people/res-marc.webp', objPos: 'center 22%' },
-  { role: 'Бизнес-авиация и образование', name: 'Пётр Балабин', brands: 'LunaJets, частная школа «Ювенес»', desc: 'Представляет лидера бизнес-авиации LunaJets и школу «Ювенес».', src: '/assets/people/res-balabin.webp', objPos: 'center 22%' },
-  { role: 'Международная торговля агропродукцией', name: 'Аким Талибов', brands: 'AGS — поставки агропродукции', desc: 'Развивает международную торговую сеть с офисами в ОАЭ, Турции и Африке.', src: '/assets/people/res-akim.webp', objPos: 'center 22%' },
-  { role: 'Property Management', name: 'Алексей Щевлягин', brands: 'Stonetree — Property Management', desc: 'Управляет крупнейшим портфелем недвижимости в Дубае — более 450 объектов.', src: '/assets/people/res-shevlyagin.webp', objPos: 'center 22%' },
-  { role: 'Основатель глобальной платформы драгоценных камней', name: 'Илья Поднебесный', brands: 'GEMSTOCK, ювелирные дома Поднебесных и SORA', desc: 'Создал глобальную платформу драгоценных камней с офисами в БКК, РФ и ОАЭ.', src: '/assets/people/res-podnebesny.webp', objPos: 'center 22%' },
-  { role: 'Юридический бизнес, инвестиции, ресторан Manul', name: 'Ольга Нойбергер', brands: 'Юрфирма, инвестиции, ресторан Manul', desc: 'Управляет юрфирмой и стартапами, владелица ресторана — топ-30/100 России.', src: '/assets/people/res-neuberger.webp', objPos: 'center 22%' },
-  { role: 'Premium travel и консалтинг', name: 'Татьяна Третьяк', brands: 'Scenario Travel, Aventus Consultancy', desc: 'Создала премиальный travel-сервис и консалтинг по гражданству и бизнесу.', src: '/assets/people/res-tretyak.webp', objPos: 'center 22%' },
-  { role: 'Глобальные бренды обуви, рюкзаков и технологий', name: 'Пётр Малкин', brands: 'Aetrex, IAMRUNBOX, NTMY Inc', desc: 'Запускает глобальные бренды обуви, рюкзаков и технологий в США и Азии.', src: '/assets/people/res-malkin.webp', objPos: 'center 22%' },
-  { role: 'BSI Lifestyle, Banya Forrest Dubai', name: 'Артём Аванесов', brands: 'BSI Lifestyle, Banya Forrest Dubai', desc: 'Руководит сетью из 7 офисов BSI и премиальной баней Forrest в Дубае.', src: '/assets/people/res-avanesov.webp', objPos: 'center 22%' },
-  { role: 'DDA Real Estate, «Бизнес-Юрист»', name: 'Виктор Слепец', brands: 'DDA Real Estate, «Бизнес-Юрист»', desc: 'Управляет GCC-направлением в двух крупных группах и медиа с 1,4 млн аудиторией.', src: '/assets/people/res-slepets.webp', objPos: 'center 25%' },
+  { role: 'Основательница медицинских проектов в ОАЭ', name: 'Ксения Бутова', brands: 'Detki & Family Clinics, Molodost’, Olempic, VOLNA', desc: 'Запустила сеть клиник и мед-проектов в Дубае и регионе MENA.', src: '/assets/people/res-butova.webp', objPos: 'center 22%', en: { role: "Founder of medical ventures in the UAE", name: "Ksenia Butova", brands: "Detki & Family Clinics, Molodost’, Olempic, VOLNA", desc: "Built a network of clinics and healthcare projects in Dubai and across the MENA region." } },
+  { role: 'Основатель клиники остеопатии и образовательных проектов', name: 'Алесь Улищенко', brands: 'Clinic Dr.Ales, Академия фейспластики, Midbodyface', desc: 'Создал международные клиники и платформу по остеопатии и здоровью.', src: '/assets/people/res-ales.webp', objPos: 'center 25%', en: { role: "Founder of an osteopathy clinic and education projects", name: "Ales Ulishchenko", brands: "Clinic Dr.Ales, Faceplastics Academy, Midbodyface", desc: "Created international clinics and a platform for osteopathy and wellbeing." } },
+  { role: 'Психолог, автор метода «Вселенская терапия»', name: 'Леонид Тальпис', brands: 'New Light Consulting Dubai, Вселенская терапия', desc: 'Автор метода «Вселенская терапия» и создатель программ по развитию.', src: '/assets/people/res-talpis.webp', objPos: 'center 25%', en: { role: "Psychologist, creator of the Universal Therapy method", name: "Leonid Talpis", brands: "New Light Consulting Dubai, Universal Therapy", desc: "Creator of the Universal Therapy method and of personal development programmes." } },
+  { role: 'Основательница международных косметических брендов', name: 'Наталия Красноперова', brands: 'BrowXenna, Lena Levi, Slide&Tap, Levian, Snail Eco', desc: 'Создала глобальные beauty-бренды, представленные в 50+ странах мира.', src: '/assets/people/res-krasnoperova.webp', objPos: 'center 25%', en: { role: "Founder of international cosmetics brands", name: "Natalia Krasnoperova", brands: "BrowXenna, Lena Levi, Slide&Tap, Levian, Snail Eco", desc: "Built global beauty brands sold in more than 50 countries." } },
+  { role: 'Corporate Restructuring, Garant Business Consultancy UAE', name: 'Александр Марц', brands: 'Garant Business Consultancy UAE', desc: 'Решает сложные кейсы активов и реструктуризации для бизнеса в ОАЭ.', src: '/assets/people/res-marc.webp', objPos: 'center 22%', en: { role: "Corporate Restructuring, Garant Business Consultancy UAE", name: "Alexander Marts", brands: "Garant Business Consultancy UAE", desc: "Handles complex asset and restructuring cases for businesses in the UAE." } },
+  { role: 'Бизнес-авиация и образование', name: 'Пётр Балабин', brands: 'LunaJets, частная школа «Ювенес»', desc: 'Представляет лидера бизнес-авиации LunaJets и школу «Ювенес».', src: '/assets/people/res-balabin.webp', objPos: 'center 22%', en: { role: "Business aviation and education", name: "Pyotr Balabin", brands: "LunaJets, Juvenes private school", desc: "Represents LunaJets, a leader in business aviation, and the Juvenes school." } },
+  { role: 'Международная торговля агропродукцией', name: 'Аким Талибов', brands: 'AGS — поставки агропродукции', desc: 'Развивает международную торговую сеть с офисами в ОАЭ, Турции и Африке.', src: '/assets/people/res-akim.webp', objPos: 'center 22%', en: { role: "International agricultural trade", name: "Akim Talibov", brands: "AGS — agricultural supply", desc: "Runs an international trading network with offices in the UAE, Turkey and Africa." } },
+  { role: 'Property Management', name: 'Алексей Щевлягин', brands: 'Stonetree — Property Management', desc: 'Управляет крупнейшим портфелем недвижимости в Дубае — более 450 объектов.', src: '/assets/people/res-shevlyagin.webp', objPos: 'center 22%', en: { role: "Property Management", name: "Alexey Shchevlyagin", brands: "Stonetree — Property Management", desc: "Manages the largest property portfolio in Dubai — more than 450 units." } },
+  { role: 'Основатель глобальной платформы драгоценных камней', name: 'Илья Поднебесный', brands: 'GEMSTOCK, ювелирные дома Поднебесных и SORA', desc: 'Создал глобальную платформу драгоценных камней с офисами в БКК, РФ и ОАЭ.', src: '/assets/people/res-podnebesny.webp', objPos: 'center 22%', en: { role: "Founder of a global gemstone platform", name: "Ilya Podnebesny", brands: "GEMSTOCK, Podnebesny and SORA jewellery houses", desc: "Built a global gemstone platform with offices in Bangkok, Russia and the UAE." } },
+  { role: 'Юридический бизнес, инвестиции, ресторан Manul', name: 'Ольга Нойбергер', brands: 'Юрфирма, инвестиции, ресторан Manul', desc: 'Управляет юрфирмой и стартапами, владелица ресторана — топ-30/100 России.', src: '/assets/people/res-neuberger.webp', objPos: 'center 22%', en: { role: "Law, investment and the Manul restaurant", name: "Olga Neuberger", brands: "Law firm, investments, Manul restaurant", desc: "Runs a law firm and start-ups, and owns a restaurant ranked in Russia’s Top 30/100." } },
+  { role: 'Premium travel и консалтинг', name: 'Татьяна Третьяк', brands: 'Scenario Travel, Aventus Consultancy', desc: 'Создала премиальный travel-сервис и консалтинг по гражданству и бизнесу.', src: '/assets/people/res-tretyak.webp', objPos: 'center 22%', en: { role: "Premium travel and consulting", name: "Tatiana Tretyak", brands: "Scenario Travel, Aventus Consultancy", desc: "Founded a premium travel service and a consultancy for citizenship and business." } },
+  { role: 'Глобальные бренды обуви, рюкзаков и технологий', name: 'Пётр Малкин', brands: 'Aetrex, IAMRUNBOX, NTMY Inc', desc: 'Запускает глобальные бренды обуви, рюкзаков и технологий в США и Азии.', src: '/assets/people/res-malkin.webp', objPos: 'center 22%', en: { role: "Global footwear, backpack and technology brands", name: "Pyotr Malkin", brands: "Aetrex, IAMRUNBOX, NTMY Inc", desc: "Launches global footwear, backpack and technology brands in the US and Asia." } },
+  { role: 'BSI Lifestyle, Banya Forrest Dubai', name: 'Артём Аванесов', brands: 'BSI Lifestyle, Banya Forrest Dubai', desc: 'Руководит сетью из 7 офисов BSI и премиальной баней Forrest в Дубае.', src: '/assets/people/res-avanesov.webp', objPos: 'center 22%', en: { role: "BSI Lifestyle, Banya Forrest Dubai", name: "Artyom Avanesov", brands: "BSI Lifestyle, Banya Forrest Dubai", desc: "Runs a network of seven BSI offices and Forrest, a premium banya in Dubai." } },
+  { role: 'DDA Real Estate, «Бизнес-Юрист»', name: 'Виктор Слепец', brands: 'DDA Real Estate, «Бизнес-Юрист»', desc: 'Управляет GCC-направлением в двух крупных группах и медиа с 1,4 млн аудиторией.', src: '/assets/people/res-slepets.webp', objPos: 'center 25%', en: { role: "DDA Real Estate, Business Lawyer media", name: "Viktor Slepets", brands: "DDA Real Estate, Business Lawyer media", desc: "Leads the GCC business of two major groups and a media outlet with an audience of 1.4M." } },
 ];
 
-export default function Residents() {
+export default function Residents({ lang = 'ru' }: { lang?: Lang }) {
+  const en = lang === 'en';
+  const residents = RESIDENTS.map((r) => (en ? { ...r, ...r.en } : r));
   const m = useMounted();
   const { ref, step } = useDragSlider(432);
 
@@ -60,9 +63,9 @@ export default function Residents() {
             color: 'var(--heading)',
           }}
         >
-          Твоё будущее
+          {en ? 'Your future' : 'Твоё будущее'}
           <br />
-          <span style={{ color: 'var(--accent)' }}>окружение</span> в Дубае
+          <span style={{ color: 'var(--accent)' }}>{en ? 'circle' : 'окружение'}</span> {en ? 'in Dubai' : 'в Дубае'}
         </h2>
         <div
           className="vc-res-ctrl"
@@ -77,15 +80,15 @@ export default function Residents() {
             className="vc-res-hint"
             style={{ fontSize: 15, color: 'var(--dim)', letterSpacing: '.02em' }}
           >
-            Листайте&nbsp;→
+            {en ? 'Scroll' : 'Листайте'}&nbsp;→
           </span>
           <div style={{ display: 'flex', gap: 12 }}>
-            <button className="vc-arrow" onClick={() => step(-1)} aria-label="Назад">
+            <button className="vc-arrow" onClick={() => step(-1)} aria-label={en ? 'Previous' : 'Назад'}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M15 5l-7 7 7 7" />
               </svg>
             </button>
-            <button className="vc-arrow" onClick={() => step(1)} aria-label="Вперёд">
+            <button className="vc-arrow" onClick={() => step(1)} aria-label={en ? 'Next' : 'Вперёд'}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M9 5l7 7-7 7" />
               </svg>
@@ -107,7 +110,7 @@ export default function Residents() {
           ...reveal(m, 0.12),
         }}
       >
-        {RESIDENTS.map((r) => (
+        {residents.map((r) => (
           <article
             key={r.name}
             className="vc-rcard"

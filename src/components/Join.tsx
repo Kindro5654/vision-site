@@ -6,6 +6,8 @@ import { asset } from '@/lib/site';
 import { useLeadSubmit, useUtmCapture } from '@/lib/useLeadSubmit';
 import FormStatus from '@/components/FormStatus';
 import PhoneField from '@/components/PhoneField';
+import { FORM_COPY, joinPositionOptions, joinRevenueOptions, type LeadOption } from '@/lib/leadOptions';
+import type { Lang } from '@/lib/i18n';
 
 const AVATARS = [
   { src: '/assets/people/res-butova.webp', pos: 'center 22%' },
@@ -15,12 +17,32 @@ const AVATARS = [
   { src: '/assets/people/res-podnebesny.webp', pos: 'center 22%' },
 ];
 
-const REV = ['Оборот: до $1 M', 'Оборот: от $1 до $5 M', 'Оборот: от $5 до $20 M', 'Оборот: более $20 M'];
-const POS = ['Предприниматель / собственник', 'Топ-менеджер / C-level', 'Инвестор', 'Эксперт / консультант'];
+const COPY = {
+  ru: {
+    eyebrow: 'Только по приглашению',
+    h2: ['Вступайте', 'в бизнес-клуб'],
+    lead: 'Оставьте заявку — менеджер клуба свяжется с вами, расскажет об условиях резидентства и пригласит на ближайшую встречу.',
+    members: 'резидентов уже в клубе',
+    nameAria: 'Имя',
+    namePlaceholder: 'Имя и фамилия',
+    submit: 'Оставить заявку',
+  },
+  en: {
+    eyebrow: 'By invitation only',
+    h2: ['Apply for', 'membership'],
+    lead: 'Submit your application and a member of our team will be in touch to walk you through membership and invite you to our next gathering.',
+    members: 'members already in the club',
+    nameAria: 'Full name',
+    namePlaceholder: 'Full name',
+    submit: 'Submit application',
+  },
+};
 
 const checkOn = `var(--accent) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23160B03' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12l5 5L20 6'/></svg>") center/15px no-repeat`;
 
-export default function Join() {
+export default function Join({ lang = 'ru' }: { lang?: Lang }) {
+  const t = COPY[lang];
+  const f = FORM_COPY[lang];
   const m = useMounted();
   useUtmCapture();
   const [name, setName] = useState('');
@@ -28,7 +50,7 @@ export default function Join() {
   const [position, setPosition] = useState('');
   const [revenue, setRevenue] = useState('');
   const [consent, setConsent] = useState(false);
-  const { submit, state, error } = useLeadSubmit('vision-site', 'join');
+  const { submit, state, error } = useLeadSubmit('vision-site', 'join', lang);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -135,7 +157,7 @@ export default function Join() {
                   color: '#EDEAE4',
                 }}
               >
-                Только по приглашению
+                {t.eyebrow}
               </span>
             </div>
             <h2
@@ -151,7 +173,7 @@ export default function Join() {
               }}
             >
               <span style={{ color: 'var(--heading)' }}>
-                Вступайте<br />в бизнес-клуб
+                {t.h2[0]}<br />{t.h2[1]}
               </span>
               <br />
               <span style={{ color: 'var(--accent)' }}>Vision</span>
@@ -166,7 +188,7 @@ export default function Join() {
                 maxWidth: 480,
               }}
             >
-              Оставьте заявку — менеджер клуба свяжется с вами, расскажет об условиях резидентства и пригласит на ближайшую встречу.
+              {t.lead}
             </p>
 
             <div className="vc-join-stat" style={{ display: 'flex', alignItems: 'center', gap: 18, marginTop: 38 }}>
@@ -194,7 +216,7 @@ export default function Join() {
                 <div className="osw" style={{ fontWeight: 700, fontSize: 26, lineHeight: 1, color: 'var(--heading)' }}>
                   220<span style={{ color: 'var(--accent)' }}>+</span>
                 </div>
-                <div style={{ fontSize: 15, color: 'var(--muted-2)', marginTop: 3 }}>резидентов уже в клубе</div>
+                <div style={{ fontSize: 15, color: 'var(--muted-2)', marginTop: 3 }}>{t.members}</div>
               </div>
             </div>
           </div>
@@ -212,10 +234,22 @@ export default function Join() {
             }}
           >
             <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <FieldInput aria="Имя" placeholder="Имя и фамилия" value={name} onChange={setName} />
-              <PhoneField value={phone} onChange={setPhone} />
-              <SelectField options={REV} aria="Оборот" value={revenue} onChange={setRevenue} />
-              <SelectField options={POS} aria="Позиция" value={position} onChange={setPosition} />
+              <FieldInput aria={t.nameAria} placeholder={t.namePlaceholder} value={name} onChange={setName} />
+              <PhoneField value={phone} onChange={setPhone} lang={lang} />
+              <SelectField
+                options={joinRevenueOptions(lang)}
+                aria={f.revenueAria}
+                placeholder={f.revenuePlaceholder}
+                value={revenue}
+                onChange={setRevenue}
+              />
+              <SelectField
+                options={joinPositionOptions(lang)}
+                aria={f.positionAria}
+                placeholder={f.positionPlaceholder}
+                value={position}
+                onChange={setPosition}
+              />
               <label style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 4, cursor: 'pointer', userSelect: 'none' }}>
                 <input
                   type="checkbox"
@@ -234,7 +268,7 @@ export default function Join() {
                   }}
                 />
                 <span style={{ fontSize: 14, color: '#8C887F' }}>
-                  Даю согласие на обработку персональных данных
+                  {f.consent}
                 </span>
               </label>
               <button
@@ -260,14 +294,14 @@ export default function Join() {
                   gap: 12,
                 }}
               >
-                {state === 'sending' ? 'Отправляем…' : 'Оставить заявку'}
+                {state === 'sending' ? f.sending : t.submit}
                 {state !== 'sending' && (
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
                 )}
               </button>
-              <FormStatus state={state} error={error} successText="Спасибо! Менеджер клуба свяжется с вами в ближайшее время." />
+              <FormStatus state={state} error={error} successText={f.success} />
             </form>
           </div>
         </div>
@@ -324,11 +358,13 @@ function FieldInput({
 function SelectField({
   options,
   aria,
+  placeholder,
   value,
   onChange,
 }: {
-  options: string[];
+  options: LeadOption[];
   aria: string;
+  placeholder: string;
   value: string;
   onChange: (v: string) => void;
 }) {
@@ -362,11 +398,11 @@ function SelectField({
         }}
       >
         <option value="" disabled hidden>
-          {aria === 'Позиция' ? 'Ваша позиция' : 'Оборот бизнеса'}
+          {placeholder}
         </option>
         {options.map((o) => (
-          <option key={o} value={o}>
-            {o}
+          <option key={o.value} value={o.value}>
+            {o.label}
           </option>
         ))}
       </select>

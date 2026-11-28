@@ -2,12 +2,18 @@
 import Image from 'next/image';
 import { useMounted, reveal } from '@/lib/useMounted';
 import { asset } from '@/lib/site';
+import type { Lang } from '@/lib/i18n';
 
 const CASES = [
   {
     title: '$12 млн инвестиций, 11 локаций и 3 производства в Дубае',
     name: 'Константин Гарбуз и Иван Крошный',
     desc: 'Один диалог в клубе: старт $650k → масштаб $12 млн. История, которая вдохновляет.',
+    en: {
+      title: '$12M in investment, 11 locations and 3 production sites in Dubai',
+      name: 'Konstantin Garbuz & Ivan Kroshny',
+      desc: 'It started with one conversation at the club: from $650k at launch to a $12M business. A genuinely inspiring story.',
+    },
     photos: [
       { src: '/assets/cases/case1-a.webp', pos: 'center 28%' },
       { src: '/assets/cases/case1-b.webp', pos: 'center 42%' },
@@ -17,18 +23,30 @@ const CASES = [
     title: 'Digital-сервис в Дубае',
     name: 'Ольга Нойбергер',
     desc: 'Запустила digital-сервис в Дубае за 3 недели вместо долгих месяцев регистрации.',
+    en: {
+      title: 'A digital service launched in Dubai',
+      name: 'Olga Neuberger',
+      desc: 'Launched a digital service in Dubai in three weeks, instead of the usual months of registration.',
+    },
     photos: [{ src: '/assets/cases/case2.webp', pos: 'center 32%' }],
   },
   {
     title: '+4 млн AED к обороту и переход к роли CEO',
     name: 'Катерина Кузнецова',
     desc: 'Как окружение Vision Club помогает навести порядок в хаосе и выйти на новый уровень.',
+    en: {
+      title: '+AED 4M in revenue and a move into the CEO role',
+      name: 'Katerina Kuznetsova',
+      desc: 'How the Vision Club community helps bring order to chaos and take a business to the next level.',
+    },
     photos: [{ src: '/assets/cases/case3.webp', pos: 'center 60%' }],
   },
 ];
 
-export default function Cases() {
+export default function Cases({ lang = 'ru' }: { lang?: Lang }) {
   const m = useMounted();
+  const en = lang === 'en';
+  const cases = CASES.map((c) => (en ? { ...c, ...c.en } : c));
   return (
     <section
       className="vc-sec"
@@ -68,7 +86,7 @@ export default function Cases() {
               marginBottom: 44,
             }}
           >
-            Кейсы
+            {en ? 'Member stories' : 'Кейсы'}
           </h2>
           <span
             className="vc-cases-hint"
@@ -80,7 +98,7 @@ export default function Cases() {
               color: 'var(--dim)',
             }}
           >
-            Листайте
+            {en ? 'Scroll' : 'Листайте'}
             <svg width="22" height="14" viewBox="0 0 22 14" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M2 7h17M14 2l5 5-5 5" />
             </svg>
@@ -96,7 +114,7 @@ export default function Cases() {
             ...reveal(m, 0.1),
           }}
         >
-          {CASES.map((c) => (
+          {cases.map((c) => (
             <article
               key={c.name}
               className="vc-case"
@@ -186,7 +204,7 @@ export default function Cases() {
                   textTransform: 'uppercase',
                 }}
               >
-                Подробнее
+                {en ? 'Read more' : 'Подробнее'}
               </a>
             </article>
           ))}

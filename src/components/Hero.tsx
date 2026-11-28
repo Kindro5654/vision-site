@@ -6,24 +6,46 @@ import { asset, SITE } from '@/lib/site';
 import { useLeadSubmit, useUtmCapture } from '@/lib/useLeadSubmit';
 import FormStatus from '@/components/FormStatus';
 import PhoneField from '@/components/PhoneField';
+import LangSwitch from '@/components/LangSwitch';
+import { FORM_COPY, positionOptions, revenueOptions, type LeadOption } from '@/lib/leadOptions';
+import type { Lang } from '@/lib/i18n';
 
-const NAV = ['О клубе', 'Мероприятия', 'Резиденты', 'Спикеры', 'Клубный дом'];
-const POS = [
-  'Предприниматель / собственник бизнеса',
-  'Топ-менеджер / C-level',
-  'Инвестор',
-  'Эксперт / консультант',
-];
-const REV = [
-  'Оборот: от 0 до 1 млн $',
-  'Оборот: от 1 до 5 млн $',
-  'Оборот: от 5 до 20 млн $',
-  'Оборот: более 20 млн $',
-];
+const COPY = {
+  ru: {
+    nav: ['О клубе', 'Мероприятия', 'Резиденты', 'Спикеры', 'Клубный дом'],
+    whatsappAria: 'Написать в WhatsApp',
+    headerCta: 'Оставить заявку',
+    eyebrow: 'Только по приглашению · Дубай',
+    h1: 'международный бизнес-клуб',
+    lead: 'Мы объединяем 220+ ТОП-предпринимателей в Дубае и 1 200+ резидентов по миру через Альянс клубов.',
+    namePlaceholder: 'Имя и Фамилия',
+    nameAria: 'Имя и фамилия',
+    submit: 'Получить приглашение',
+    photoAlt: 'Резиденты Vision Club',
+    stat1: { num: '220+', label: 'ТОП-предпринимателей в Дубае' },
+    stat2: { num: '1 200+', label: 'резидентов по миру через Альянс клубов' },
+  },
+  en: {
+    nav: ['About', 'Events', 'Members', 'Speakers', 'Clubhouse'],
+    whatsappAria: 'Message us on WhatsApp',
+    headerCta: 'Apply',
+    eyebrow: 'By invitation only · Dubai',
+    h1: 'international business club',
+    lead: 'We bring together 220+ established entrepreneurs in Dubai and connect them with 1,200+ members worldwide through Alliance Clubs.',
+    namePlaceholder: 'Full name',
+    nameAria: 'Full name',
+    submit: 'Request an invitation',
+    photoAlt: 'Vision Club members',
+    stat1: { num: '220+', label: 'established entrepreneurs in Dubai' },
+    stat2: { num: '1,200+', label: 'members worldwide through Alliance Clubs' },
+  },
+};
 
 const checkOn = `var(--accent) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A0E03' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12l5 5L20 6'/></svg>") center/14px no-repeat`;
 
-export default function Hero() {
+export default function Hero({ lang = 'ru' }: { lang?: Lang }) {
+  const t = COPY[lang];
+  const f = FORM_COPY[lang];
   const m = useMounted();
   useUtmCapture();
   const [name, setName] = useState('');
@@ -31,7 +53,7 @@ export default function Hero() {
   const [position, setPosition] = useState('');
   const [revenue, setRevenue] = useState('');
   const [consent, setConsent] = useState(true);
-  const { submit, state, error } = useLeadSubmit('vision-site', 'hero');
+  const { submit, state, error } = useLeadSubmit('vision-site', 'hero', lang);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -136,7 +158,7 @@ export default function Hero() {
             minWidth: 0,
           }}
         >
-          {NAV.map((item) => (
+          {t.nav.map((item) => (
             <a
               key={item}
               href="#"
@@ -155,11 +177,12 @@ export default function Hero() {
           ))}
         </nav>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexShrink: 0 }}>
+          <LangSwitch lang={lang} page="home" />
           <a
-            href={SITE.whatsapp}
+            href={lang === 'en' ? SITE.whatsappEn : SITE.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`Написать в WhatsApp ${SITE.phone}`}
+            aria-label={`${t.whatsappAria} ${SITE.phone}`}
             className="vc-phone"
             style={{
               display: 'flex',
@@ -200,7 +223,7 @@ export default function Hero() {
               fontFamily: 'inherit',
             }}
           >
-            Оставить заявку
+            {t.headerCta}
           </button>
         </div>
       </header>
@@ -224,7 +247,7 @@ export default function Hero() {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div className="eyebrow" style={reveal(m, 0.02)}>
             <span className="eyebrow-line" />
-            <span className="eyebrow-text">Только по приглашению · Дубай</span>
+            <span className="eyebrow-text">{t.eyebrow}</span>
           </div>
           <h1
             className="osw"
@@ -243,7 +266,7 @@ export default function Hero() {
           >
             VISION <span style={{ color: 'var(--accent)' }}>—</span>
             <br />
-            международный бизнес-клуб
+            {t.h1}
           </h1>
           <p
             style={{
@@ -255,8 +278,7 @@ export default function Hero() {
               ...reveal(m, 0.18),
             }}
           >
-            Мы объединяем 220+ ТОП-предпринимателей в Дубае и 1 200+ резидентов по миру через
-            Альянс клубов.
+            {t.lead}
           </p>
 
           <form
@@ -285,8 +307,8 @@ export default function Hero() {
                 className="vc-na"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Имя и Фамилия"
-                aria-label="Имя и фамилия"
+                placeholder={t.namePlaceholder}
+                aria-label={t.nameAria}
                 style={{
                   width: '100%',
                   height: '100%',
@@ -298,10 +320,22 @@ export default function Hero() {
                 }}
               />
             </div>
-            <PhoneField value={phone} onChange={setPhone} />
+            <PhoneField value={phone} onChange={setPhone} lang={lang} />
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 13 }}>
-              <SelectField options={POS} label="Позиция" value={position} onChange={setPosition} />
-              <SelectField options={REV} label="Оборот" value={revenue} onChange={setRevenue} />
+              <SelectField
+                options={positionOptions(lang)}
+                label={f.positionAria}
+                placeholder={f.positionPlaceholder}
+                value={position}
+                onChange={setPosition}
+              />
+              <SelectField
+                options={revenueOptions(lang)}
+                label={f.revenueAria}
+                placeholder={f.revenuePlaceholder}
+                value={revenue}
+                onChange={setRevenue}
+              />
             </div>
             <label
               style={{
@@ -331,7 +365,7 @@ export default function Hero() {
                 }}
               />
               <span style={{ fontSize: 14, color: '#8C887F' }}>
-                Даю согласие на обработку персональных данных
+                {f.consent}
               </span>
             </label>
             <button
@@ -353,9 +387,9 @@ export default function Hero() {
                 opacity: state === 'sending' ? 0.7 : 1,
               }}
             >
-              {state === 'sending' ? 'Отправляем…' : 'Получить приглашение'}
+              {state === 'sending' ? f.sending : t.submit}
             </button>
-            <FormStatus state={state} error={error} successText="Спасибо! Менеджер клуба свяжется с вами в ближайшее время." />
+            <FormStatus state={state} error={error} successText={f.success} />
           </form>
         </div>
 
@@ -374,7 +408,7 @@ export default function Hero() {
         >
           <Image
             src={asset('/assets/hero-speakers.webp')}
-            alt="Резиденты Vision Club"
+            alt={t.photoAlt}
             fill
             sizes="(max-width: 820px) 100vw, 50vw"
             priority
@@ -408,8 +442,8 @@ export default function Hero() {
               gap: 12,
             }}
           >
-            <StatChip num="220+" label="ТОП-предпринимателей в Дубае" />
-            <StatChip num="1 200+" label="резидентов по миру через Альянс клубов" accent />
+            <StatChip num={t.stat1.num} label={t.stat1.label} />
+            <StatChip num={t.stat2.num} label={t.stat2.label} accent />
           </div>
         </div>
       </div>
@@ -420,11 +454,13 @@ export default function Hero() {
 function SelectField({
   options,
   label,
+  placeholder,
   value,
   onChange,
 }: {
-  options: string[];
+  options: LeadOption[];
   label: string;
+  placeholder: string;
   value: string;
   onChange: (v: string) => void;
 }) {
@@ -451,11 +487,11 @@ function SelectField({
         }}
       >
         <option value="" disabled hidden>
-          {label === 'Позиция' ? 'Ваша позиция' : 'Оборот бизнеса'}
+          {placeholder}
         </option>
         {options.map((o) => (
-          <option key={o} value={o}>
-            {o}
+          <option key={o.value} value={o.value}>
+            {o.label}
           </option>
         ))}
       </select>
