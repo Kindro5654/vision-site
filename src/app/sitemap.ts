@@ -7,7 +7,7 @@ import { ROUTES, type PageKey } from '@/lib/i18n';
 // Пары ru/en: обе версии в карте сайта, у каждой — ссылки на языковые альтернативы.
 function pair(
   page: PageKey,
-  opts: { lastModified: Date; changeFrequency: 'weekly' | 'monthly'; priority: number },
+  opts: { lastModified: Date; changeFrequency: 'weekly' | 'monthly' | 'yearly'; priority: number },
 ): MetadataRoute.Sitemap {
   const ru = `${SITE.url}${ROUTES[page].ru}`;
   const en = `${SITE.url}${ROUTES[page].en}`;
@@ -22,12 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
     ...pair('home', { lastModified: now, changeFrequency: 'weekly', priority: 1 }),
-    {
-      url: `${SITE.url}/privacy/`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.2,
-    },
+    ...pair('privacy', { lastModified: now, changeFrequency: 'yearly', priority: 0.2 }),
     ...pair('about', {
       lastModified: new Date(PASSPORT.updatedAt),
       changeFrequency: 'monthly',
