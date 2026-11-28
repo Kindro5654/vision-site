@@ -3,15 +3,25 @@ export const SITE = {
   title: 'Vision Club — международный бизнес-клуб в Дубае',
   description:
     'Vision Club — закрытый бизнес-клуб для предпринимателей и топ-менеджеров в Дубае. Основан в 2021 году: 220+ предпринимателей из 70+ отраслей, 1 200+ резидентов Альянса клубов в 10 странах. Вход от $1 млн оборота, только по приглашению.',
+  // English versions of title/description for /en/ pages.
+  titleEn: 'Vision Club — an international business club in Dubai',
+  descriptionEn:
+    'Vision Club is a private business club in Dubai for entrepreneurs and senior executives. Founded in 2021, it brings together 220+ entrepreneurs from 70+ industries and is part of Alliance Clubs, a network of 1,200+ members in 10 countries. Membership is by invitation, for businesses with $1M+ in annual revenue.',
   url: 'https://vision-club.ae',
   phone: '+971 58 550 6498',
   phoneE164: '+971585506498',
   whatsapp:
     'https://wa.me/971585506498?text=' +
     encodeURIComponent('Здравствуйте! С сайта Vision Club — расскажите про резидентство'),
+  whatsappEn:
+    'https://wa.me/971585506498?text=' +
+    encodeURIComponent('Hello! I found you on the Vision Club website and would like to know more about membership.'),
   contactTelegram:
     'https://t.me/manager_vision_club?text=' +
     encodeURIComponent('Пишу вам с сайта Vision Club, подскажите по резидентству:'),
+  contactTelegramEn:
+    'https://t.me/manager_vision_club?text=' +
+    encodeURIComponent('Hello! I am writing from the Vision Club website about membership:'),
   email: 'vision.club.sales@gmail.com',
   legal: {
     name: 'Vision Club FZCO',
@@ -36,8 +46,8 @@ export const SITE = {
     telegram: 'https://t.me/manager_vision_club',
   },
   founders: [
-    { name: 'Алексей Наказный', role: 'Co-founder' },
-    { name: 'Дарья Наказная', role: 'Co-founder' },
+    { name: 'Алексей Наказный', nameEn: 'Aleksey Nakazny', role: 'Co-founder' },
+    { name: 'Дарья Наказная', nameEn: 'Daria Nakaznaya', role: 'Co-founder' },
   ],
 } as const;
 

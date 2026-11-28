@@ -282,3 +282,7 @@
 .okl .header { position: fixed; left: 0; right: 0; top: 0; }
 .okl { padding-top: 73px; }
 @media (max-width: 640px) { .okl { padding-top: 110px; } }
+/* Переключатель RU / EN в шапке страницы */
+.okl .okl-lang { margin-left: auto; }
+.okl .okl-lang a { color: var(--muted); }
+@media (max-width: 640px) { .okl .okl-lang { margin-left: 0; } }

@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
 import { YM_ID } from '@/lib/site';
+import type { Lang } from '@/lib/i18n';
 
 const ENDPOINT = process.env.NEXT_PUBLIC_LEAD_ENDPOINT || '';
 const API_KEY = process.env.NEXT_PUBLIC_LEAD_API_KEY || '';
@@ -34,6 +35,8 @@ export interface LeadFields {
 interface LeadPayload extends LeadFields {
   source: LeadSource;
   form: LeadFormId;
+  /** Только у английской формы: lang='en'. CRM кладёт лишние поля в анкету лида. */
+  lang?: 'en';
   utm: UtmParams;
   referrer: string;
   page: string;
@@ -110,7 +113,35 @@ function checkRateLimit(): boolean {
   }
 }
 
-export function useLeadSubmit(source: LeadSource, form: LeadFormId) {
+const MESSAGES = {
+  ru: {
+    unavailable: 'Форма временно недоступна. Свяжитесь с нами напрямую.',
+    rateLimit: 'Слишком много попыток. Подождите минуту и попробуйте снова.',
+    consent: 'Нужно согласие на обработку персональных данных.',
+    name: 'Заполните имя и телефон.',
+    phone: 'Введите корректный номер телефона.',
+    fields: 'Заполните все поля: позицию и оборот бизнеса.',
+    failed: 'Не удалось отправить. Попробуйте ещё раз.',
+    network: 'Сеть недоступна. Проверьте соединение и попробуйте снова.',
+  },
+  en: {
+    unavailable: 'The form is temporarily unavailable. Please contact us directly.',
+    rateLimit: 'Too many attempts. Please wait a minute and try again.',
+    consent: 'Please confirm that you agree to the processing of your personal data.',
+    name: 'Please enter your name and phone number.',
+    phone: 'Please enter a valid phone number.',
+    fields: 'Please complete all fields, including your role and revenue.',
+    failed: 'Your request could not be sent. Please try again.',
+    network: 'No connection. Please check your network and try again.',
+  },
+};
+
+/**
+ * lang меняет только тексты ошибок и поле `lang` в заявке. source и значения
+ * позиции/оборота уходят в CRM в том же формате, что и с русской формы.
+ */
+export function useLeadSubmit(source: LeadSource, form: LeadFormId, lang: Lang = 'ru') {
+  const t = MESSAGES[lang];
   const [state, setState] = useState<LeadState>('idle');
   const [error, setError] = useState<string>('');
 
@@ -123,32 +154,32 @@ export function useLeadSubmit(source: LeadSource, form: LeadFormId) {
     async (fields: LeadFields) => {
       if (!ENDPOINT || !API_KEY) {
         setState('error');
-        setError('Форма временно недоступна. Свяжитесь с нами напрямую.');
+        setError(t.unavailable);
         return false;
       }
       if (!checkRateLimit()) {
         setState('error');
-        setError('Слишком много попыток. Подождите минуту и попробуйте снова.');
+        setError(t.rateLimit);
         return false;
       }
       if (!fields.consent) {
         setState('error');
-        setError('Нужно согласие на обработку персональных данных.');
+        setError(t.consent);
         return false;
       }
       if (!fields.name.trim()) {
         setState('error');
-        setError('Заполните имя и телефон.');
+        setError(t.name);
         return false;
       }
       if (fields.phone.replace(/\D/g, '').length < 8) {
         setState('error');
-        setError('Введите корректный номер телефона.');
+        setError(t.phone);
         return false;
       }
       if (!fields.position.trim() || !fields.revenue.trim()) {
         setState('error');
-        setError('Заполните все поля: позицию и оборот бизнеса.');
+        setError(t.fields);
         return false;
       }
 
@@ -158,6 +189,7 @@ export function useLeadSubmit(source: LeadSource, form: LeadFormId) {
       const payload: LeadPayload = {
         source,
         form,
+        ...(lang === 'en' ? { lang: 'en' as const } : {}),
         name: fields.name.trim(),
         phone: normalisePhone(fields.phone),
         email: fields.email?.trim() || undefined,
@@ -185,21 +217,24 @@ export function useLeadSubmit(source: LeadSource, form: LeadFormId) {
           trackPixelLead();
           return true;
         }
-        let detail = 'Не удалось отправить. Попробуйте ещё раз.';
-        try {
-          const data = await res.json();
-          if (data?.detail) detail = String(data.detail);
-        } catch {}
+        let detail = t.failed;
+        // CRM отвечает по-русски — на английской странице показываем свой текст.
+        if (lang === 'ru') {
+          try {
+            const data = await res.json();
+            if (data?.detail) detail = String(data.detail);
+          } catch {}
+        }
         setError(detail);
         setState('error');
         return false;
       } catch {
         setState('error');
-        setError('Сеть недоступна. Проверьте соединение и попробуйте снова.');
+        setError(t.network);
         return false;
       }
     },
-    [source, form]
+    [source, form, lang, t]
   );
 
   return { submit, reset, state, error };

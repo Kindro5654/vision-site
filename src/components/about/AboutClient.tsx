@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import type { Lang } from '@/lib/i18n';
 
 /** Кнопка, открывающая общую модалку заявки (MainCTAModal слушает 'vc:open-cta'). */
 export function ApplyButton({ className, children }: { className: string; children: React.ReactNode }) {
@@ -15,18 +16,18 @@ export function ApplyButton({ className, children }: { className: string; childr
   );
 }
 
-const ANCHORS = [
-  { id: 'facts', label: 'Факты' },
-  { id: 'numbers', label: 'В цифрах' },
-  { id: 'diff', label: 'Отличия' },
-  { id: 'fit', label: 'Кому подходит' },
-  { id: 'founders', label: 'Основатели' },
-  { id: 'join', label: 'Как вступить' },
-  { id: 'faq', label: 'FAQ' },
+const ANCHORS: { id: string; ru: string; en: string }[] = [
+  { id: 'facts', ru: 'Факты', en: 'Facts' },
+  { id: 'numbers', ru: 'В цифрах', en: 'In numbers' },
+  { id: 'diff', ru: 'Отличия', en: 'What sets us apart' },
+  { id: 'fit', ru: 'Кому подходит', en: 'Who it’s for' },
+  { id: 'founders', ru: 'Основатели', en: 'Founders' },
+  { id: 'join', ru: 'Как вступить', en: 'How to join' },
+  { id: 'faq', ru: 'FAQ', en: 'FAQ' },
 ];
 
 /** Лента якорей в шапке; активный пункт подсвечивается по прокрутке. */
-export function AnchorNav() {
+export function AnchorNav({ lang }: { lang: Lang }) {
   const [active, setActive] = useState('facts');
 
   useEffect(() => {
@@ -47,10 +48,10 @@ export function AnchorNav() {
   }, []);
 
   return (
-    <nav className="anchors" aria-label="Разделы страницы">
+    <nav className="anchors" aria-label={lang === 'en' ? 'Page sections' : 'Разделы страницы'}>
       {ANCHORS.map((a) => (
         <a key={a.id} href={`#${a.id}`} className={active === a.id ? 'is-active' : undefined}>
-          {a.label}
+          {a[lang]}
         </a>
       ))}
     </nav>

@@ -2,10 +2,30 @@
 import Image from 'next/image';
 import { useMounted, reveal } from '@/lib/useMounted';
 import { asset } from '@/lib/site';
+import type { Lang } from '@/lib/i18n';
 
-const CHIPS = ['Доступ к базе знаний', 'Поиск резидентов', 'Чаты', 'Геолокация', 'Запись на ивенты'];
+const COPY = {
+  ru: {
+    chips: ['Доступ к базе знаний', 'Поиск резидентов', 'Чаты', 'Геолокация', 'Запись на ивенты'],
+    eyebrow: 'Приложение Vision',
+    head: ['Ваш клуб', 'всегда рядом'],
+    body: 'Личный доступ к событиям, контактам, форум-группам и партнёрам Альянса — в одном приложении.',
+    altMembers: 'Vision App — участники',
+    altEvents: 'Vision App — встречи',
+  },
+  en: {
+    chips: ['Knowledge base', 'Member search', 'Chats', 'Geolocation', 'Event booking'],
+    eyebrow: 'The Vision app',
+    head: ['Your club', 'within reach'],
+    body: 'Personal access to events, contacts, forum groups and Alliance partners — all in one app.',
+    altMembers: 'Vision App — members',
+    altEvents: 'Vision App — events',
+  },
+};
 
-export default function AppSection() {
+export default function AppSection({ lang = 'ru' }: { lang?: Lang }) {
+  const t = COPY[lang];
+  const CHIPS = t.chips;
   const m = useMounted();
   return (
     <section
@@ -91,7 +111,7 @@ export default function AppSection() {
                   color: 'var(--accent)',
                 }}
               >
-                Приложение Vision
+                {t.eyebrow}
               </span>
             </div>
             <h2
@@ -106,13 +126,13 @@ export default function AppSection() {
               }}
             >
               <span style={{ color: 'var(--heading)' }}>
-                Ваш клуб <span style={{ color: 'var(--accent)' }}>—</span>
+                {t.head[0]} <span style={{ color: 'var(--accent)' }}>—</span>
               </span>
               <br />
-              <span style={{ color: 'var(--accent)' }}>всегда рядом</span>
+              <span style={{ color: 'var(--accent)' }}>{t.head[1]}</span>
             </h2>
             <p style={{ fontSize: 21, lineHeight: 1.5, color: '#B6B2A9', marginTop: 24, maxWidth: 520 }}>
-              Личный доступ к событиям, контактам, форум-группам и партнёрам Альянса — в одном приложении.
+              {t.body}
             </p>
             <div className="vc-app-chips" style={{ display: 'flex', flexWrap: 'wrap', gap: 13, marginTop: 34, maxWidth: 560 }}>
               {CHIPS.map((c) => (
@@ -210,7 +230,7 @@ export default function AppSection() {
                 >
                   <Image
                     src={asset('/assets/app/screen-members.webp')}
-                    alt="Vision App — участники"
+                    alt={t.altMembers}
                     fill
                     sizes="262px"
                     style={{ objectFit: 'cover' }}
@@ -244,7 +264,7 @@ export default function AppSection() {
                 >
                   <Image
                     src={asset('/assets/app/screen-events.webp')}
-                    alt="Vision App — встречи"
+                    alt={t.altEvents}
                     fill
                     sizes="278px"
                     style={{ objectFit: 'cover' }}

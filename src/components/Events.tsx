@@ -3,9 +3,17 @@ import Image from 'next/image';
 import { useMounted, reveal } from '@/lib/useMounted';
 import { useDragSlider } from '@/lib/useDragSlider';
 import { asset } from '@/lib/site';
-import { CLUB_EVENTS as EVENTS } from '@/lib/events';
+import { CLUB_EVENTS } from '@/lib/events';
+import type { Lang } from '@/lib/i18n';
 
-export default function Events() {
+const COPY = {
+  ru: { title: 'Мероприятия', title2: 'Vision Club', scroll: 'Листайте', prev: 'Назад', next: 'Вперёд' },
+  en: { title: 'Events', title2: 'at Vision Club', scroll: 'Scroll', prev: 'Previous', next: 'Next' },
+};
+
+export default function Events({ lang = 'ru' }: { lang?: Lang }) {
+  const t = COPY[lang];
+  const EVENTS = CLUB_EVENTS.map((ev) => (lang === 'en' ? { ...ev, ...ev.en } : ev));
   const m = useMounted();
   const { ref, step } = useDragSlider(456);
 
@@ -43,19 +51,19 @@ export default function Events() {
             textTransform: 'uppercase',
           }}
         >
-          <span style={{ color: 'var(--accent)' }}>Мероприятия</span>
+          <span style={{ color: 'var(--accent)' }}>{t.title}</span>
           <br />
-          <span style={{ color: 'var(--heading)' }}>Vision Club</span>
+          <span style={{ color: 'var(--heading)' }}>{t.title2}</span>
         </h2>
         <div style={{ display: 'flex', alignItems: 'center', gap: 18, flexShrink: 0 }}>
           <span style={{ fontSize: 15, color: 'var(--dim)', letterSpacing: '.02em' }}>
-            Листайте&nbsp;→
+            {t.scroll}&nbsp;→
           </span>
           <div style={{ display: 'flex', gap: 12 }}>
-            <button className="vc-arrow" onClick={() => step(-1)} aria-label="Назад">
+            <button className="vc-arrow" onClick={() => step(-1)} aria-label={t.prev}>
               <Arrow dir="left" />
             </button>
-            <button className="vc-arrow" onClick={() => step(1)} aria-label="Вперёд">
+            <button className="vc-arrow" onClick={() => step(1)} aria-label={t.next}>
               <Arrow dir="right" />
             </button>
           </div>

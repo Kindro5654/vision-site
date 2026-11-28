@@ -4,26 +4,36 @@ import { createPortal } from 'react-dom';
 import { useLeadSubmit, useUtmCapture } from '@/lib/useLeadSubmit';
 import FormStatus from '@/components/FormStatus';
 import PhoneField from '@/components/PhoneField';
+import { FORM_COPY, positionOptions, revenueOptions, type LeadOption } from '@/lib/leadOptions';
+import type { Lang } from '@/lib/i18n';
 
-const POS = [
-  'Предприниматель / собственник бизнеса',
-  'Топ-менеджер / C-level',
-  'Инвестор',
-  'Эксперт / консультант',
-];
-const REV = [
-  'Оборот: от 0 до 1 млн $',
-  'Оборот: от 1 до 5 млн $',
-  'Оборот: от 5 до 20 млн $',
-  'Оборот: более 20 млн $',
-];
+const COPY = {
+  ru: {
+    close: 'Закрыть',
+    eyebrow: 'Только по приглашению · Дубай',
+    title: ['Получить', 'приглашение'],
+    lead: 'Оставьте контакты — менеджер клуба свяжется с вами в рабочее время, расскажет об условиях резидентства и пригласит на ближайшую встречу.',
+    nameAria: 'Имя',
+    submit: 'Получить приглашение →',
+  },
+  en: {
+    close: 'Close',
+    eyebrow: 'By invitation only · Dubai',
+    title: ['Request an', 'invitation'],
+    lead: 'Leave your details and a member of our team will contact you during business hours, walk you through membership and invite you to our next gathering.',
+    nameAria: 'Full name',
+    submit: 'Request an invitation →',
+  },
+};
 
 const checkOn = `var(--accent) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23160B03' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12l5 5L20 6'/></svg>") center/15px no-repeat`;
 
 /** Global CTA modal. Any component can open it with:
  *  window.dispatchEvent(new Event('vc:open-cta'))
  */
-export default function MainCTAModal() {
+export default function MainCTAModal({ lang = 'ru' }: { lang?: Lang }) {
+  const t = COPY[lang];
+  const f = FORM_COPY[lang];
   useUtmCapture();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -32,7 +42,7 @@ export default function MainCTAModal() {
   const [position, setPosition] = useState('');
   const [revenue, setRevenue] = useState('');
   const [consent, setConsent] = useState(true);
-  const { submit, state, error, reset } = useLeadSubmit('vision-site', 'cta');
+  const { submit, state, error, reset } = useLeadSubmit('vision-site', 'cta', lang);
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setMounted(true), []);
@@ -113,7 +123,7 @@ export default function MainCTAModal() {
         <button
           type="button"
           onClick={() => setOpen(false)}
-          aria-label="Закрыть"
+          aria-label={t.close}
           style={{
             position: 'absolute',
             top: 16,
@@ -165,7 +175,7 @@ export default function MainCTAModal() {
               color: 'var(--accent)',
             }}
           >
-            Только по приглашению · Дубай
+            {t.eyebrow}
           </span>
         </div>
 
@@ -182,17 +192,17 @@ export default function MainCTAModal() {
             marginBottom: 10,
           }}
         >
-          Получить <span style={{ color: 'var(--accent)' }}>приглашение</span>
+          {t.title[0]} <span style={{ color: 'var(--accent)' }}>{t.title[1]}</span>
         </h3>
         <p style={{ fontSize: 15, lineHeight: 1.55, color: '#B8B4AB', marginBottom: 22 }}>
-          Оставьте контакты — менеджер клуба свяжется с вами в рабочее время, расскажет об условиях резидентства и пригласит на ближайшую встречу.
+          {t.lead}
         </p>
 
         <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <ModalInput placeholder="Имя и фамилия" value={name} onChange={setName} aria="Имя" />
-          <PhoneField value={phone} onChange={setPhone} height={56} />
-          <ModalSelect options={POS} value={position} onChange={setPosition} aria="Позиция" placeholder="Ваша позиция" />
-          <ModalSelect options={REV} value={revenue} onChange={setRevenue} aria="Оборот" placeholder="Оборот бизнеса" />
+          <ModalInput placeholder={f.name} value={name} onChange={setName} aria={t.nameAria} />
+          <PhoneField value={phone} onChange={setPhone} height={56} lang={lang} />
+          <ModalSelect options={positionOptions(lang)} value={position} onChange={setPosition} aria={f.positionAria} placeholder={f.positionPlaceholder} />
+          <ModalSelect options={revenueOptions(lang)} value={revenue} onChange={setRevenue} aria={f.revenueAria} placeholder={f.revenuePlaceholder} />
 
           <label style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 4, cursor: 'pointer', userSelect: 'none' }}>
             <input
@@ -212,7 +222,7 @@ export default function MainCTAModal() {
               }}
             />
             <span style={{ fontSize: 13, color: '#8C887F' }}>
-              Даю согласие на обработку персональных данных
+              {f.consent}
             </span>
           </label>
 
@@ -241,9 +251,9 @@ export default function MainCTAModal() {
               boxShadow: '0 12px 30px -10px rgba(233,107,30,.55)',
             }}
           >
-            {state === 'sending' ? 'Отправляем…' : 'Получить приглашение →'}
+            {state === 'sending' ? f.sending : t.submit}
           </button>
-          <FormStatus state={state} error={error} successText="Спасибо! Менеджер клуба свяжется с вами в ближайшее время." />
+          <FormStatus state={state} error={error} successText={f.success} />
         </form>
       </div>
     </div>
@@ -298,7 +308,7 @@ function ModalSelect({
   aria,
   placeholder,
 }: {
-  options: string[];
+  options: LeadOption[];
   value: string;
   onChange: (v: string) => void;
   aria: string;
@@ -335,8 +345,8 @@ function ModalSelect({
       >
         <option value="" disabled hidden>{placeholder}</option>
         {options.map((o) => (
-          <option key={o} value={o}>
-            {o}
+          <option key={o.value} value={o.value}>
+            {o.label}
           </option>
         ))}
       </select>

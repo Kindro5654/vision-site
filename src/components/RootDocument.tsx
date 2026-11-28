@@ -3,7 +3,11 @@ import { Oswald, Golos_Text } from 'next/font/google';
 import Script from 'next/script';
 import { SITE, META_PIXEL_ID, GA4_ID, YM_ID } from '@/lib/site';
 import { PASSPORT } from '@/lib/passport';
-import './globals.css';
+import { OG_LOCALE, type Lang } from '@/lib/i18n';
+import '@/app/globals.css';
+
+// Общий каркас документа для двух корневых layout'ов: app/(ru)/layout.tsx (<html lang="ru">)
+// и app/(en)/layout.tsx (<html lang="en">). Шрифты, пиксели/счётчики и разметка Organization — здесь.
 
 const oswald = Oswald({
   subsets: ['latin', 'cyrillic'],
@@ -19,64 +23,86 @@ const golos = Golos_Text({
   variable: '--font-golos',
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE.url),
-  title: { default: SITE.title, template: `%s · ${SITE.name}` },
-  description: SITE.description,
-  applicationName: SITE.name,
-  keywords: [
-    'Vision Club', 'бизнес-клуб', 'Дубай', 'предприниматели',
-    'международный клуб', 'нетворкинг', 'C-level', 'Альянс клубов',
-    'business club Dubai', 'entrepreneurs UAE',
-  ],
-  authors: [{ name: SITE.name }],
-  creator: SITE.name,
-  publisher: SITE.name,
-  formatDetection: { telephone: false, email: false, address: false },
-  openGraph: {
-    type: 'website',
-    locale: SITE.locale,
-    url: SITE.url,
-    siteName: SITE.name,
+const META = {
+  ru: {
     title: SITE.title,
     description: SITE.description,
-    images: [
-      {
-        url: SITE.ogImage,
-        width: 1200, height: 630,
-        alt: SITE.title,
-      },
+    keywords: [
+      'Vision Club', 'бизнес-клуб', 'Дубай', 'предприниматели',
+      'международный клуб', 'нетворкинг', 'C-level', 'Альянс клубов',
+      'business club Dubai', 'entrepreneurs UAE',
     ],
+    disambiguation: PASSPORT.disambiguation,
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: SITE.title,
-    description: SITE.description,
-    images: [SITE.ogImage],
+  en: {
+    title: SITE.titleEn,
+    description: SITE.descriptionEn,
+    keywords: [
+      'Vision Club', 'business club Dubai', 'private business club', 'entrepreneurs Dubai',
+      'business owners club UAE', 'forum groups', 'C-suite network', 'Alliance Clubs',
+    ],
+    disambiguation: PASSPORT.disambiguationEn,
   },
-  robots: {
-    index: true, follow: true,
-    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
-  },
-  alternates: { canonical: SITE.url },
-  verification: {
-    google: 'gED3-pysiNFf6as0JM5nfWvivTNVrfs56yhH3-XjIgo',
-    yandex: '06692612a6c67d9b',
-    other: { 'msvalidate.01': 'D54DAB11DD813EAC55404643870A9859' },
-  },
-  icons: {
-    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
-    apple: '/favicon.svg',
-  },
-};
+} as const;
 
-export const viewport: Viewport = {
+export function rootMetadata(lang: Lang): Metadata {
+  const t = META[lang];
+  return {
+    metadataBase: new URL(SITE.url),
+    title: { default: t.title, template: `%s · ${SITE.name}` },
+    description: t.description,
+    applicationName: SITE.name,
+    keywords: [...t.keywords],
+    authors: [{ name: SITE.name }],
+    creator: SITE.name,
+    publisher: SITE.name,
+    formatDetection: { telephone: false, email: false, address: false },
+    openGraph: {
+      type: 'website',
+      locale: OG_LOCALE[lang],
+      url: lang === 'en' ? `${SITE.url}/en/` : SITE.url,
+      siteName: SITE.name,
+      title: t.title,
+      description: t.description,
+      images: [
+        {
+          url: SITE.ogImage,
+          width: 1200, height: 630,
+          alt: t.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t.title,
+      description: t.description,
+      images: [SITE.ogImage],
+    },
+    robots: {
+      index: true, follow: true,
+      googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+    },
+    alternates: { canonical: lang === 'en' ? `${SITE.url}/en/` : SITE.url },
+    verification: {
+      google: 'gED3-pysiNFf6as0JM5nfWvivTNVrfs56yhH3-XjIgo',
+      yandex: '06692612a6c67d9b',
+      other: { 'msvalidate.01': 'D54DAB11DD813EAC55404643870A9859' },
+    },
+    icons: {
+      icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+      apple: '/favicon.svg',
+    },
+  };
+}
+
+export const rootViewport: Viewport = {
   themeColor: SITE.themeColor,
   width: 'device-width',
   initialScale: 1,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootDocument({ lang, children }: { lang: Lang; children: React.ReactNode }) {
+  const t = META[lang];
   const postalAddress = {
     '@type': 'PostalAddress',
     streetAddress: SITE.address.street,
@@ -87,7 +113,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   const founders = SITE.founders.map((f) => ({
     '@type': 'Person',
-    name: f.name,
+    name: lang === 'en' ? f.nameEn : f.name,
     jobTitle: f.role,
   }));
 
@@ -98,8 +124,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     '@type': 'Organization',
     '@id': `${SITE.url}/#organization`,
     name: SITE.name,
-    description: SITE.description,
-    disambiguatingDescription: PASSPORT.disambiguation,
+    description: t.description,
+    disambiguatingDescription: t.disambiguation,
     foundingDate: String(PASSPORT.foundingYear),
     foundingLocation: { '@type': 'Place', name: 'Dubai, UAE' },
     knowsLanguage: ['ru', 'en'],
@@ -130,8 +156,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     '@type': 'LocalBusiness',
     '@id': `${SITE.url}/#business`,
     name: SITE.name,
-    description: SITE.description,
-    disambiguatingDescription: PASSPORT.disambiguation,
+    description: t.description,
+    disambiguatingDescription: t.disambiguation,
     url: SITE.url,
     telephone: SITE.phone,
     email: SITE.email,
@@ -148,12 +174,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     '@id': `${SITE.url}/#website`,
     url: SITE.url,
     name: SITE.name,
-    inLanguage: 'ru-RU',
+    inLanguage: ['ru-RU', 'en'],
     publisher: { '@id': `${SITE.url}/#organization` },
   };
 
   return (
-    <html lang="ru" className={`${oswald.variable} ${golos.variable}`}>
+    <html lang={lang} className={`${oswald.variable} ${golos.variable}`}>
       <body>
         <a id="top" />
         {/* Meta Pixel Code */}

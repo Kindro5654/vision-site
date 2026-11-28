@@ -18,13 +18,40 @@ import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
 import ContactWidget from '@/components/ContactWidget';
 import MainCTAModal from '@/components/MainCTAModal';
-import { HOMEPAGE_FAQ } from '@/lib/faq';
+import { HOMEPAGE_FAQ, HOMEPAGE_FAQ_EN } from '@/lib/faq';
 import { SITE } from '@/lib/site';
 import { CLUB_EVENTS, nextRecurrence, nextRecurrenceEnd } from '@/lib/events';
+import { SCHEMA_LANG, type Lang } from '@/lib/i18n';
 
 const CLUBHOUSE_VIDEO_ID = 'WDTME_9tmpQ';
 
-export default function Page() {
+const LD = {
+  ru: {
+    home: 'Главная',
+    clubhouse: 'Клубный дом Vision',
+    events: 'Мероприятия Vision Club',
+    videoName: 'Клубный дом Vision — онлайн-экскурсия',
+    videoDesc:
+      'Онлайн-экскурсия по Клубному дому Vision в Дубае: приватное пространство для встреч предпринимателей, форум-групп и глубоких разговоров единомышленников.',
+    title: SITE.title,
+  },
+  en: {
+    home: 'Home',
+    clubhouse: 'Vision Clubhouse',
+    events: 'Vision Club events',
+    videoName: 'Vision Clubhouse — virtual tour',
+    videoDesc:
+      'A virtual tour of the Vision Clubhouse in Dubai: a private space where entrepreneurs meet, forum groups convene and like-minded people have meaningful conversations.',
+    title: SITE.titleEn,
+  },
+} as const;
+
+/** Главная страница. Русская (/) и английская (/en/) рендерятся этим же компонентом. */
+export default function HomePage({ lang = 'ru' }: { lang?: Lang }) {
+  const t = LD[lang];
+  const pageUrl = lang === 'en' ? `${SITE.url}/en/` : SITE.url;
+  const faq = lang === 'en' ? HOMEPAGE_FAQ_EN : HOMEPAGE_FAQ;
+
   const address = {
     '@type': 'PostalAddress',
     streetAddress: SITE.address.street,
@@ -36,7 +63,8 @@ export default function Page() {
   const faqLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: HOMEPAGE_FAQ.map((it) => ({
+    ...(lang === 'en' ? { inLanguage: SCHEMA_LANG.en } : {}),
+    mainEntity: faq.map((it) => ({
       '@type': 'Question',
       name: it.q,
       acceptedAnswer: { '@type': 'Answer', text: it.a },
@@ -47,13 +75,13 @@ export default function Page() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE.url },
+      { '@type': 'ListItem', position: 1, name: t.home, item: pageUrl },
     ],
   };
 
   const clubhousePlace = {
     '@type': 'Place',
-    name: 'Клубный дом Vision',
+    name: t.clubhouse,
     address,
   };
 
@@ -63,15 +91,16 @@ export default function Page() {
   const eventsLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Мероприятия Vision Club',
+    name: t.events,
     numberOfItems: CLUB_EVENTS.length,
     itemListElement: CLUB_EVENTS.map((ev, i) => ({
       '@type': 'ListItem',
       position: i + 1,
       item: {
         '@type': 'Event',
-        name: ev.title,
-        description: ev.desc,
+        name: lang === 'en' ? ev.en.title : ev.title,
+        description: lang === 'en' ? ev.en.desc : ev.desc,
+        ...(lang === 'en' ? { inLanguage: SCHEMA_LANG.en } : {}),
         startDate: nextRecurrence(1),
         endDate: nextRecurrenceEnd(1),
         eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
@@ -87,7 +116,7 @@ export default function Page() {
           price: '0',
           priceCurrency: 'AED',
           validFrom,
-          url: `${SITE.url}/#apply`,
+          url: lang === 'en' ? `${SITE.url}/en/#apply` : `${SITE.url}/#apply`,
         },
       },
     })),
@@ -96,9 +125,8 @@ export default function Page() {
   const videoLd = {
     '@context': 'https://schema.org',
     '@type': 'VideoObject',
-    name: 'Клубный дом Vision — онлайн-экскурсия',
-    description:
-      'Онлайн-экскурсия по Клубному дому Vision в Дубае: приватное пространство для встреч предпринимателей, форум-групп и глубоких разговоров единомышленников.',
+    name: t.videoName,
+    description: t.videoDesc,
     thumbnailUrl: [
       `https://img.youtube.com/vi/${CLUBHOUSE_VIDEO_ID}/maxresdefault.jpg`,
       `https://img.youtube.com/vi/${CLUBHOUSE_VIDEO_ID}/hqdefault.jpg`,
@@ -108,6 +136,7 @@ export default function Page() {
     contentUrl: `https://www.youtube.com/watch?v=${CLUBHOUSE_VIDEO_ID}`,
     embedUrl: `https://www.youtube-nocookie.com/embed/${CLUBHOUSE_VIDEO_ID}`,
     publisher: { '@id': `${SITE.url}/#organization` },
+    // Видео само по себе русское — на английской странице меняются только название и описание.
     inLanguage: 'ru-RU',
   };
 
@@ -116,10 +145,10 @@ export default function Page() {
   const speakableLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    '@id': `${SITE.url}/#webpage`,
-    url: SITE.url,
-    name: SITE.title,
-    inLanguage: 'ru-RU',
+    '@id': lang === 'en' ? `${SITE.url}/en/#webpage` : `${SITE.url}/#webpage`,
+    url: pageUrl,
+    name: t.title,
+    inLanguage: SCHEMA_LANG[lang],
     isPartOf: { '@id': `${SITE.url}/#website` },
     speakable: {
       '@type': 'SpeakableSpecification',
@@ -139,27 +168,28 @@ export default function Page() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(eventsLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableLd) }} />
-      <Hero />
-      <Founders />
-      <Numbers />
-      <Events />
-      <Cases />
-      <Audience />
-      <Residents />
-      <Unique />
-      <Clubhouse />
-      <Alliance />
-      <Speakers />
-      <AppSection />
-      <Gallery />
+      <Hero lang={lang} />
+      <Founders lang={lang} />
+      <Numbers lang={lang} />
+      <Events lang={lang} />
+      <Cases lang={lang} />
+      <Audience lang={lang} />
+      <Residents lang={lang} />
+      <Unique lang={lang} />
+      <Clubhouse lang={lang} />
+      <Alliance lang={lang} />
+      <Speakers lang={lang} />
+      <AppSection lang={lang} />
+      <Gallery lang={lang} />
       <a id="apply" aria-hidden />
-      <Join />
-      <FAQ />
-      <Blog />
-      <Footer />
-      <StickyCTA />
-      <ContactWidget />
-      <MainCTAModal />
+      <Join lang={lang} />
+      <FAQ lang={lang} />
+      {/* Блог только на русском — на английской главной блок не показываем. */}
+      {lang === 'ru' && <Blog />}
+      <Footer lang={lang} />
+      <StickyCTA lang={lang} />
+      <ContactWidget lang={lang} />
+      <MainCTAModal lang={lang} />
     </main>
   );
 }

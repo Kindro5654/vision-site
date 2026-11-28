@@ -1,9 +1,27 @@
 'use client';
 import { useState } from 'react';
 import { useMounted, reveal } from '@/lib/useMounted';
-import { HOMEPAGE_FAQ as DATA } from '@/lib/faq';
+import { HOMEPAGE_FAQ, HOMEPAGE_FAQ_EN } from '@/lib/faq';
+import type { Lang } from '@/lib/i18n';
 
-export default function FAQ() {
+const COPY = {
+  ru: {
+    eyebrow: 'Вопросы',
+    head: ['Частые', 'вопросы'],
+    note: 'Не нашли ответ? Напишите менеджеру клуба — ответим лично.',
+    ask: 'Задать вопрос',
+  },
+  en: {
+    eyebrow: 'Questions',
+    head: ['Frequently asked', 'questions'],
+    note: 'Can’t find what you’re looking for? Message our team and we’ll reply personally.',
+    ask: 'Ask a question',
+  },
+};
+
+export default function FAQ({ lang = 'ru' }: { lang?: Lang }) {
+  const t = COPY[lang];
+  const DATA = lang === 'en' ? HOMEPAGE_FAQ_EN : HOMEPAGE_FAQ;
   const m = useMounted();
   const [open, setOpen] = useState(0);
 
@@ -27,7 +45,7 @@ export default function FAQ() {
             <div className="vc-faq-head">
               <div className="eyebrow" style={{ marginBottom: 16 }}>
                 <span className="eyebrow-line" />
-                <span className="eyebrow-text">Вопросы</span>
+                <span className="eyebrow-text">{t.eyebrow}</span>
               </div>
               <h2
                 className="osw"
@@ -40,12 +58,12 @@ export default function FAQ() {
                   color: 'var(--heading)',
                 }}
               >
-                Частые<br />
-                <span style={{ color: 'var(--accent)' }}>вопросы</span>
+                {t.head[0]}<br />
+                <span style={{ color: 'var(--accent)' }}>{t.head[1]}</span>
               </h2>
             </div>
             <p style={{ fontSize: 17, lineHeight: 1.55, color: 'var(--muted-2)', marginTop: 22, maxWidth: 320 }}>
-              Не нашли ответ? Напишите менеджеру клуба — ответим лично.
+              {t.note}
             </p>
             <a
               href="#"
@@ -66,7 +84,7 @@ export default function FAQ() {
                 textTransform: 'uppercase',
               }}
             >
-              Задать вопрос
+              {t.ask}
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>

@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { useMounted, reveal } from '@/lib/useMounted';
 import { asset } from '@/lib/site';
+import type { Lang } from '@/lib/i18n';
 
 type Tile = {
   src: string;
@@ -26,7 +27,8 @@ const TILES: Tile[] = [
   { src: '/assets/gallery/p0216a.webp', pos: 'center 30%', gridColumn: '4/5', gridRow: '6/7' },
 ];
 
-export default function Gallery() {
+export default function Gallery({ lang = 'ru' }: { lang?: Lang }) {
+  const en = lang === 'en';
   const m = useMounted();
   return (
     <section
@@ -52,7 +54,7 @@ export default function Gallery() {
               textAlign: 'center',
             }}
           >
-            <span style={{ color: 'var(--heading)' }}>Атмосфера</span>{' '}
+            <span style={{ color: 'var(--heading)' }}>{en ? 'Life at' : 'Атмосфера'}</span>{' '}
             <span style={{ color: 'var(--accent)' }}>Vision</span>
           </h2>
         </div>
@@ -75,7 +77,7 @@ export default function Gallery() {
             >
               <Image
                 src={asset(t.src)}
-                alt="Атмосфера Vision"
+                alt={en ? 'Life at Vision' : 'Атмосфера Vision'}
                 fill
                 sizes="(max-width: 820px) 50vw, 33vw"
                 loading={i < 6 ? 'eager' : 'lazy'}

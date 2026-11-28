@@ -10,6 +10,27 @@ import {
   parseE164,
 } from '@/lib/countries';
 import { asset } from '@/lib/site';
+import type { Lang } from '@/lib/i18n';
+
+const COPY = {
+  ru: { country: 'Код страны', phone: 'Телефон', search: 'Поиск страны или кода…', searchAria: 'Поиск страны', empty: 'Ничего не найдено' },
+  en: { country: 'Country code', phone: 'Phone number', search: 'Search country or code…', searchAria: 'Search country', empty: 'No matches' },
+};
+
+// Названия стран в COUNTRIES — русские. Для английской формы берём их из Intl.
+const regionNamesEn =
+  typeof Intl !== 'undefined' && 'DisplayNames' in Intl
+    ? new Intl.DisplayNames(['en'], { type: 'region' })
+    : null;
+
+function countryName(c: Country, lang: Lang): string {
+  if (lang === 'ru') return c.name;
+  try {
+    return regionNamesEn?.of(c.iso) ?? c.iso;
+  } catch {
+    return c.iso;
+  }
+}
 
 /** Real SVG flag (renders on every OS, unlike emoji flags). */
 function Flag({ iso, size = 22 }: { iso: string; size?: number }) {
@@ -43,11 +64,14 @@ export default function PhoneField({
   value,
   onChange,
   height = 60,
+  lang = 'ru',
 }: {
   value: string;
   onChange: (v: string) => void;
   height?: number;
+  lang?: Lang;
 }) {
+  const t = COPY[lang];
   // Seed from the incoming value so a re-mounted field (e.g. a modal reopened
   // after closing) restores the number the parent still holds, instead of
   // wiping it via the emit effect below.
@@ -129,10 +153,11 @@ export default function PhoneField({
     return COUNTRIES.filter(
       (c) =>
         c.name.toLowerCase().includes(q) ||
+        (lang === 'en' && countryName(c, 'en').toLowerCase().includes(q)) ||
         c.iso.toLowerCase().includes(q) ||
         (digitsQ && c.dial.includes(digitsQ))
     );
-  }, [query]);
+  }, [query, lang]);
 
   const onDigits = (raw: string) => {
     touchedRef.current = true;
@@ -173,7 +198,7 @@ export default function PhoneField({
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        aria-label={`Код страны: ${country.name}, +${country.dial}`}
+        aria-label={`${t.country}: ${countryName(country, lang)}, +${country.dial}`}
         aria-expanded={open}
         style={{
           display: 'flex',
@@ -217,7 +242,7 @@ export default function PhoneField({
         value={formatNumber(digits, country)}
         onChange={(e) => onDigits(e.target.value)}
         placeholder={placeholder}
-        aria-label="Телефон"
+        aria-label={t.phone}
         inputMode="numeric"
         autoComplete="tel-national"
         style={{
@@ -252,8 +277,8 @@ export default function PhoneField({
               ref={searchRef}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Поиск страны или кода…"
-              aria-label="Поиск страны"
+              placeholder={t.search}
+              aria-label={t.searchAria}
               style={{
                 width: '100%',
                 height: 40,
@@ -270,7 +295,7 @@ export default function PhoneField({
           <div style={{ maxHeight: 240, overflowY: 'auto', padding: 6 }}>
             {filtered.length === 0 ? (
               <div style={{ padding: '14px 12px', color: '#8C887F', fontSize: 14 }}>
-                Ничего не найдено
+                {t.empty}
               </div>
             ) : (
               filtered.map((c) => {
@@ -309,7 +334,7 @@ export default function PhoneField({
                     }}
                   >
                     <Flag iso={c.iso} size={22} />
-                    <span style={{ flex: 1, minWidth: 0 }}>{c.name}</span>
+                    <span style={{ flex: 1, minWidth: 0 }}>{countryName(c, lang)}</span>
                     <span style={{ color: '#8C887F', flexShrink: 0 }}>+{c.dial}</span>
                   </button>
                 );
