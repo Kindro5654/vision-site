@@ -48,6 +48,7 @@ export default function Founders({ lang = 'ru' }: { lang?: Lang }) {
   const people = FOUNDERS.map((f) => (lang === 'en' ? { ...f, ...f.en } : f));
   return (
     <section
+      id="about"
       className="vc-founders vc-sec"
       style={{
         position: 'relative',

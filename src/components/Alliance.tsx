@@ -380,6 +380,7 @@ export default function Alliance({ lang = 'ru' }: { lang?: Lang }) {
 
   return (
     <section
+      id="alliance"
       className="vc-sec"
       style={{
         position: 'relative',

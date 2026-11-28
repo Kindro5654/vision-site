@@ -60,7 +60,10 @@ const COPY = {
     metroLabel: 'На метро:',
     metro: 'Red Line, станция «Nakheel» или «Internet City» — 10–15 минут пешком до Loft Offices 3.',
     taxiLabel: 'На такси / Careem:',
-    taxi: 'назовите ориентир «Loft Offices 3, Dubai Internet City, Entrance B, Unit 206». Парковка бесплатная у Entrance B.',
+    taxi: 'назовите ориентир «Loft Offices 3, Dubai Internet City, Entrance B». Клубный дом на 2 этаже, офис 206.',
+    parkingLabel: 'Парковка:',
+    parking: 'уличная рядом с Loft Offices 3 или многоэтажная (первый час бесплатно, далее 10 AED в час) —',
+    parkingLink: 'парковка на карте',
     mapLabel: 'На карте:',
     map: 'открыть в Google Maps',
     insideHead: 'Что происходит внутри',
@@ -115,7 +118,10 @@ const COPY = {
     metroLabel: 'By metro:',
     metro: 'Red Line to Nakheel or Internet City station, then a 10–15-minute walk to Loft Offices 3.',
     taxiLabel: 'By taxi or Careem:',
-    taxi: 'ask for “Loft Offices 3, Dubai Internet City, Entrance B, Unit 206”. Free parking is available at Entrance B.',
+    taxi: 'ask for “Loft Offices 3, Dubai Internet City, Entrance B”. The Clubhouse is on the 2nd floor, Unit 206.',
+    parkingLabel: 'Parking:',
+    parking: 'street parking next to Loft Offices 3, or a multi-storey car park (first hour free, then AED 10 an hour) —',
+    parkingLink: 'car park on the map',
     mapLabel: 'On the map:',
     map: 'open in Google Maps',
     insideHead: 'Inside the Clubhouse',
@@ -208,7 +214,7 @@ export default function ClubhousePage({ lang = 'ru' }: { lang?: Lang }) {
     image: `${SITE.url}${GALLERY[0].src}`,
     priceRange: '$$$$',
     parentOrganization: { '@id': `${SITE.url}/#organization` },
-    hasMap: 'https://www.google.com/maps/search/?api=1&query=Dubai+Internet+City+Loft+Offices+3+Vision+Club',
+    hasMap: SITE.address.mapUrl,
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -273,7 +279,7 @@ export default function ClubhousePage({ lang = 'ru' }: { lang?: Lang }) {
               <tbody>
                 <tr>
                   <th>{t.addressLabel}</th>
-                  <td>{SITE.address.street}, {SITE.address.locality}, {SITE.address.region}, {t.country}</td>
+                  <td>{lang === 'en' ? SITE.address.street : SITE.address.streetRu}, {SITE.address.locality}, {SITE.address.region}, {t.country}</td>
                 </tr>
                 <tr>
                   <th>{t.area}</th>
@@ -332,9 +338,16 @@ export default function ClubhousePage({ lang = 'ru' }: { lang?: Lang }) {
             <strong>{t.taxiLabel}</strong> {t.taxi}
           </p>
           <p>
+            <strong>{t.parkingLabel}</strong> {t.parking}{' '}
+            <a href={SITE.address.parkingMapUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)' }}>
+              {t.parkingLink}
+            </a>
+            .
+          </p>
+          <p>
             <strong>{t.mapLabel}</strong>{' '}
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Dubai+Internet+City+Loft+Offices+3"
+              href={SITE.address.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: 'var(--accent)' }}

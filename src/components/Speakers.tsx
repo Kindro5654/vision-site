@@ -26,6 +26,7 @@ export default function Speakers({ lang = 'ru' }: { lang?: Lang }) {
   const m = useMounted();
   return (
     <section
+      id="speakers"
       className="vc-sec"
       style={{
         position: 'relative',

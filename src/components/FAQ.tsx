@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useMounted, reveal } from '@/lib/useMounted';
 import { HOMEPAGE_FAQ, HOMEPAGE_FAQ_EN } from '@/lib/faq';
+import { SITE } from '@/lib/site';
 import type { Lang } from '@/lib/i18n';
 
 const COPY = {
@@ -66,7 +67,9 @@ export default function FAQ({ lang = 'ru' }: { lang?: Lang }) {
               {t.note}
             </p>
             <a
-              href="#"
+              href={lang === 'en' ? SITE.whatsappEn : SITE.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
               className="vc-more osw"
               style={{
                 display: 'inline-flex',

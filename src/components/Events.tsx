@@ -19,6 +19,7 @@ export default function Events({ lang = 'ru' }: { lang?: Lang }) {
 
   return (
     <section
+      id="events"
       className="vc-ev-root"
       style={{
         position: 'relative',

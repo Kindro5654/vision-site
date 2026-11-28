@@ -12,7 +12,13 @@ import type { Lang } from '@/lib/i18n';
 
 const COPY = {
   ru: {
-    nav: ['О клубе', 'Мероприятия', 'Резиденты', 'Спикеры', 'Клубный дом'],
+    nav: [
+      { label: 'О клубе', href: '/o-klube/' },
+      { label: 'Мероприятия', href: '#events' },
+      { label: 'Резиденты', href: '#residents' },
+      { label: 'Спикеры', href: '#speakers' },
+      { label: 'Клубный дом', href: '/klubnyi-dom/' },
+    ],
     whatsappAria: 'Написать в WhatsApp',
     headerCta: 'Оставить заявку',
     eyebrow: 'Только по приглашению · Дубай',
@@ -26,7 +32,13 @@ const COPY = {
     stat2: { num: '1 200+', label: 'резидентов по миру через Альянс клубов' },
   },
   en: {
-    nav: ['About', 'Events', 'Members', 'Speakers', 'Clubhouse'],
+    nav: [
+      { label: 'About', href: '/en/about/' },
+      { label: 'Events', href: '#events' },
+      { label: 'Members', href: '#residents' },
+      { label: 'Speakers', href: '#speakers' },
+      { label: 'Clubhouse', href: '/en/clubhouse/' },
+    ],
     whatsappAria: 'Message us on WhatsApp',
     headerCta: 'Apply',
     eyebrow: 'By invitation only · Dubai',
@@ -129,10 +141,17 @@ export default function Hero({ lang = 'ru' }: { lang?: Lang }) {
       <header
         className="vc-hero-head"
         style={{
-          position: 'relative',
-          zIndex: 3,
+          // Шапка фиксирована: при прокрутке остаётся сверху. Отступ под неё — .vc-hero-head-spacer.
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
           maxWidth: 2400,
           margin: '0 auto',
+          background: 'rgba(11,11,13,.82)',
+          backdropFilter: 'blur(14px)',
+          WebkitBackdropFilter: 'blur(14px)',
           display: 'flex',
           alignItems: 'center',
           gap: 32,
@@ -160,8 +179,8 @@ export default function Hero({ lang = 'ru' }: { lang?: Lang }) {
         >
           {t.nav.map((item) => (
             <a
-              key={item}
-              href="#"
+              key={item.label}
+              href={item.href}
               className="vc-link osw"
               style={{
                 fontWeight: 500,
@@ -172,7 +191,7 @@ export default function Hero({ lang = 'ru' }: { lang?: Lang }) {
                 flexShrink: 0,
               }}
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </nav>
@@ -227,6 +246,7 @@ export default function Hero({ lang = 'ru' }: { lang?: Lang }) {
           </button>
         </div>
       </header>
+      <div aria-hidden className="vc-hero-head-spacer" />
 
       {/* body */}
       <div

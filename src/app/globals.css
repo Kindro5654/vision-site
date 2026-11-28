@@ -18,7 +18,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 
 html, body {
   background: var(--bg);
@@ -27,7 +27,8 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  /* clip, а не hidden: hidden ломает position: sticky у шапок */
+  overflow-x: clip;
 }
 
 img { max-width: 100%; display: block; }
@@ -866,3 +867,7 @@ a.vc-lang-item:hover { color: var(--accent); }
   .vc-hero-head .vc-lang { margin-left: auto; }
   .article-page-head-right { gap: 12px; }
 }
+
+/* Отступ под фиксированную шапку главной */
+.vc-hero-head-spacer { height: 87px; }
+@media (max-width: 820px) { .vc-hero-head-spacer { height: 70px; } }

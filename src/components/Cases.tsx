@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { useMounted, reveal } from '@/lib/useMounted';
-import { asset } from '@/lib/site';
+import { SITE, asset } from '@/lib/site';
 import type { Lang } from '@/lib/i18n';
 
 const CASES = [
@@ -187,7 +187,8 @@ export default function Cases({ lang = 'ru' }: { lang?: Lang }) {
                 {c.desc}
               </p>
               <a
-                href="#"
+                href={en ? SITE.whatsappEn : '/blog/kak-nayti-biznes-partnera-v-dubae/'}
+                {...(en ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 className="vc-more osw"
                 style={{
                   marginTop: 'auto',
@@ -204,7 +205,7 @@ export default function Cases({ lang = 'ru' }: { lang?: Lang }) {
                   textTransform: 'uppercase',
                 }}
               >
-                {en ? 'Read more' : 'Подробнее'}
+                {en ? 'Ask us about it' : 'Подробнее'}
               </a>
             </article>
           ))}

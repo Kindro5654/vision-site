@@ -480,7 +480,7 @@ export default function AboutPage({ lang = 'ru' }: { lang?: Lang }) {
                   <dd>{founderNames}</dd>
                   <dt>{t.pClubhouse}</dt>
                   <dd>
-                    {SITE.address.street}, Dubai Internet City · <Link href={href('clubhouse', lang)}>{t.pMore}</Link>
+                    {en ? SITE.address.street : SITE.address.streetRu}, Dubai Internet City · <Link href={href('clubhouse', lang)}>{t.pMore}</Link>
                   </dd>
                   <dt>{t.pSite}</dt>
                   <dd>
@@ -776,7 +776,7 @@ export default function AboutPage({ lang = 'ru' }: { lang?: Lang }) {
                 <tr>
                   <th>{t.rows.clubhouse}</th>
                   <td>
-                    {SITE.address.street}, {SITE.address.locality}, {t.rows.clubhouseCity}
+                    {en ? SITE.address.street : SITE.address.streetRu}, {SITE.address.locality}, {t.rows.clubhouseCity}
                   </td>
                 </tr>
                 <tr>

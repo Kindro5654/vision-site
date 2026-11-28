@@ -35,7 +35,10 @@ export const SITE = {
   accent: '#E96B1E',
   locale: 'ru_RU',
   address: {
-    street: 'Loft Offices 3, Entrance B, Unit 206',
+    street: 'Loft Offices 3, Entrance B, 2nd floor, Unit 206',
+    streetRu: 'Loft Offices 3, Entrance B, 2 этаж, офис 206',
+    mapUrl: 'https://maps.app.goo.gl/Veyi57yx5gSWd1Kr7',
+    parkingMapUrl: 'https://maps.app.goo.gl/dYN7dEpHLLcNnpp79',
     locality: 'Dubai Internet City, Al Sufouh 2',
     region: 'Dubai',
     country: 'AE',

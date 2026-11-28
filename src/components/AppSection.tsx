@@ -29,6 +29,7 @@ export default function AppSection({ lang = 'ru' }: { lang?: Lang }) {
   const m = useMounted();
   return (
     <section
+      id="app"
       className="vc-sec"
       style={{
         position: 'relative',

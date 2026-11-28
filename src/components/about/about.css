@@ -286,3 +286,22 @@
 .okl .okl-lang { margin-left: auto; }
 .okl .okl-lang a { color: var(--muted); }
 @media (max-width: 640px) { .okl .okl-lang { margin-left: 0; } }
+
+/* --- Правки после просмотра 28.11 --- */
+/* X Club не прилипает к карточкам над ним */
+.okl .xclub { margin-top: 16px; }
+@media (max-width: 640px) { .okl .xclub { margin-top: 14px; } }
+
+/* Основатели: карточки одной высоты, цифры внизу на одной линии */
+.okl #founders .grid-2 { align-items: stretch; }
+.okl .founder { align-items: stretch; height: 100%; }
+.okl .founder__body { flex: 1; min-width: 0; }
+.okl .founder__facts { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); gap: 28px; align-items: baseline; }
+.okl .founder__facts span { display: inline-flex; align-items: baseline; gap: 6px; line-height: 1; }
+.okl .founder__facts b { line-height: 1; }
+
+/* Плавность: свечения без filter: blur (он тормозит прокрутку и раскрытие FAQ), мягкость даёт сам градиент */
+.okl .glow { filter: none; background: radial-gradient(circle, rgba(233,107,30,var(--a, .2)), rgba(233,107,30,0) 70%); }
+.okl .xclub::before { filter: none; }
+.okl .faq details p { margin-top: 12px; }
+.okl .faq details summary { align-items: center; }

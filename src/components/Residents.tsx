@@ -30,6 +30,7 @@ export default function Residents({ lang = 'ru' }: { lang?: Lang }) {
 
   return (
     <section
+      id="residents"
       className="vc-res-root"
       style={{
         position: 'relative',
