@@ -59,3 +59,13 @@ jobs:
           sleep 2
           curl -fsSL "http://$VPS_HOST/" | head -c 200
           echo ""
+
+      - name: Ping IndexNow (Bing, Yandex) with sitemap URLs
+        continue-on-error: true
+        run: |
+          KEY=6c42c827880bf1f5bf60224a94a56df8
+          URLS=$(grep -o '<loc>[^<]*</loc>' out/sitemap.xml | sed -e 's#<loc>##' -e 's#</loc>##' | jq -R . | jq -s -c .)
+          BODY=$(jq -n -c --arg key "$KEY" --argjson urls "$URLS" \
+            '{host:"vision-club.ae", key:$key, keyLocation:("https://vision-club.ae/" + $key + ".txt"), urlList:$urls}')
+          curl -s -o /dev/null -w "IndexNow: %{http_code}\n" -X POST https://api.indexnow.org/indexnow \
+            -H 'Content-Type: application/json; charset=utf-8' -d "$BODY"
