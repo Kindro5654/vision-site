@@ -196,7 +196,7 @@ export default function Hero({ lang = 'ru' }: { lang?: Lang }) {
           ))}
         </nav>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexShrink: 0 }}>
-          <LangSwitch lang={lang} page="home" />
+          <LangSwitch lang={lang} page="home" className="vc-lang--head" />
           <a
             href={lang === 'en' ? SITE.whatsappEn : SITE.whatsapp}
             target="_blank"

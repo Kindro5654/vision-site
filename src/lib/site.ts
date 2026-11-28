@@ -22,7 +22,7 @@ export const SITE = {
   contactTelegramEn:
     'https://t.me/manager_vision_club?text=' +
     encodeURIComponent('Hello! I am writing from the Vision Club website about membership:'),
-  email: 'vision.club.sales@gmail.com',
+  email: 'info@vision-club.ae',
   legal: {
     name: 'Vision Club FZCO',
     address: 'IFZA Properties, DSO-IFZA, Dubai Silicon Oasis, Dubai, UAE',

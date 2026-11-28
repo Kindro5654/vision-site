@@ -39,6 +39,7 @@ export default function LangSwitch({
               hrefLang={it.code}
               lang={it.code}
               title={it.title}
+              data-lang-choice={it.code}
               className="vc-lang-item"
             >
               {it.label}

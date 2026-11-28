@@ -11,7 +11,6 @@ const CONTACT_LINKS = (lang: Lang) => [
   { label: 'WhatsApp', href: lang === 'en' ? SITE.whatsappEn : SITE.whatsapp },
   { label: 'Instagram', href: SITE.socials.instagram },
   { label: 'LinkedIn', href: SITE.socials.linkedin },
-  { label: SITE.legal.email, href: `mailto:${SITE.legal.email}` },
   { label: SITE.email, href: `mailto:${SITE.email}` },
 ];
 

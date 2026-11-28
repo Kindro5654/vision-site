@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Oswald, Golos_Text } from 'next/font/google';
 import Script from 'next/script';
+import { LANG_DETECT_SCRIPT } from '@/lib/langDetect';
 import { SITE, META_PIXEL_ID, GA4_ID, YM_ID } from '@/lib/site';
 import { PASSPORT } from '@/lib/passport';
 import { OG_LOCALE, type Lang } from '@/lib/i18n';
@@ -183,6 +184,10 @@ export default function RootDocument({ lang, children }: { lang: Lang; children:
       <body>
         <a id="top" />
         {/* Meta Pixel Code */}
+        {/* Язык по устройству: до отрисовки, чтобы не мигала не та версия */}
+        <Script id="lang-detect" strategy="beforeInteractive">
+          {LANG_DETECT_SCRIPT}
+        </Script>
         <Script id="meta-pixel" strategy="afterInteractive">
           {`!function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
