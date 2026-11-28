@@ -58,6 +58,11 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
   },
   alternates: { canonical: SITE.url },
+  verification: {
+    google: 'gED3-pysiNFf6as0JM5nfWvivTNVrfs56yhH3-XjIgo',
+    yandex: '06692612a6c67d9b',
+    other: { 'msvalidate.01': 'D54DAB11DD813EAC55404643870A9859' },
+  },
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
     apple: '/favicon.svg',
