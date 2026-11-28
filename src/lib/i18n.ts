@@ -10,6 +10,7 @@ export const ROUTES = {
   home: { ru: '/', en: '/en/' },
   clubhouse: { ru: '/klubnyi-dom/', en: '/en/clubhouse/' },
   about: { ru: '/o-klube/', en: '/en/about/' },
+  privacy: { ru: '/privacy/', en: '/en/privacy/' },
 } as const;
 
 export type PageKey = keyof typeof ROUTES;

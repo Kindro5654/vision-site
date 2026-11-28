@@ -7,6 +7,7 @@ const PAIRS: [string, string][] = [
   ['/', '/en/'],
   ['/klubnyi-dom/', '/en/clubhouse/'],
   ['/o-klube/', '/en/about/'],
+  ['/privacy/', '/en/privacy/'],
 ];
 
 export const LANG_DETECT_SCRIPT = `(function(){
